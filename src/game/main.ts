@@ -4,6 +4,7 @@ import { Level1 as MainGame } from "./scenes/level1";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
 import { Preloader } from "./scenes/preloader";
+import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -11,15 +12,26 @@ const config: Phaser.Types.Core.GameConfig = {
     title: "My Untitled CISC374 Game",
     version: "0.0.1",
     type: AUTO,
-    parent: "game-container",
+    //parent: "game-container",
+    dom: {
+        createContainer: true
+    },
     backgroundColor: "#ffffff",
     scene: [Boot, Preloader, MainMenu, MainGame, GameOver],
+    plugins: {
+        scene: [{
+            key: 'rexUI',
+            plugin: RexUIPlugin,
+            mapping: 'rexUI'
+        }]
+    },
+
     scale: {
         parent: "phaser-game",
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH,
-        width: 1024,
-        height: 768,
+        width: 800,
+        height: 600,
     },
     physics: {
         default: "arcade",
@@ -28,6 +40,8 @@ const config: Phaser.Types.Core.GameConfig = {
             gravity: { x: 0, y: 300 },
         },
     },
+
+    
     input: {
         keyboard: true,
         mouse: true,
