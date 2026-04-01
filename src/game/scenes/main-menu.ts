@@ -16,6 +16,26 @@ export class MainMenu extends Scene implements ChangeableScene {
     create() {
         this.background = this.add.image(400, 300, "background");
 
+        const myText = this.add.text(400, 300, 'Insert Command Here', 
+            { fixedWidth: 200, fixedHeight: 36, backgroundColor: "#ff0000", 
+                padding: {x: 9, y: 9.5}, color: '#000000'})
+            myText.setOrigin(0.15, 0)
+
+            myText.setInteractive().on('pointerdown', () => {
+                this.rexUI.edit(myText, {
+                    onClose: () => {
+                        if(myText.text === "cd Start"){
+                            this.scene.start("Level1");
+                        }
+                    }
+                })
+        })
+
+
+
+        
+
+        /*
         this.logo = this.add.image(400, 300, "logo").setDepth(100);
 
         this.title = this.add
@@ -30,16 +50,19 @@ export class MainMenu extends Scene implements ChangeableScene {
             .setOrigin(0.5)
             .setDepth(100);
 
+            */
         EventBus.emit("current-scene-ready", this);
     }
 
     changeScene() {
+        /*
         if (this.logoTween) {
             this.logoTween.stop();
             this.logoTween = null;
         }
 
         this.scene.start("Level1");
+        */
     }
 
     moveSprite(callback: ({ x, y }: { x: number; y: number }) => void) {
