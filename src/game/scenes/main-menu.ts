@@ -16,7 +16,7 @@ export class MainMenu extends Scene implements ChangeableScene {
     create() {
         this.background = this.add.image(400, 300, "background");
 
-        const myText = this.add.text(400, 300, 'Insert Command Here', 
+        const myText = this.add.text(330, 300, 'Insert Command Here', 
             { fixedWidth: 200, fixedHeight: 36, backgroundColor: "#ff0000", 
                 padding: {x: 9, y: 9.5}, color: '#000000'})
             myText.setOrigin(0.15, 0)
