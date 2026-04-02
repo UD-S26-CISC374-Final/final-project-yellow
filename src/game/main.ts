@@ -1,6 +1,8 @@
 import { Boot } from "./scenes/boot";
 import { GameOver } from "./scenes/game-over";
 import { Room1_1 } from "./scenes/Room1_1"; 
+import { RoomStartRight } from "./scenes/RoomStartRight";
+import { Room4Locked } from "./scenes/Room4Locked";
 import { Level1 as MainGame } from "./scenes/level1";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
@@ -18,7 +20,7 @@ const config: Phaser.Types.Core.GameConfig = {
         createContainer: true
     },
     backgroundColor: "#ffffff",
-    scene: [Boot, Preloader, MainMenu, MainGame, GameOver, Room1_1],
+    scene: [Boot, Preloader, MainMenu, MainGame, Room1_1, RoomStartRight, Room4Locked, GameOver],
     plugins: {
         scene: [{
             key: 'rexUI',

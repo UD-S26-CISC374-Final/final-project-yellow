@@ -14,6 +14,9 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
+        this.registry.set("SkellyOpen", false);
+        this.registry.set("HasKey1", false);
+
         this.background = this.add.image(400, 300, "background");
 
         const myText = this.add.text(330, 300, 'Insert Command Here', 

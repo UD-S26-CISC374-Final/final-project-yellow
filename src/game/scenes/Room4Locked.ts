@@ -5,7 +5,7 @@ import PhaserLogo from "../objects/phaser-logo";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
-export class Level1 extends Scene {
+export class Room4Locked extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
@@ -14,7 +14,7 @@ export class Level1 extends Scene {
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
-        super("Level1");
+        super("Room4Locked");
     }
 
     create() {    
@@ -39,13 +39,6 @@ export class Level1 extends Scene {
         cdRoom3.setActive(false);
         cdRoom3.alpha = 0;
 
-        const cdRoom4 = this.add.text(330, 200, 'Room4', 
-            { fixedWidth: 200, fixedHeight: 36, backgroundColor: "#000000", 
-                padding: {x: 9, y: 9.5}})
-            cdRoom4.setOrigin(0.15, 0)
-        cdRoom4.setActive(false);
-        cdRoom4.alpha = 0;
-
 
         const myText = this.add.text(330, 500, 'Insert Command Here', 
             { fixedWidth: 200, fixedHeight: 36, backgroundColor: "#000000", 
@@ -58,15 +51,6 @@ export class Level1 extends Scene {
                         if(myText.text === "cd " + cdRoom1.text && cdRoom1.active){
                             this.scene.start("Room1_1");
                         } 
-                        else if(myText.text === "cd " + cdRoom4.text && cdRoom4.active){
-                            if(this.registry.get("HasKey1")){
-                                this.scene.start("Room4Locked");
-                            }
-                            else {
-                                myText.text = "The door is locked";
-                            }
-                            
-                        }
                         else if(myText.text === "cd " + cdRoom3.text && cdRoom3.active){
                             this.scene.start("RoomStartRight");
                         }
@@ -76,15 +60,13 @@ export class Level1 extends Scene {
 
                             cdRoom1.setActive(true);
                             cdRoom3.setActive(true);
-                            cdRoom4.setActive(true);
                             cdRoom1.alpha = 1;
                             cdRoom3.alpha = 1;
-                            cdRoom4.alpha = 1;
                             myText.text = "Insert Command Here";
                         } else if(myText.text === "ls" && cdRoom1.active){
                             myText.text = "Insert Command Here";
                         }
-                        else {
+                        else if(myText.text !== "cd .." && myText.text !== "cd " + cdRoom1.text && myText.text !== "ls"){
                             myText.text = "Command Not Found";
                         }
                     }
