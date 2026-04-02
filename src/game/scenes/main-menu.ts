@@ -19,24 +19,25 @@ export class MainMenu extends Scene implements ChangeableScene {
 
         this.background = this.add.image(400, 300, "background");
 
-        const myText = this.add.text(330, 300, 'Insert Command Here', 
-            { fixedWidth: 200, fixedHeight: 36, backgroundColor: "#ff0000", 
-                padding: {x: 9, y: 9.5}, color: '#000000'})
-            myText.setOrigin(0.15, 0)
+        const myText = this.add.text(330, 300, "Insert Command Here", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#ff0000",
+            padding: { x: 9, y: 9.5 },
+            color: "#000000",
+        });
+        myText.setOrigin(0.15, 0);
 
-            myText.setInteractive().on('pointerdown', () => {
-                this.rexUI.edit(myText, {
-                    onClose: () => {
-                        if(myText.text === "cd Start"){
-                            this.scene.start("Level1");
-                        }
+        myText.setInteractive().on("pointerdown", () => {
+            myText.text = "";
+            this.rexUI.edit(myText, {
+                onClose: () => {
+                    if (myText.text === "cd Start") {
+                        this.scene.start("Level1");
                     }
-                })
-        })
-
-
-
-        
+                },
+            });
+        });
 
         /*
         this.logo = this.add.image(400, 300, "logo").setDepth(100);

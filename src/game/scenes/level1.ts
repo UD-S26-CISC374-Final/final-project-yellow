@@ -63,6 +63,7 @@ export class Level1 extends Scene {
         myText.setOrigin(0.15, 0);
 
         myText.setInteractive().on("pointerdown", () => {
+            myText.text = "";
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (
