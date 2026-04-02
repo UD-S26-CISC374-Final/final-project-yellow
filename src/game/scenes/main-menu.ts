@@ -28,6 +28,13 @@ export class MainMenu extends Scene implements ChangeableScene {
         });
         myText.setOrigin(0.15, 0);
 
+        const title = this.add.text(400, 100, "Type 'cd Start' to Begin", {
+            fontFamily: "Arial Black",
+            fontSize: 38,
+            color: "#ffffff",
+        });
+        title.setOrigin(0.5, 0);
+
         myText.setInteractive().on("pointerdown", () => {
             myText.text = "";
             this.rexUI.edit(myText, {
