@@ -22,7 +22,7 @@ export class Level1 extends Scene {
         //this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "level1locked");
-        if (this.registry.get("HasKey1")) {
+        if (this.registry.get("Room4Open")) {
             this.background = this.add.image(400, 300, "level1");
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
@@ -78,11 +78,17 @@ export class Level1 extends Scene {
                         myText.text === "cd " + cdRoom4.text &&
                         cdRoom4.active
                     ) {
-                        if (this.registry.get("HasKey1")) {
+                        if (this.registry.get("Room4Open")) {
                             this.scene.start("Room4Locked");
                         } else {
                             myText.text = "The door is locked";
                         }
+                    } else if (
+                        myText.text === "mov Key " + cdRoom4.text &&
+                        cdRoom4.active
+                    ) {
+                        this.registry.set("Room4Open", true);
+                        this.background.setTexture("level1");
                     } else if (
                         myText.text === "cd " + cdRoom3.text &&
                         cdRoom3.active
