@@ -19,8 +19,7 @@ export class RoomStartRight extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "background");
-        this.background.setAlpha(0.5);
+        this.background = this.add.image(400, 300, "room3");
 
         const KeyObject = this.add.text(330, 200, "Key", {
             fixedWidth: 200,

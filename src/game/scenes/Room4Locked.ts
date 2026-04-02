@@ -21,7 +21,7 @@ export class Room4Locked extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(512, 384, "background");
+        this.background = this.add.image(512, 384, "room4");
         this.background.setAlpha(0.5);
 
         const cdRoom1 = this.add.text(70, 200, "Room1", {

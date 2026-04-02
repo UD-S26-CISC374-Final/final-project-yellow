@@ -19,8 +19,8 @@ export class Room1_1 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "background");
-        this.background.setAlpha(0.5);
+        this.background = this.add.image(400, 300, "room1");
+        //this.background.setDisplaySize(this.scale.width, this.scale.height);
 
         const cdRoom1_1 = this.add.text(330, 200, "Door", {
             fixedWidth: 200,
