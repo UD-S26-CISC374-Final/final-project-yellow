@@ -21,7 +21,10 @@ export class Level1 extends Scene {
         this.camera = this.cameras.main;
         //this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "level1");
+        this.background = this.add.image(400, 300, "level1locked");
+        if (this.registry.get("HasKey1")) {
+            this.background = this.add.image(400, 300, "level1");
+        }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
         const cdRoom1 = this.add.text(70, 200, "Room1", {

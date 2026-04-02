@@ -33,6 +33,7 @@ export class Preloader extends Scene {
         this.load.image("room3", "room3.png");
         this.load.image("room4", "room4.png");
         this.load.image("level1", "level1.png");
+        this.load.image("level1locked", "level1locked.png");
     }
 
     create() {
