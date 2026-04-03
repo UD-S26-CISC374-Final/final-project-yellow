@@ -23,25 +23,25 @@ export class Room4Locked extends Scene {
 
         this.background = this.add.image(400, 300, "room4");
 
-        const cdRoom1 = this.add.text(70, 200, "Room1", {
+        const cdRoom5 = this.add.text(70, 200, "Room5", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom1.setOrigin(0.15, 0);
-        cdRoom1.setActive(false);
-        cdRoom1.alpha = 0;
+        cdRoom5.setOrigin(0.15, 0);
+        cdRoom5.setActive(false);
+        cdRoom5.alpha = 0;
 
-        const cdRoom3 = this.add.text(590, 200, "Room3", {
+        const cdRoom6 = this.add.text(590, 200, "Room6", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom3.setOrigin(0.15, 0);
-        cdRoom3.setActive(false);
-        cdRoom3.alpha = 0;
+        cdRoom6.setOrigin(0.15, 0);
+        cdRoom6.setActive(false);
+        cdRoom6.alpha = 0;
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -51,36 +51,41 @@ export class Room4Locked extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        myText.setInteractive().on("pointerdown", () => {
-            myText.text = "";
+        this.input.keyboard.on("keydown", () => {
+            if (
+                myText.text === "Insert Command Here" ||
+                myText.text === "Command Not Found"
+            ) {
+                myText.text = "";
+            }
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (
-                        myText.text === "cd " + cdRoom1.text &&
-                        cdRoom1.active
+                        myText.text === "cd " + cdRoom5.text &&
+                        cdRoom5.active
                     ) {
                         this.scene.start("Room1_1");
                     } else if (
-                        myText.text === "cd " + cdRoom3.text &&
-                        cdRoom3.active
+                        myText.text === "cd " + cdRoom6.text &&
+                        cdRoom6.active
                     ) {
                         this.scene.start("RoomStartRight");
                     } else if (myText.text === "cd ..") {
                         this.scene.start("Level1");
-                    } else if (myText.text === "ls" && !cdRoom1.active) {
+                    } else if (myText.text === "ls" && !cdRoom5.active) {
                         //mySprite.setActive(true);
                         //mySprite.alpha = 1;
 
-                        cdRoom1.setActive(true);
-                        cdRoom3.setActive(true);
-                        cdRoom1.alpha = 1;
-                        cdRoom3.alpha = 1;
+                        cdRoom5.setActive(true);
+                        cdRoom6.setActive(true);
+                        cdRoom5.alpha = 1;
+                        cdRoom6.alpha = 1;
                         myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && cdRoom1.active) {
+                    } else if (myText.text === "ls" && cdRoom5.active) {
                         myText.text = "Insert Command Here";
                     } else if (
                         myText.text !== "cd .." &&
-                        myText.text !== "cd " + cdRoom1.text &&
+                        myText.text !== "cd " + cdRoom5.text &&
                         myText.text !== "ls"
                     ) {
                         myText.text = "Command Not Found";

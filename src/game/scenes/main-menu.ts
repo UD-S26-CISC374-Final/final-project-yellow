@@ -35,8 +35,13 @@ export class MainMenu extends Scene implements ChangeableScene {
         });
         title.setOrigin(0.5, 0);
 
-        myText.setInteractive().on("pointerdown", () => {
-            myText.text = "";
+        this.input.keyboard.on("keydown", () => {
+            if (
+                myText.text === "Insert Command Here" ||
+                myText.text === "Command Not Found"
+            ) {
+                myText.text = "";
+            }
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (myText.text === "cd Start") {

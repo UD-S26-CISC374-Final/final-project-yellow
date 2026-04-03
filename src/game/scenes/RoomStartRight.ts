@@ -39,8 +39,13 @@ export class RoomStartRight extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        myText.setInteractive().on("pointerdown", () => {
-            myText.text = "";
+        this.input.keyboard.on("keydown", () => {
+            if (
+                myText.text === "Insert Command Here" ||
+                myText.text === "Command Not Found"
+            ) {
+                myText.text = "";
+            }
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (
