@@ -1,3 +1,4 @@
+import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 
@@ -50,6 +51,8 @@ export class RoomStartRight extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    const input = myText.text;
+
                     if (
                         myText.text === "ls" &&
                         !KeyObject.active &&
@@ -63,24 +66,29 @@ export class RoomStartRight extends Scene {
                         (myText.text === "ls" && this.registry.get("HasKey1"))
                     ) {
                         myText.text = "Insert Command Here";
-                    } else if (myText.text === "cd ..") {
+                    } /*else if (
+                        /*else if (myText.text === "cd ..") {
                         this.scene.start("Level1");
-                    } else if (
+                    } 
+                        
                         myText.text !== "cd .." &&
                         myText.text !== "cd " + KeyObject.text &&
                         myText.text !== "ls" &&
-                        myText.text !== "mov " + KeyObject.text + " pockets"
+                        myText.text !== "mv " + KeyObject.text + " pockets"
                     ) {
                         myText.text = "Command Not Found";
-                    } else if (
+                    } 
+                        */ else if (
                         myText.text ===
-                        "mov " + KeyObject.text + " pockets"
+                        "mv " + KeyObject.text + " pockets"
                     ) {
                         KeyObject.setActive(false);
                         KeyObject.alpha = 0;
                         this.registry.set("HasKey1", true);
                         myText.text = "";
                     }
+
+                    CommandWriter.cdBack(input, this, myText, "Level1");
                 },
             });
         });

@@ -82,12 +82,58 @@ export class Level1 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    if (
+                        myText.text === "mv Key " + cdRoom4.text &&
+                        cdRoom4.active
+                    ) {
+                        this.registry.set("Room4Open", true);
+                        this.background.setTexture("level1");
+                        myText.text = "Insert Command Here";
+                    }
+
                     CommandWriter.lsCommand(input, myText, [
                         cdRoom2,
                         cdRoom3,
                         cdRoom4,
                     ]);
 
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoom2.text,
+                        "Room2",
+                    );
+
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoom3.text,
+                        "RoomStartRight",
+                    );
+
+                    CommandWriter.cdCommandLocked(
+                        input,
+                        this,
+                        myText,
+                        cdRoom4.text,
+                        "Room4Locked",
+                        "Room4Open",
+                    );
+                    /*
+
+                    if (
+                        myText.text === "mov Key " + cdRoom4.text &&
+                        cdRoom4.active
+                    ) {
+                        this.registry.set("Room4Open", true);
+                        this.background.setTexture("level1");
+                        myText.text = "Insert Command Here";
+                    }
+                    */
+
+                    /*
                     if (
                         myText.text === "cd " + cdRoom2.text &&
                         cdRoom2.active
@@ -98,25 +144,36 @@ export class Level1 extends Scene {
                         cdRoom4.active
                     ) {
                         if (this.registry.get("Room4Open")) {
-                            this.scene.start("Room4Locked");
+                            this.camera.zoomTo(2, 2000, "Sine");
+                            this.camera.fadeOut(1000, 0, 0, 0);
+                            this.time.delayedCall(1000, () => {
+                                this.scene.start("Room4Locked");
+                            });
                         } else {
                             myText.text = "The door is locked";
                         }
-                    } else if (
+                    } else 
+                        
+                        
+
+                    if (
                         myText.text === "mov Key " + cdRoom4.text &&
                         cdRoom4.active
                     ) {
                         this.registry.set("Room4Open", true);
                         this.background.setTexture("level1");
                         myText.text = "Insert Command Here";
-                    } else if (
+                    }
+                    /*else {
+                    else if (
                         myText.text === "cd " + cdRoom3.text &&
                         cdRoom3.active
                     ) {
                         this.scene.start("RoomStartRight");
-                    } else {
-                        myText.text = "Command Not Found";
-                    }
+                    } 
+                        */
+                    //myText.text = "Command Not Found";
+                    //}
                 },
             });
         });

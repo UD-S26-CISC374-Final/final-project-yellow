@@ -1,5 +1,5 @@
 import { EventBus } from "./event-bus";
-import { GameObjects } from "phaser";
+import { GameObjects, Scene } from "phaser";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 //import PhaserLogo from "../objects/phaser-logo";
@@ -33,19 +33,60 @@ export class CommandWriter {
         }
     }
 
-    /*
     static cdCommand(
         input: string,
         scene: Scene,
         myText: Phaser.GameObjects.Text,
-        scenesAvailable: GameObjects.Text,
+        //scenesAvailable: GameObjects.Text,
         sceneToChange: string,
+        nextSceneName: string,
     ) {
         if (input === "cd " + sceneToChange) {
-            scene.scene.start(sceneToChange);
+            scene.scene.start(nextSceneName);
         }
 
         myText.text = "";
+    }
+
+    static cdCommandLocked(
+        input: string,
+        scene: Scene,
+        myText: Phaser.GameObjects.Text,
+        //scenesAvailable: GameObjects.Text,
+        sceneToChange: string,
+        nextSceneName: string,
+        globalVar: string,
+    ) {
+        if (input === "cd " + sceneToChange && scene.registry.get(globalVar)) {
+            scene.scene.start(nextSceneName);
+        }
+
+        myText.text = "";
+    }
+
+    static cdBack(
+        input: string,
+        scene: Scene,
+        myText: Phaser.GameObjects.Text,
+        //scenesAvailable: GameObjects.Text,
+        previousSceneName: string,
+    ) {
+        if (input === "cd ..") {
+            scene.scene.start(previousSceneName);
+        }
+
+        myText.text = "";
+    }
+
+    /*
+    static commandNotFound(input: string, myText: Phaser.GameObjects.Text) {
+        if (
+            input.includes("cd") ||
+            input.includes("mv") ||
+            input.includes("ls")
+        ) {
+            myText.text = "Command not found";
+        }
     }
         */
 
