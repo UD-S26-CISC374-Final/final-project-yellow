@@ -2,6 +2,8 @@ import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
+//import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
+import { CommandWriter } from "../CommandWriter";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -18,8 +20,10 @@ export class Level1 extends Scene {
     }
 
     create() {
+        //if (!this.input.keyboard) return;
+
         this.camera = this.cameras.main;
-        //this.camera.setBackgroundColor(0x00ff00);
+        this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "level1locked");
         if (this.registry.get("Room4Open")) {
@@ -27,15 +31,15 @@ export class Level1 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
-        const cdRoom1 = this.add.text(70, 200, "Room1", {
+        const cdRoom2 = this.add.text(70, 200, "Room2", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom1.setOrigin(0.15, 0);
-        cdRoom1.setActive(false);
-        cdRoom1.alpha = 0;
+        cdRoom2.setOrigin(0.15, 0);
+        cdRoom2.setActive(false);
+        cdRoom2.alpha = 0;
 
         const cdRoom3 = this.add.text(590, 200, "Room3", {
             fixedWidth: 200,
@@ -47,7 +51,7 @@ export class Level1 extends Scene {
         cdRoom3.setActive(false);
         cdRoom3.alpha = 0;
 
-        const cdRoom4 = this.add.text(330, 200, "Room4", {
+        const cdRoom4 = this.add.text(330, 150, "Room4", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
@@ -57,6 +61,8 @@ export class Level1 extends Scene {
         cdRoom4.setActive(false);
         cdRoom4.alpha = 0;
 
+        //const rooms : string[] = ["Room2","Room3","Room4"];
+
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -65,7 +71,7 @@ export class Level1 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        this.input.keyboard.on("keydown", () => {
+        this.input.keyboard!.on("keydown", () => {
             if (
                 myText.text === "Insert Command Here" ||
                 myText.text === "Command Not Found"
@@ -74,11 +80,19 @@ export class Level1 extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    const input = myText.text;
+
+                    CommandWriter.lsCommand(input, myText, [
+                        cdRoom2,
+                        cdRoom3,
+                        cdRoom4,
+                    ]);
+
                     if (
-                        myText.text === "cd " + cdRoom1.text &&
-                        cdRoom1.active
+                        myText.text === "cd " + cdRoom2.text &&
+                        cdRoom2.active
                     ) {
-                        this.scene.start("Room1_1");
+                        this.scene.start("Room2");
                     } else if (
                         myText.text === "cd " + cdRoom4.text &&
                         cdRoom4.active
@@ -94,24 +108,12 @@ export class Level1 extends Scene {
                     ) {
                         this.registry.set("Room4Open", true);
                         this.background.setTexture("level1");
+                        myText.text = "Insert Command Here";
                     } else if (
                         myText.text === "cd " + cdRoom3.text &&
                         cdRoom3.active
                     ) {
                         this.scene.start("RoomStartRight");
-                    } else if (myText.text === "ls" && !cdRoom1.active) {
-                        //mySprite.setActive(true);
-                        //mySprite.alpha = 1;
-
-                        cdRoom1.setActive(true);
-                        cdRoom3.setActive(true);
-                        cdRoom4.setActive(true);
-                        cdRoom1.alpha = 1;
-                        cdRoom3.alpha = 1;
-                        cdRoom4.alpha = 1;
-                        myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && cdRoom1.active) {
-                        myText.text = "Insert Command Here";
                     } else {
                         myText.text = "Command Not Found";
                     }
@@ -125,6 +127,7 @@ export class Level1 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
+    /*
     update() {
         //this.fpsText.update();
     }
@@ -132,4 +135,5 @@ export class Level1 extends Scene {
     changeScene() {
         //this.scene.start("GameOver");
     }
+        */
 }

@@ -1,0 +1,93 @@
+import { EventBus } from "./event-bus";
+import { GameObjects } from "phaser";
+//import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
+
+//import PhaserLogo from "../objects/phaser-logo";
+//import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
+//import FpsText from "../objects/fps-text";
+
+export class CommandWriter {
+    scene: Phaser.Scene;
+
+    //camera: Phaser.Cameras.Scene2D.Camera;
+    //background: Phaser.GameObjects.Image;
+    //phaserLogo: PhaserLogo;
+    //fpsText: FpsText;
+
+    myText!: Phaser.GameObjects.Text;
+
+    //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+
+    static lsCommand(
+        input: string,
+        myText: Phaser.GameObjects.Text,
+        objectsToShow: GameObjects.Text[],
+    ) {
+        if (input === "ls") {
+            for (let i = 0; i < objectsToShow.length; i++) {
+                objectsToShow[i].setActive(true);
+                objectsToShow[i].alpha = 1;
+            }
+
+            myText.text = "Insert Command Here";
+        }
+    }
+
+    /*
+    static cdCommand(
+        input: string,
+        scene: Scene,
+        myText: Phaser.GameObjects.Text,
+        scenesAvailable: GameObjects.Text,
+        sceneToChange: string,
+    ) {
+        if (input === "cd " + sceneToChange) {
+            scene.scene.start(sceneToChange);
+        }
+
+        myText.text = "";
+    }
+        */
+
+    constructor(scene: Phaser.Scene) {
+        //super("Level1");
+        this.scene = scene;
+    }
+
+    create() {
+        //if (!this.scene.input.keyboard) return;
+
+        this.myText = this.scene.add.text(330, 500, "Insert Command Here", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        this.myText.setOrigin(0.15, 0);
+
+        this.scene.input.keyboard!.on("keydown", () => {
+            if (
+                this.myText.text === "Insert Command Here" ||
+                this.myText.text === "Command Not Found"
+            ) {
+                this.myText.text = "";
+            }
+            this.scene.rexUI.edit(this.myText, {
+                onClose: () => {},
+            });
+        });
+
+        //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
+        //this.fpsText = new FpsText(this);
+
+        EventBus.emit("current-scene-ready", this);
+    }
+
+    update() {
+        //this.fpsText.update();
+    }
+
+    changeScene() {
+        //this.scene.start("GameOver");
+    }
+}

@@ -1,13 +1,13 @@
 import { Boot } from "./scenes/boot";
 import { GameOver } from "./scenes/game-over";
-import { Room1_1 } from "./scenes/Room1_1"; 
+import { Room2 } from "./scenes/Room2";
 import { RoomStartRight } from "./scenes/RoomStartRight";
 import { Room4Locked } from "./scenes/Room4Locked";
 import { Level1 as MainGame } from "./scenes/level1";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
 import { Preloader } from "./scenes/preloader";
-import RexUIPlugin from 'phaser3-rex-plugins/templates/ui/ui-plugin.js';
+import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 
 //  Find out more information about the Game Config at:
 //  https://docs.phaser.io/api-documentation/typedef/types-core#gameconfig
@@ -17,16 +17,27 @@ const config: Phaser.Types.Core.GameConfig = {
     type: AUTO,
     //parent: "game-container",
     dom: {
-        createContainer: true
+        createContainer: true,
     },
-    backgroundColor: "#ffffff",
-    scene: [Boot, Preloader, MainMenu, MainGame, Room1_1, RoomStartRight, Room4Locked, GameOver],
+    backgroundColor: "#ff0000",
+    scene: [
+        Boot,
+        Preloader,
+        MainMenu,
+        MainGame,
+        Room2,
+        RoomStartRight,
+        Room4Locked,
+        GameOver,
+    ],
     plugins: {
-        scene: [{
-            key: 'rexUI',
-            plugin: RexUIPlugin,
-            mapping: 'rexUI'
-        }]
+        scene: [
+            {
+                key: "rexUI",
+                plugin: RexUIPlugin,
+                mapping: "rexUI",
+            },
+        ],
     },
 
     scale: {
@@ -44,7 +55,6 @@ const config: Phaser.Types.Core.GameConfig = {
         },
     },
 
-    
     input: {
         keyboard: true,
         mouse: true,

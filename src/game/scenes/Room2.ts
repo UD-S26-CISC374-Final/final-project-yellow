@@ -1,9 +1,10 @@
+import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
-export class Room1_1 extends Scene {
+export class Room2 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     //phaserLogo: PhaserLogo;
@@ -12,25 +13,27 @@ export class Room1_1 extends Scene {
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
-        super("Room1_1");
+        super("Room2");
     }
 
     create() {
+        //if (!this.input.keyboard) return;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room1");
         //this.background.setDisplaySize(this.scale.width, this.scale.height);
 
-        const cdRoom1_1 = this.add.text(330, 200, "Door", {
+        const skelly = this.add.text(330, 200, "Door", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom1_1.setOrigin(0.15, 0);
-        cdRoom1_1.setActive(false);
-        cdRoom1_1.alpha = 0;
+        skelly.setOrigin(0.15, 0);
+        skelly.setActive(false);
+        skelly.alpha = 0;
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -40,7 +43,7 @@ export class Room1_1 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        this.input.keyboard.on("keydown", () => {
+        this.input.keyboard!.on("keydown", () => {
             if (
                 myText.text === "Insert Command Here" ||
                 myText.text === "Command Not Found"
@@ -49,29 +52,33 @@ export class Room1_1 extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    const input = myText.text;
+
+                    CommandWriter.lsCommand(input, myText, [skelly]);
+
                     if (
-                        myText.text === "cd " + cdRoom1_1.text &&
-                        cdRoom1_1.active &&
+                        myText.text === "cd " + skelly.text &&
+                        skelly.active &&
                         this.registry.get("SkellyOpen")
                     ) {
                         this.scene.start("GameOver");
                     } else if (
-                        myText.text === "cd " + cdRoom1_1.text &&
-                        cdRoom1_1.active &&
+                        myText.text === "cd " + skelly.text &&
+                        skelly.active &&
                         !this.registry.get("SkellyOpen")
                     ) {
                         myText.text = "Door Locked";
-                    } else if (myText.text === "ls" && !cdRoom1_1.active) {
-                        cdRoom1_1.setActive(true);
-                        cdRoom1_1.alpha = 1;
+                    } else if (myText.text === "ls" && !skelly.active) {
+                        skelly.setActive(true);
+                        skelly.alpha = 1;
                         myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && cdRoom1_1.active) {
+                    } else if (myText.text === "ls" && skelly.active) {
                         myText.text = "Insert Command Here";
                     } else if (myText.text === "cd ..") {
                         this.scene.start("Level1");
                     } else if (
                         myText.text !== "cd .." &&
-                        myText.text !== "cd " + cdRoom1_1.text &&
+                        myText.text !== "cd " + skelly.text &&
                         myText.text !== "ls"
                     ) {
                         myText.text = "Command Not Found";

@@ -18,6 +18,8 @@ export class Room4Locked extends Scene {
     }
 
     create() {
+        //if (!this.input.keyboard) return;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -51,7 +53,7 @@ export class Room4Locked extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        this.input.keyboard.on("keydown", () => {
+        this.input.keyboard!.on("keydown", () => {
             if (
                 myText.text === "Insert Command Here" ||
                 myText.text === "Command Not Found"

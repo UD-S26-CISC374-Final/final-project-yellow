@@ -16,6 +16,8 @@ export class RoomStartRight extends Scene {
     }
 
     create() {
+        //if (!this.input.keyboard) return;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -39,7 +41,7 @@ export class RoomStartRight extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        this.input.keyboard.on("keydown", () => {
+        this.input.keyboard!.on("keydown", () => {
             if (
                 myText.text === "Insert Command Here" ||
                 myText.text === "Command Not Found"
@@ -77,6 +79,7 @@ export class RoomStartRight extends Scene {
                         KeyObject.setActive(false);
                         KeyObject.alpha = 0;
                         this.registry.set("HasKey1", true);
+                        myText.text = "";
                     }
                 },
             });

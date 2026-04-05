@@ -14,6 +14,9 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
+        //console.log("Empezo");
+        //if (!this.input.keyboard) return;
+
         this.registry.set("SkellyOpen", false);
         this.registry.set("HasKey1", false);
 
@@ -35,7 +38,7 @@ export class MainMenu extends Scene implements ChangeableScene {
         });
         title.setOrigin(0.5, 0);
 
-        this.input.keyboard.on("keydown", () => {
+        this.input.keyboard!.on("keydown", () => {
             if (
                 myText.text === "Insert Command Here" ||
                 myText.text === "Command Not Found"
