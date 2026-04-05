@@ -34,6 +34,9 @@ export class Preloader extends Scene {
         this.load.image("room4", "room4.png");
         this.load.image("level1", "level1.png");
         this.load.image("level1locked", "level1locked.png");
+        this.load.image("OnlyDoorLeft", "OnlyDoorLeft.png");
+        this.load.image("DoorOnlyFront", "DoorOnlyFront.png");
+        this.load.image("RoomEnd", "RoomEnd.png");
     }
 
     create() {
