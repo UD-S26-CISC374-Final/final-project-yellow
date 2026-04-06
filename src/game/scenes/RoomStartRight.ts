@@ -53,6 +53,15 @@ export class RoomStartRight extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        KeyObject.text,
+                        KeyObject,
+                        myText,
+                        "HasKey1",
+                    );
+
                     if (
                         myText.text === "ls" &&
                         !KeyObject.active &&
@@ -78,7 +87,10 @@ export class RoomStartRight extends Scene {
                     ) {
                         myText.text = "Command Not Found";
                     } 
-                        */ else if (
+                        */
+
+                    /*
+                    else if (
                         myText.text ===
                         "mv " + KeyObject.text + " pockets"
                     ) {
@@ -87,6 +99,7 @@ export class RoomStartRight extends Scene {
                         this.registry.set("HasKey1", true);
                         myText.text = "";
                     }
+                        */
 
                     CommandWriter.cdBack(input, this, myText, "Level1");
                 },

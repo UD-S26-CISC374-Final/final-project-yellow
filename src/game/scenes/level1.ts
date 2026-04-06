@@ -31,6 +31,17 @@ export class Level1 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
+        this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
+        this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
+
+        const LocationText = this.add.text(280, 5, "Current Location: Room1", {
+            fixedWidth: 300,
+            fixedHeight: 36,
+            backgroundColor: "#00000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        LocationText.setActive(true);
+
         const cdRoom2 = this.add.text(70, 200, "Room2", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -82,14 +93,29 @@ export class Level1 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    CommandWriter.mvCommandToObject(
+                        input,
+                        this,
+                        "Key",
+                        this.background,
+                        cdRoom4.text,
+                        "level1",
+                        myText,
+                        "HasKey1",
+                        "Room4Open",
+                    );
+
+                    /*
                     if (
                         myText.text === "mv Key " + cdRoom4.text &&
-                        cdRoom4.active
+                        cdRoom4.active &&
+                        this.registry.get("HasKey1")
                     ) {
                         this.registry.set("Room4Open", true);
                         this.background.setTexture("level1");
                         myText.text = "Insert Command Here";
                     }
+                        */
 
                     CommandWriter.lsCommand(input, myText, [
                         cdRoom2,

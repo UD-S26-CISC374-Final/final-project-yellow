@@ -56,6 +56,18 @@ export class Room2 extends Scene {
 
                     CommandWriter.lsCommand(input, myText, [skelly]);
 
+                    CommandWriter.cdCommandLocked(
+                        input,
+                        this,
+                        myText,
+                        skelly.text,
+                        "GameOver",
+                        "SkellyOpen",
+                    );
+
+                    CommandWriter.cdBack(input, this, myText, "Level1");
+
+                    /*
                     if (
                         myText.text === "cd " + skelly.text &&
                         skelly.active &&
@@ -68,7 +80,9 @@ export class Room2 extends Scene {
                         !this.registry.get("SkellyOpen")
                     ) {
                         myText.text = "Door Locked";
-                    } else if (myText.text === "ls" && !skelly.active) {
+                    } else 
+                        
+                        *if (myText.text === "ls" && !skelly.active) {
                         skelly.setActive(true);
                         skelly.alpha = 1;
                         myText.text = "Insert Command Here";
@@ -83,6 +97,7 @@ export class Room2 extends Scene {
                     ) {
                         myText.text = "Command Not Found";
                     }
+                        */
                 },
             });
         });

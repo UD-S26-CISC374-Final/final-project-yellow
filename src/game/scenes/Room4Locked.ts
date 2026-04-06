@@ -2,6 +2,7 @@ import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
+import { CommandWriter } from "../CommandWriter";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -72,6 +73,39 @@ export class Room4Locked extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    const input = myText.text;
+
+                    CommandWriter.lsCommand(input, myText, [
+                        cdRoom5,
+                        cdRoom6,
+                        cdRoom8,
+                    ]);
+
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoom5.text,
+                        "Room5",
+                    );
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoom6.text,
+                        "Room6",
+                    );
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoom8.text,
+                        "Room8",
+                    );
+
+                    CommandWriter.cdBack(input, this, myText, "Level1");
+
+                    /*
                     if (
                         myText.text === "cd " + cdRoom5.text &&
                         cdRoom5.active
@@ -109,6 +143,7 @@ export class Room4Locked extends Scene {
                     ) {
                         myText.text = "Command Not Found";
                     }
+                        */
                 },
             });
         });

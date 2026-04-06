@@ -59,8 +59,12 @@ export class CommandWriter {
     ) {
         if (input === "cd " + sceneToChange && scene.registry.get(globalVar)) {
             scene.scene.start(nextSceneName);
+        } else if (
+            input === "cd " + sceneToChange &&
+            !scene.registry.get(globalVar)
+        ) {
+            myText.text = "Door Locked";
         }
-
         myText.text = "";
     }
 
@@ -78,17 +82,46 @@ export class CommandWriter {
         myText.text = "";
     }
 
-    /*
-    static commandNotFound(input: string, myText: Phaser.GameObjects.Text) {
-        if (
-            input.includes("cd") ||
-            input.includes("mv") ||
-            input.includes("ls")
-        ) {
-            myText.text = "Command not found";
+    static mvCommandToPockets(
+        input: string,
+        scene: Scene,
+        objectText: string,
+        object: GameObjects.Text,
+        myText: Phaser.GameObjects.Text,
+        globalVar: string,
+    ) {
+        if (input === "mv " + objectText + " pockets") {
+            object.setActive(false);
+            object.alpha = 0;
+            scene.registry.set(globalVar, true);
+            myText.text = "";
         }
     }
-        */
+
+    static mvCommandToObject(
+        input: string,
+        scene: Scene,
+        objectText: string,
+        //object: GameObjects.Text,
+
+        background: Phaser.GameObjects.Image,
+
+        objectToInteract: string,
+        textureToLoad: string,
+
+        myText: Phaser.GameObjects.Text,
+        globalVar: string,
+        objectGlobalVar: string,
+    ) {
+        if (
+            input === "mv " + objectText + " " + objectToInteract &&
+            scene.registry.get(globalVar)
+        ) {
+            scene.registry.set(objectGlobalVar, true);
+            background.setTexture(textureToLoad);
+            myText.text = "";
+        }
+    }
 
     constructor(scene: Phaser.Scene) {
         //super("Level1");
