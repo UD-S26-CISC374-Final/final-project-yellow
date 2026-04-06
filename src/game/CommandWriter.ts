@@ -28,7 +28,6 @@ export class CommandWriter {
                 objectsToShow[i].setActive(true);
                 objectsToShow[i].alpha = 1;
             }
-
             myText.text = "Insert Command Here";
         }
     }
@@ -43,9 +42,8 @@ export class CommandWriter {
     ) {
         if (input === "cd " + sceneToChange) {
             scene.scene.start(nextSceneName);
+            myText.text = "Insert Command Here";
         }
-
-        myText.text = "";
     }
 
     static cdCommandLocked(
@@ -59,13 +57,13 @@ export class CommandWriter {
     ) {
         if (input === "cd " + sceneToChange && scene.registry.get(globalVar)) {
             scene.scene.start(nextSceneName);
+            myText.text = "Insert Command Here";
         } else if (
             input === "cd " + sceneToChange &&
             !scene.registry.get(globalVar)
         ) {
             myText.text = "Door Locked";
         }
-        myText.text = "";
     }
 
     static cdBack(
@@ -77,9 +75,8 @@ export class CommandWriter {
     ) {
         if (input === "cd ..") {
             scene.scene.start(previousSceneName);
+            myText.text = "Insert Command Here";
         }
-
-        myText.text = "";
     }
 
     static mvCommandToPockets(
@@ -94,7 +91,7 @@ export class CommandWriter {
             object.setActive(false);
             object.alpha = 0;
             scene.registry.set(globalVar, true);
-            myText.text = "";
+            myText.text = "Insert Command Here";
         }
     }
 
@@ -119,7 +116,16 @@ export class CommandWriter {
         ) {
             scene.registry.set(objectGlobalVar, true);
             background.setTexture(textureToLoad);
-            myText.text = "";
+            myText.text = "Insert Command Here";
+        }
+    }
+
+    static checkCommandFound(myText: Phaser.GameObjects.Text) {
+        if (
+            myText.text !== "Insert Command Here" &&
+            myText.text !== "Door Locked"
+        ) {
+            myText.text = "Command Not Found";
         }
     }
 

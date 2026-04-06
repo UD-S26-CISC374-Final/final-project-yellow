@@ -43,10 +43,12 @@ export class Room2 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        this.input.keyboard!.on("keydown", () => {
+        this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
-                myText.text === "Insert Command Here" ||
-                myText.text === "Command Not Found"
+                event.key !== "Enter" &&
+                (myText.text === "Insert Command Here" ||
+                    myText.text === "Command Not Found" ||
+                    myText.text === "Door Locked")
             ) {
                 myText.text = "";
             }
@@ -66,6 +68,8 @@ export class Room2 extends Scene {
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Level1");
+
+                    CommandWriter.checkCommandFound(myText);
 
                     /*
                     if (
