@@ -1,7 +1,7 @@
 import { Boot } from "./scenes/boot";
 import { GameOver } from "./scenes/game-over";
 import { Room2 } from "./scenes/Room2";
-import { RoomStartRight } from "./scenes/RoomStartRight";
+import { Room3 } from "./scenes/Room3";
 import { Room4Locked } from "./scenes/Room4Locked";
 import { Room5 } from "./scenes/Room5";
 import { Room6 } from "./scenes/Room6";
@@ -12,7 +12,8 @@ import { Room10 } from "./scenes/Room10";
 import { Room11 } from "./scenes/Room11";
 import { Room12 } from "./scenes/Room12";
 import { RoomEnd } from "./scenes/RoomEnd";
-import { Level1 as MainGame } from "./scenes/level1";
+import { Room1 as MainGame } from "./scenes/Room1";
+import { Tutorial } from "./scenes/tutorial";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
 import { Preloader } from "./scenes/preloader";
@@ -33,9 +34,10 @@ const config: Phaser.Types.Core.GameConfig = {
         Boot,
         Preloader,
         MainMenu,
+        Tutorial,
         MainGame,
         Room2,
-        RoomStartRight,
+        Room3,
         Room4Locked,
         Room5,
         Room6,

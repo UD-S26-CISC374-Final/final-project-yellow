@@ -169,9 +169,8 @@ export class CommandWriter {
         if (input === "cd pockets" && !scene.registry.get("pocketsOpen")) {
             //pockets.openInventory(myText);
             pockets.openInventory(scene, myText);
+            myText.text = "Insert Command Here";
         }
-
-        myText.text = "Insert Command Here";
     }
 
     static closeInventory(
@@ -182,9 +181,8 @@ export class CommandWriter {
     ) {
         if (input === "cd .." && scene.registry.get("pocketsOpen")) {
             pockets.closeInventory(scene, myText);
+            myText.text = "Insert Command Here";
         }
-
-        myText.text = "Insert Command Here";
     }
 
     constructor(scene: Phaser.Scene) {

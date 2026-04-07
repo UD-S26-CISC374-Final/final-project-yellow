@@ -9,7 +9,7 @@ import { Hand } from "../Hand";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
-export class Level1 extends Scene {
+export class Room1 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
@@ -20,7 +20,7 @@ export class Level1 extends Scene {
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
-        super("Level1");
+        super("Room1");
     }
 
     create() {
@@ -28,6 +28,8 @@ export class Level1 extends Scene {
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
+
+        this.registry.set("Tutorial", false);
 
         this.background = this.add.image(400, 300, "level1locked");
         if (this.registry.get("Room4Open")) {
@@ -145,7 +147,7 @@ export class Level1 extends Scene {
                         this,
                         myText,
                         cdRoom3.text,
-                        "RoomStartRight",
+                        "Room3",
                     );
 
                     CommandWriter.cdCommandLocked(
@@ -156,6 +158,8 @@ export class Level1 extends Scene {
                         "Room4Locked",
                         "Room4Open",
                     );
+
+                    CommandWriter.cdBack(input, this, myText, "Tutorial");
 
                     CommandWriter.checkCommandFound(myText);
                 },

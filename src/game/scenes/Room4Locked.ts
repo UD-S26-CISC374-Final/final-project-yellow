@@ -107,7 +107,7 @@ export class Room4Locked extends Scene {
                         "Room8",
                     );
 
-                    CommandWriter.cdBack(input, this, myText, "Level1");
+                    CommandWriter.cdBack(input, this, myText, "Room1");
 
                     CommandWriter.openInventory(
                         input,

@@ -21,6 +21,7 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("HasKey1", false);
         this.registry.set("pocketsOpen", false);
         this.registry.set("keyInHand", false);
+        this.registry.set("Tutorial", true);
 
         this.background = this.add.image(400, 300, "background");
 
@@ -50,28 +51,11 @@ export class MainMenu extends Scene implements ChangeableScene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (myText.text === "cd Start") {
-                        this.scene.start("Level1");
+                        this.scene.start("Tutorial");
                     }
                 },
             });
         });
-
-        /*
-        this.logo = this.add.image(400, 300, "logo").setDepth(100);
-
-        this.title = this.add
-            .text(400, 400, "Main Menu", {
-                fontFamily: "Arial Black",
-                fontSize: 38,
-                color: "#ffffff",
-                stroke: "#000000",
-                strokeThickness: 8,
-                align: "center",
-            })
-            .setOrigin(0.5)
-            .setDepth(100);
-
-            */
         EventBus.emit("current-scene-ready", this);
     }
 

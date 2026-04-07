@@ -5,7 +5,7 @@ import { Pockets } from "../Pockets";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
-export class RoomStartRight extends Scene {
+export class Room3 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
@@ -15,7 +15,7 @@ export class RoomStartRight extends Scene {
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
-        super("RoomStartRight");
+        super("Room3");
     }
 
     create() {
@@ -81,7 +81,7 @@ export class RoomStartRight extends Scene {
                         myText.text = "Insert Command Here";
                     }
 
-                    CommandWriter.cdBack(input, this, myText, "Level1");
+                    CommandWriter.cdBack(input, this, myText, "Room1");
 
                     CommandWriter.openInventory(
                         input,

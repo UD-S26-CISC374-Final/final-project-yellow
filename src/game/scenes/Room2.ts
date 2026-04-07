@@ -69,7 +69,7 @@ export class Room2 extends Scene {
                         "SkellyOpen",
                     );
 
-                    CommandWriter.cdBack(input, this, myText, "Level1");
+                    CommandWriter.cdBack(input, this, myText, "Room1");
 
                     CommandWriter.openInventory(
                         input,
