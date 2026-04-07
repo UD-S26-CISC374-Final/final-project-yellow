@@ -1,12 +1,14 @@
 import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
+import { Pockets } from "../Pockets";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
 export class RoomStartRight extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
+    pockets!: Pockets;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -77,33 +79,23 @@ export class RoomStartRight extends Scene {
                         (myText.text === "ls" && this.registry.get("HasKey1"))
                     ) {
                         myText.text = "Insert Command Here";
-                    } /*else if (
-                        /*else if (myText.text === "cd ..") {
-                        this.scene.start("Level1");
-                    } 
-                        
-                        myText.text !== "cd .." &&
-                        myText.text !== "cd " + KeyObject.text &&
-                        myText.text !== "ls" &&
-                        myText.text !== "mv " + KeyObject.text + " pockets"
-                    ) {
-                        myText.text = "Command Not Found";
-                    } 
-                        */
-
-                    /*
-                    else if (
-                        myText.text ===
-                        "mv " + KeyObject.text + " pockets"
-                    ) {
-                        KeyObject.setActive(false);
-                        KeyObject.alpha = 0;
-                        this.registry.set("HasKey1", true);
-                        myText.text = "";
                     }
-                        */
 
                     CommandWriter.cdBack(input, this, myText, "Level1");
+
+                    CommandWriter.openInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
+                    CommandWriter.closeInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
 
                     CommandWriter.checkCommandFound(myText);
                 },
@@ -112,6 +104,9 @@ export class RoomStartRight extends Scene {
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
         //this.fpsText = new FpsText(this);
+
+        this.pockets = new Pockets(this);
+        this.pockets.create();
 
         EventBus.emit("current-scene-ready", this);
     }

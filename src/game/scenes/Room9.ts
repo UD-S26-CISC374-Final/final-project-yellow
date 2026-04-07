@@ -3,6 +3,7 @@ import { Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
+import { Pockets } from "../Pockets";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -10,6 +11,7 @@ export class Room9 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
+    pockets!: Pockets;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -92,6 +94,20 @@ export class Room9 extends Scene {
 
                     CommandWriter.cdBack(input, this, myText, "Room8");
 
+                    CommandWriter.openInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
+                    CommandWriter.closeInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
                     CommandWriter.checkCommandFound(myText);
                 },
             });
@@ -99,6 +115,9 @@ export class Room9 extends Scene {
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
         //this.fpsText = new FpsText(this);
+
+        this.pockets = new Pockets(this);
+        this.pockets.create();
 
         EventBus.emit("current-scene-ready", this);
     }

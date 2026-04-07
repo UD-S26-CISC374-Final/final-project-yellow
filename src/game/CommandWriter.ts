@@ -1,5 +1,6 @@
 import { EventBus } from "./event-bus";
 import { GameObjects, Scene } from "phaser";
+import { Pockets } from "./Pockets";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 //import PhaserLogo from "../objects/phaser-logo";
@@ -9,6 +10,7 @@ import { GameObjects, Scene } from "phaser";
 export class CommandWriter {
     scene: Phaser.Scene;
 
+    pockets!: Pockets;
     //camera: Phaser.Cameras.Scene2D.Camera;
     //background: Phaser.GameObjects.Image;
     //phaserLogo: PhaserLogo;
@@ -40,7 +42,10 @@ export class CommandWriter {
         sceneToChange: string,
         nextSceneName: string,
     ) {
-        if (input === "cd " + sceneToChange) {
+        if (
+            input === "cd " + sceneToChange &&
+            !scene.registry.get("pocketsOpen")
+        ) {
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
         }
@@ -55,7 +60,11 @@ export class CommandWriter {
         nextSceneName: string,
         globalVar: string,
     ) {
-        if (input === "cd " + sceneToChange && scene.registry.get(globalVar)) {
+        if (
+            input === "cd " + sceneToChange &&
+            scene.registry.get(globalVar) &&
+            !scene.registry.get("pocketsOpen")
+        ) {
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
         } else if (
@@ -73,7 +82,7 @@ export class CommandWriter {
         //scenesAvailable: GameObjects.Text,
         previousSceneName: string,
     ) {
-        if (input === "cd ..") {
+        if (input === "cd .." && !scene.registry.get("pocketsOpen")) {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";
         }
@@ -120,6 +129,28 @@ export class CommandWriter {
         }
     }
 
+    /*
+    static mvCommandItemToHand(
+        input: string,
+        scene: Scene,
+        objectText: string,
+
+        //objectToInteract: string,
+
+        //textureToLoad: string,
+
+        myText: Phaser.GameObjects.Text,
+        globalVar: string,
+        objectGlobalVar: string,
+    ) {
+        if(input === "mv " + objectText + " Hand" && scene.registry.get("pocketsOpen")){
+
+        }
+
+        myText.text = "Insert Command Here";
+    }
+        */
+
     static checkCommandFound(myText: Phaser.GameObjects.Text) {
         if (
             myText.text !== "Insert Command Here" &&
@@ -129,37 +160,39 @@ export class CommandWriter {
         }
     }
 
+    static openInventory(
+        input: string,
+        pockets: Pockets,
+        myText: Phaser.GameObjects.Text,
+        scene: Scene,
+    ) {
+        if (input === "cd pockets" && !scene.registry.get("pocketsOpen")) {
+            //pockets.openInventory(myText);
+            pockets.openInventory(scene, myText);
+        }
+
+        myText.text = "Insert Command Here";
+    }
+
+    static closeInventory(
+        input: string,
+        pockets: Pockets,
+        myText: Phaser.GameObjects.Text,
+        scene: Scene,
+    ) {
+        if (input === "cd .." && scene.registry.get("pocketsOpen")) {
+            pockets.closeInventory(scene, myText);
+        }
+
+        myText.text = "Insert Command Here";
+    }
+
     constructor(scene: Phaser.Scene) {
         //super("Level1");
         this.scene = scene;
     }
 
     create() {
-        //if (!this.scene.input.keyboard) return;
-
-        this.myText = this.scene.add.text(330, 500, "Insert Command Here", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        this.myText.setOrigin(0.15, 0);
-
-        this.scene.input.keyboard!.on("keydown", () => {
-            if (
-                this.myText.text === "Insert Command Here" ||
-                this.myText.text === "Command Not Found"
-            ) {
-                this.myText.text = "";
-            }
-            this.scene.rexUI.edit(this.myText, {
-                onClose: () => {},
-            });
-        });
-
-        //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
-        //this.fpsText = new FpsText(this);
-
         EventBus.emit("current-scene-ready", this);
     }
 

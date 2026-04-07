@@ -1,12 +1,14 @@
 import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
+import { Pockets } from "../Pockets";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
 export class Room2 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
+    pockets!: Pockets;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -69,6 +71,20 @@ export class Room2 extends Scene {
 
                     CommandWriter.cdBack(input, this, myText, "Level1");
 
+                    CommandWriter.openInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
+                    CommandWriter.closeInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
                     CommandWriter.checkCommandFound(myText);
 
                     /*
@@ -108,6 +124,9 @@ export class Room2 extends Scene {
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
         //this.fpsText = new FpsText(this);
+
+        this.pockets = new Pockets(this);
+        this.pockets.create();
 
         EventBus.emit("current-scene-ready", this);
     }

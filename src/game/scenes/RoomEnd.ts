@@ -3,6 +3,7 @@ import { Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
+import { Pockets } from "../Pockets";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -10,6 +11,7 @@ export class RoomEnd extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
+    pockets!: Pockets;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -71,46 +73,30 @@ export class RoomEnd extends Scene {
 
                     CommandWriter.cdBack(input, this, myText, "Room12");
 
+                    CommandWriter.openInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
+                    CommandWriter.closeInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
+
                     CommandWriter.checkCommandFound(myText);
-
-                    /*
-                    if (
-                        myText.text === "cd " + cdRoom5.text &&
-                        cdRoom5.active
-                    ) {
-                        this.scene.start("Room1_1");
-                    } else if (
-                        myText.text === "cd " + cdRoom6.text &&
-                        cdRoom6.active
-                    ) {
-                        this.scene.start("RoomStartRight");
-                    } else if (myText.text === "cd ..") {
-                        this.scene.start("Level1");
-                    } else if (myText.text === "ls" && !cdRoom5.active) {
-                        //mySprite.setActive(true);
-                        //mySprite.alpha = 1;
-
-                        cdRoom5.setActive(true);
-                        cdRoom6.setActive(true);
-                        cdRoom5.alpha = 1;
-                        cdRoom6.alpha = 1;
-                        myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && cdRoom5.active) {
-                        myText.text = "Insert Command Here";
-                    } else if (
-                        myText.text !== "cd .." &&
-                        myText.text !== "cd " + cdRoom5.text &&
-                        myText.text !== "ls"
-                    ) {
-                        myText.text = "Command Not Found";
-                    }
-                        */
                 },
             });
         });
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
         //this.fpsText = new FpsText(this);
+
+        this.pockets = new Pockets(this);
+        this.pockets.create();
 
         EventBus.emit("current-scene-ready", this);
     }

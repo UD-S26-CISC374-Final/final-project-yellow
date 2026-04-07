@@ -37,6 +37,9 @@ export class Preloader extends Scene {
         this.load.image("OnlyDoorLeft", "OnlyDoorLeft.png");
         this.load.image("DoorOnlyFront", "DoorOnlyFront.png");
         this.load.image("RoomEnd", "RoomEnd.png");
+        this.load.image("Inventory", "Inventory.png");
+        this.load.image("KeyTest", "KeyTest.png");
+        this.load.image("HandSlot", "HandSlot.png");
     }
 
     create() {
