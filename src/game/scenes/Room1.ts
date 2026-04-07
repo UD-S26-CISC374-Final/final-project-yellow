@@ -103,6 +103,8 @@ export class Room1 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    CommandWriter.cdBack(input, this, myText, "Tutorial");
+
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -158,8 +160,6 @@ export class Room1 extends Scene {
                         "Room4Locked",
                         "Room4Open",
                     );
-
-                    CommandWriter.cdBack(input, this, myText, "Tutorial");
 
                     CommandWriter.checkCommandFound(myText);
                 },
