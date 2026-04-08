@@ -44,6 +44,23 @@ export class Room3 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
+        const tutorialText = this.add.text(
+            150,
+            300,
+            "There are no rooms branching off from this room, but maybe we should try using 'ls' anyways.",
+            {
+                fixedWidth: 200,
+                backgroundColor: "#000000",
+                padding: { x: 9, y: 9.5 },
+                wordWrap: { width: 200 },
+            },
+        );
+        tutorialText.setOrigin(0.15, 0);
+        if (this.registry.get("HasKey1")) {
+            tutorialText.setActive(false);
+            tutorialText.alpha = 0;
+        }
+
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
                 event.key !== "Enter" &&
@@ -52,6 +69,14 @@ export class Room3 extends Scene {
                     myText.text === "Door Locked")
             ) {
                 myText.text = "";
+            }
+            if (this.registry.get("HasKey1")) {
+                tutorialText.setActive(false);
+                tutorialText.alpha = 0;
+            } else if (KeyObject.active) {
+                tutorialText.text =
+                    "It seems there is a key. It may be useful to pick it up. Try using the 'mv' command. Type in 'mv Key pockets'.";
+                tutorialText.setPosition(450, 300);
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
