@@ -116,8 +116,18 @@ export class Tutorial extends Scene {
                         myText,
                         "HasKey1",
                         "Room4Open",
+                        "key1InHand",
                     );
                     CommandWriter.lsCommand(input, myText, [cdRoom1]);
+
+                    /*
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this,
+                        "Key",
+                    );
+                    */
 
                     CommandWriter.cdCommand(
                         input,

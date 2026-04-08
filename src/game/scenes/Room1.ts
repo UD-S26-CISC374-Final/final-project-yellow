@@ -23,6 +23,8 @@ export class Room1 extends Scene {
         super("Room1");
     }
 
+    update() {}
+
     create() {
         //if (!this.input.keyboard) return;
 
@@ -105,6 +107,15 @@ export class Room1 extends Scene {
 
                     CommandWriter.cdBack(input, this, myText, "Tutorial");
 
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        "Key",
+                        myText,
+                    );
+
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -129,13 +140,7 @@ export class Room1 extends Scene {
                         myText,
                         "HasKey1",
                         "Room4Open",
-                    );
-
-                    CommandWriter.mvCommandItemToHand(
-                        input,
-                        this.hand,
-                        this,
-                        "Key",
+                        "key1InHand",
                     );
 
                     CommandWriter.lsCommand(input, myText, [

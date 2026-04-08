@@ -97,11 +97,13 @@ export class CommandWriter {
         object: GameObjects.Text,
         myText: Phaser.GameObjects.Text,
         globalVar: string,
+        globalVarInPockets: string,
     ) {
         if (input === "mv " + objectText + " pockets") {
             object.setActive(false);
             object.alpha = 0;
             scene.registry.set(globalVar, true);
+            scene.registry.set(globalVarInPockets, true);
             myText.text = "Insert Command Here";
         }
     }
@@ -120,10 +122,12 @@ export class CommandWriter {
         myText: Phaser.GameObjects.Text,
         globalVar: string,
         objectGlobalVar: string,
+        objectGlobalVarInHand: string,
     ) {
         if (
             input === "mv " + objectText + " " + objectToInteract &&
-            scene.registry.get(globalVar)
+            scene.registry.get(globalVar) &&
+            scene.registry.get(objectGlobalVarInHand)
         ) {
             scene.registry.set(objectGlobalVar, true);
             background.setTexture(textureToLoad);
@@ -134,11 +138,22 @@ export class CommandWriter {
     static mvCommandItemToHand(
         input: string,
         hand: Hand,
+        pockets: Pockets,
         scene: Scene,
         objectText: string,
+        myText: Phaser.GameObjects.Text,
     ) {
-        if (input === "mv " + objectText + " Hand") {
+        if (
+            input === "mv " + objectText + " Hand" &&
+            scene.registry.get("pocketsOpen")
+        ) {
             hand.itemInHand(objectText, scene);
+            pockets.closeInventory(scene, myText);
+            myText.text = "Insert Command Here";
+        } else if (input === "mv " + objectText + " pockets") {
+            hand.hideItemInHand(objectText, scene);
+            pockets.closeInventory(scene, myText);
+            myText.text = "Insert Command Here";
         }
     }
 

@@ -1,5 +1,5 @@
 import { Scene } from "phaser";
-import { EventBus } from "./event-bus";
+//import { EventBus } from "./event-bus";
 import { Pockets } from "./Pockets";
 import { Item } from "./Item";
 //import { Scene } from "phaser";
@@ -32,9 +32,11 @@ export class Hand {
     create() {
         this.handImage = this.scene.add.image(70, 530, "HandSlot");
 
+        this.items = [];
+
         this.itemsTotal = [
             {
-                itemName: "Key1",
+                itemName: "Key",
                 itemGlobalVar: "KeyTest",
                 itemGlobalVarBool: false,
                 itemInHand: false,
@@ -42,7 +44,7 @@ export class Hand {
             },
         ];
 
-        for (let i = 0; i < this.items.length; i++) {
+        for (let i = 0; i < this.itemsTotal.length; i++) {
             this.items[i] = this.scene.add.image(
                 70,
                 530,
@@ -61,24 +63,10 @@ export class Hand {
         this.Key1.setActive(false).setVisible(false);
         */
 
-        EventBus.emit("current-scene-ready", this);
+        //EventBus.emit("current-scene-ready", this);
     }
 
-    itemInHand(
-        name: string,
-        scene: Scene,
-        /*
-        globalVarPocket: string,
-        globalVarHand: string,
-        */
-    ) {
-        //const pocketsImage = this.scene.add.image(200, 100, "logo");
-        /*
-        if(this.itemsTotal[1].itemName === name){
-
-        }
-        */
-
+    itemInHand(name: string, scene: Scene) {
         for (let i = 0; i < this.itemsTotal.length; i++) {
             if (
                 this.itemsTotal[i].itemName === name &&
@@ -87,6 +75,19 @@ export class Hand {
                 this.items[i].setActive(true).setVisible(true);
                 scene.registry.set("key1InHand", true);
                 scene.registry.set("key1InPocket", false);
+            }
+        }
+    }
+
+    hideItemInHand(name: string, scene: Scene) {
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            if (
+                this.itemsTotal[i].itemName === name &&
+                scene.registry.get("key1InHand")
+            ) {
+                this.items[i].setActive(false).setVisible(false);
+                scene.registry.set("key1InHand", false);
+                scene.registry.set("key1InPocket", true);
             }
         }
     }

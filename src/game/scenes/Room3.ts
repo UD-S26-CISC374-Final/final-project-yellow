@@ -99,6 +99,7 @@ export class Room3 extends Scene {
                         KeyObject.text,
                         KeyObject,
                         myText,
+                        "HasKey1",
                         "key1InPocket",
                     );
 
