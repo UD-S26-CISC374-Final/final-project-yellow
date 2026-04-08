@@ -17,9 +17,12 @@ export class Pockets {
     //fpsText: FpsText;
 
     pocketsImage!: Phaser.GameObjects.Image;
-    Key1!: Phaser.GameObjects.Image;
+    //Key1!: Phaser.GameObjects.Image;
     itemsTotal!: Item[];
     items!: Phaser.GameObjects.Image[];
+
+    itemsInPockets: string[];
+    itemsInHand: string[];
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -28,6 +31,11 @@ export class Pockets {
     }
 
     create() {
+        this.itemsInPockets = this.scene.registry.get(
+            "ItemsInPockets",
+        ) as string[];
+        this.itemsInHand = this.scene.registry.get("ItemsInHand") as string[];
+
         this.pocketsImage = this.scene.add.image(400, 330, "Inventory");
 
         this.items = [];
@@ -36,8 +44,8 @@ export class Pockets {
             {
                 itemName: "Key1",
                 itemGlobalVar: "KeyTest",
-                itemGlobalVarBool: false,
-                itemInHand: false,
+                itemGlobalVarBool: "key1InPocket",
+                itemInHand: "key1InHand",
                 itemImage: "KeyTest",
             },
         ];
@@ -83,7 +91,7 @@ export class Pockets {
             for (let i = 0; i < this.itemsTotal.length; i++) {
                 if (
                     //this.itemsTotal[i].itemName === name &&
-                    scene.registry.get("key1InPocket")
+                    scene.registry.get(this.itemsInPockets[i])
                 ) {
                     this.items[i].setActive(true).setVisible(true);
                 }

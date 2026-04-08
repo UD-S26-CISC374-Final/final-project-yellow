@@ -22,6 +22,10 @@ export class CommandWriter {
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
+    create() {
+        EventBus.emit("current-scene-ready", this);
+    }
+
     static lsCommand(
         input: string,
         myText: Phaser.GameObjects.Text,
@@ -141,19 +145,22 @@ export class CommandWriter {
         pockets: Pockets,
         scene: Scene,
         objectText: string,
+        objectItems: string[],
         myText: Phaser.GameObjects.Text,
     ) {
-        if (
-            input === "mv " + objectText + " Hand" &&
-            scene.registry.get("pocketsOpen")
-        ) {
-            hand.itemInHand(objectText, scene);
-            pockets.closeInventory(scene, myText);
-            myText.text = "Insert Command Here";
-        } else if (input === "mv " + objectText + " pockets") {
-            hand.hideItemInHand(objectText, scene);
-            pockets.closeInventory(scene, myText);
-            myText.text = "Insert Command Here";
+        if (objectItems.includes(objectText)) {
+            if (
+                input === "mv " + objectText + " Hand" &&
+                scene.registry.get("pocketsOpen")
+            ) {
+                hand.itemInHand(objectText, scene);
+                pockets.closeInventory(scene, myText);
+                myText.text = "Insert Command Here";
+            } else if (input === "mv " + objectText + " pockets") {
+                hand.hideItemInHand(objectText, scene);
+                pockets.closeInventory(scene, myText);
+                myText.text = "Insert Command Here";
+            }
         }
     }
 
@@ -194,10 +201,6 @@ export class CommandWriter {
     constructor(scene: Phaser.Scene) {
         //super("Level1");
         this.scene = scene;
-    }
-
-    create() {
-        EventBus.emit("current-scene-ready", this);
     }
 
     update() {

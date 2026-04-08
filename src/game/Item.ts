@@ -1,7 +1,7 @@
 export class Item {
     itemName: string;
     itemGlobalVar: string;
-    itemGlobalVarBool: boolean;
-    itemInHand: boolean;
+    itemGlobalVarBool: string;
+    itemInHand: string;
     itemImage: string;
 }

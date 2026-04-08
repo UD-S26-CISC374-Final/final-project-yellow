@@ -113,6 +113,7 @@ export class Room1 extends Scene {
                         this.pockets,
                         this,
                         "Key",
+                        this.registry.get("ItemsNames") as string[],
                         myText,
                     );
 

@@ -24,6 +24,10 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("key1InPocket", false);
         this.registry.set("Tutorial", true);
 
+        this.registry.set("ItemsInHand", ["key1InHand"]);
+        this.registry.set("ItemsInPockets", ["key1InPocket"]);
+        this.registry.set("ItemsNames", ["Key"]);
+
         this.background = this.add.image(400, 300, "background");
 
         const myText = this.add.text(330, 300, "Insert Command Here", {
