@@ -1,6 +1,7 @@
 import { EventBus } from "./event-bus";
 import { GameObjects, Scene } from "phaser";
 import { Pockets } from "./Pockets";
+import { Hand } from "./Hand";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 //import PhaserLogo from "../objects/phaser-logo";
@@ -11,6 +12,7 @@ export class CommandWriter {
     scene: Phaser.Scene;
 
     pockets!: Pockets;
+    hand!: Hand;
     //camera: Phaser.Cameras.Scene2D.Camera;
     //background: Phaser.GameObjects.Image;
     //phaserLogo: PhaserLogo;
@@ -129,27 +131,16 @@ export class CommandWriter {
         }
     }
 
-    /*
     static mvCommandItemToHand(
         input: string,
+        hand: Hand,
         scene: Scene,
         objectText: string,
-
-        //objectToInteract: string,
-
-        //textureToLoad: string,
-
-        myText: Phaser.GameObjects.Text,
-        globalVar: string,
-        objectGlobalVar: string,
     ) {
-        if(input === "mv " + objectText + " Hand" && scene.registry.get("pocketsOpen")){
-
+        if (input === "mv " + objectText + " Hand") {
+            hand.itemInHand(objectText, scene);
         }
-
-        myText.text = "Insert Command Here";
     }
-        */
 
     static checkCommandFound(myText: Phaser.GameObjects.Text) {
         if (

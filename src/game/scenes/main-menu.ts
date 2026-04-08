@@ -20,7 +20,8 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("SkellyOpen", false);
         this.registry.set("HasKey1", false);
         this.registry.set("pocketsOpen", false);
-        this.registry.set("keyInHand", false);
+        this.registry.set("key1InHand", false);
+        this.registry.set("key1InPocket", false);
         this.registry.set("Tutorial", true);
 
         this.background = this.add.image(400, 300, "background");

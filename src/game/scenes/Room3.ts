@@ -57,6 +57,7 @@ export class Room3 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    /*
                     CommandWriter.mvCommandToPockets(
                         input,
                         this,
@@ -64,6 +65,16 @@ export class Room3 extends Scene {
                         KeyObject,
                         myText,
                         "HasKey1",
+                    );
+                    */
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        KeyObject.text,
+                        KeyObject,
+                        myText,
+                        "key1InPocket",
                     );
 
                     if (

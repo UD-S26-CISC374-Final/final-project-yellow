@@ -1,6 +1,7 @@
-//import { Scene } from "phaser";
+import { Scene } from "phaser";
 import { EventBus } from "./event-bus";
 import { Pockets } from "./Pockets";
+import { Item } from "./Item";
 //import { Scene } from "phaser";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
@@ -19,7 +20,8 @@ export class Hand {
     //fpsText: FpsText;
 
     handImage!: Phaser.GameObjects.Image;
-    Key1!: Phaser.GameObjects.Image;
+    itemsTotal!: Item[];
+    items!: Phaser.GameObjects.Image[];
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -30,46 +32,65 @@ export class Hand {
     create() {
         this.handImage = this.scene.add.image(70, 530, "HandSlot");
 
+        this.itemsTotal = [
+            {
+                itemName: "Key1",
+                itemGlobalVar: "KeyTest",
+                itemGlobalVarBool: false,
+                itemInHand: false,
+                itemImage: "KeyTest",
+            },
+        ];
+
+        for (let i = 0; i < this.items.length; i++) {
+            this.items[i] = this.scene.add.image(
+                70,
+                530,
+                this.itemsTotal[i].itemImage,
+            );
+            this.items[i].setScale(0.02, 0.02);
+
+            this.items[i].setActive(false).setVisible(false);
+        }
+
+        /*
         this.Key1 = this.scene.add.image(70, 530, "KeyTest");
         this.Key1.setScale(0.02, 0.02);
 
         //this.pocketsImage.setActive(false).setVisible(false);
         this.Key1.setActive(false).setVisible(false);
+        */
 
         EventBus.emit("current-scene-ready", this);
     }
 
-    /*
-    itemInHand(scene: Scene, myText: Phaser.GameObjects.Text) {
+    itemInHand(
+        name: string,
+        scene: Scene,
+        /*
+        globalVarPocket: string,
+        globalVarHand: string,
+        */
+    ) {
         //const pocketsImage = this.scene.add.image(200, 100, "logo");
+        /*
+        if(this.itemsTotal[1].itemName === name){
 
-        if (!scene.registry.get("pocketsOpen")) {
-            //const pocketsImage = scene.add.image(200, 100, "logo");
+        }
+        */
 
-            scene.registry.set("pocketsOpen", true);
-
-            this.pocketsImage.setActive(true).setVisible(true);
-            if (scene.registry.get("HasKey1")) {
-                this.Key1.setActive(true).setVisible(true);
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            if (
+                this.itemsTotal[i].itemName === name &&
+                scene.registry.get("key1InPocket")
+            ) {
+                this.items[i].setActive(true).setVisible(true);
+                scene.registry.set("key1InHand", true);
+                scene.registry.set("key1InPocket", false);
             }
         }
-
-        myText.text = "Insert Command Here";
     }
 
-    /*
-    closeInventory(scene: Scene, myText: Phaser.GameObjects.Text) {
-        if (scene.registry.get("pocketsOpen")) {
-            scene.registry.set("pocketsOpen", false);
-
-            this.pocketsImage.setActive(false).setVisible(false);
-            this.Key1.setActive(false).setVisible(false);
-        }
-
-        myText.text = "Insert Command Here";
-    }
-
-    */
     update() {
         //this.fpsText.update();
     }

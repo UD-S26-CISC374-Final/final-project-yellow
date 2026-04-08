@@ -26,7 +26,7 @@ export class Tutorial extends Scene {
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
 
-        let canType = true;
+        //let canType = true;
 
         const LocationText = this.add.text(
             280,

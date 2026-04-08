@@ -128,6 +128,14 @@ export class Room1 extends Scene {
                         "HasKey1",
                         "Room4Open",
                     );
+
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this,
+                        "Key",
+                    );
+
                     CommandWriter.lsCommand(input, myText, [
                         cdRoom2,
                         cdRoom3,
