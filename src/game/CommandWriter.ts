@@ -2,6 +2,7 @@ import { EventBus } from "./event-bus";
 import { GameObjects, Scene } from "phaser";
 import { Pockets } from "./Pockets";
 import { Hand } from "./Hand";
+import { Notes } from "./Notes";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 //import PhaserLogo from "../objects/phaser-logo";
@@ -13,6 +14,7 @@ export class CommandWriter {
 
     pockets!: Pockets;
     hand!: Hand;
+    note!: Notes;
     //camera: Phaser.Cameras.Scene2D.Camera;
     //background: Phaser.GameObjects.Image;
     //phaserLogo: PhaserLogo;
@@ -81,6 +83,25 @@ export class CommandWriter {
         }
     }
 
+    static cdCommandNote(
+        input: string,
+        scene: Scene,
+        notes: Notes,
+        mytext: Phaser.GameObjects.Text,
+        noteText: GameObjects.Text,
+        noteInRoom: string,
+    ) {
+        if (input === "cd " + noteInRoom && !scene.registry.get("noteOpen")) {
+            notes.openNote(noteInRoom, scene);
+            noteText.setActive(true).setVisible(true);
+            mytext.text = "Insert Command Here";
+        } else if (input === "cd .." && scene.registry.get("noteOpen")) {
+            notes.closeNote(scene);
+            noteText.setActive(false).setVisible(false);
+            mytext.text = "Insert Command Here";
+        }
+    }
+
     static cdBack(
         input: string,
         scene: Scene,
@@ -88,7 +109,11 @@ export class CommandWriter {
         //scenesAvailable: GameObjects.Text,
         previousSceneName: string,
     ) {
-        if (input === "cd .." && !scene.registry.get("pocketsOpen")) {
+        if (
+            input === "cd .." &&
+            !scene.registry.get("pocketsOpen") &&
+            !scene.registry.get("noteOpen")
+        ) {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";
         }
