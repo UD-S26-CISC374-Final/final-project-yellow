@@ -133,14 +133,14 @@ export class Room1 extends Scene {
                     CommandWriter.mvCommandToObject(
                         input,
                         this,
-                        "Key",
+                        "Room4Key",
                         this.background,
                         cdRoom4.text,
                         "level1",
                         myText,
-                        "HasKey1",
+                        "HasRoom4Key",
                         "Room4Open",
-                        "key1InHand",
+                        "Room4KeyInHand",
                     );
 
                     CommandWriter.lsCommand(input, myText, [

@@ -18,15 +18,15 @@ export class MainMenu extends Scene implements ChangeableScene {
         //if (!this.input.keyboard) return;
 
         this.registry.set("SkellyOpen", true);
-        this.registry.set("HasKey1", false);
+        this.registry.set("HasRoom4Key", false);
         this.registry.set("pocketsOpen", false);
-        this.registry.set("key1InHand", false);
-        this.registry.set("key1InPocket", false);
+        this.registry.set("Room4KeyInHand", false);
+        this.registry.set("Room4KeyInPocket", false);
         this.registry.set("Tutorial", true);
 
-        this.registry.set("ItemsInHand", ["key1InHand"]);
-        this.registry.set("ItemsInPockets", ["key1InPocket"]);
-        this.registry.set("ItemsNames", ["Key"]);
+        this.registry.set("ItemsInHand", ["Room4KeyInHand"]);
+        this.registry.set("ItemsInPockets", ["Room4KeyInPocket"]);
+        this.registry.set("ItemsNames", ["Room4Key"]);
 
         this.registry.set("code", Phaser.Math.Between(1000, 9999).toString());
 

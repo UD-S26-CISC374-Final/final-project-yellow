@@ -28,7 +28,7 @@ export class Room3 extends Scene {
 
         this.background = this.add.image(400, 300, "room3");
 
-        const KeyObject = this.add.text(330, 200, "Key", {
+        const KeyObject = this.add.text(330, 200, "Room4Key", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
@@ -58,7 +58,7 @@ export class Room3 extends Scene {
             },
         );
         tutorialText.setOrigin(0.15, 0);
-        if (this.registry.get("HasKey1")) {
+        if (this.registry.get("HasRoom4Key")) {
             tutorialText.setActive(false);
             tutorialText.alpha = 0;
         }
@@ -72,12 +72,12 @@ export class Room3 extends Scene {
             ) {
                 myText.text = "";
             }
-            if (this.registry.get("HasKey1")) {
+            if (this.registry.get("HasRoom4Key")) {
                 tutorialText.setActive(false);
                 tutorialText.alpha = 0;
             } else if (KeyObject.active) {
                 tutorialText.text =
-                    "It seems there is a key. It may be useful to pick it up. Try using the 'mv' command. Type in 'mv Key pockets'.";
+                    "It seems there is a key. It may be useful to pick it up. Try using the 'mv' command. Type in 'mv Room4Key pockets'.";
                 tutorialText.setPosition(450, 300);
             }
             this.rexUI.edit(myText, {
@@ -101,21 +101,22 @@ export class Room3 extends Scene {
                         KeyObject.text,
                         KeyObject,
                         myText,
-                        "HasKey1",
-                        "key1InPocket",
+                        "HasRoom4Key",
+                        "Room4KeyInPocket",
                     );
 
                     if (
                         myText.text === "ls" &&
                         !KeyObject.active &&
-                        !this.registry.get("HasKey1")
+                        !this.registry.get("HasRoom4Key")
                     ) {
                         KeyObject.setActive(true);
                         KeyObject.alpha = 1;
                         myText.text = "Insert Command Here";
                     } else if (
                         (myText.text === "ls" && KeyObject.active) ||
-                        (myText.text === "ls" && this.registry.get("HasKey1"))
+                        (myText.text === "ls" &&
+                            this.registry.get("HasRoom4Key"))
                     ) {
                         myText.text = "Insert Command Here";
                     }

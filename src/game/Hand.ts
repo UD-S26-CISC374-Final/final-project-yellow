@@ -43,10 +43,10 @@ export class Hand {
 
         this.itemsTotal = [
             {
-                itemName: "Key",
-                itemGlobalVar: "HasKey1",
-                itemGlobalVarBool: "key1InPocket",
-                itemInHand: "key1InHand",
+                itemName: "Room4Key",
+                itemGlobalVar: "HasRoom4Key",
+                itemGlobalVarBool: "Room4KeyInPocket",
+                itemInHand: "Room4KeyInHand",
                 itemImage: "KeyTest",
             },
         ];
