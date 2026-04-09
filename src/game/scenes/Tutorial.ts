@@ -26,6 +26,8 @@ export class Tutorial extends Scene {
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
 
+        //let canType = true;
+
         const LocationText = this.add.text(
             280,
             5,
@@ -114,8 +116,18 @@ export class Tutorial extends Scene {
                         myText,
                         "HasKey1",
                         "Room4Open",
+                        "key1InHand",
                     );
                     CommandWriter.lsCommand(input, myText, [cdRoom1]);
+
+                    /*
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this,
+                        "Key",
+                    );
+                    */
 
                     CommandWriter.cdCommand(
                         input,
@@ -123,6 +135,15 @@ export class Tutorial extends Scene {
                         myText,
                         cdRoom1.text,
                         "Room1",
+                    );
+
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
                     );
 
                     CommandWriter.checkCommandFound(myText);

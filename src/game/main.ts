@@ -13,7 +13,7 @@ import { Room11 } from "./scenes/Room11";
 import { Room12 } from "./scenes/Room12";
 import { RoomEnd } from "./scenes/RoomEnd";
 import { Room1 as MainGame } from "./scenes/Room1";
-import { Tutorial } from "./scenes/tutorial";
+import { Tutorial } from "./scenes/Tutorial";
 import { Skelly } from "./scenes/Skelly";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";

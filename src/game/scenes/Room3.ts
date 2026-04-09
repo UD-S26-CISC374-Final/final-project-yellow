@@ -2,6 +2,7 @@ import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
+import { Hand } from "../Hand";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -9,6 +10,7 @@ export class Room3 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
+    hand!: Hand;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -82,6 +84,7 @@ export class Room3 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    /*
                     CommandWriter.mvCommandToPockets(
                         input,
                         this,
@@ -89,6 +92,17 @@ export class Room3 extends Scene {
                         KeyObject,
                         myText,
                         "HasKey1",
+                    );
+                    */
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        KeyObject.text,
+                        KeyObject,
+                        myText,
+                        "HasKey1",
+                        "key1InPocket",
                     );
 
                     if (
@@ -122,6 +136,15 @@ export class Room3 extends Scene {
                         this,
                     );
 
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
+                    );
+
                     CommandWriter.checkCommandFound(myText);
                 },
             });
@@ -132,6 +155,9 @@ export class Room3 extends Scene {
 
         this.pockets = new Pockets(this);
         this.pockets.create();
+
+        this.hand = new Hand(this);
+        this.hand.create();
 
         EventBus.emit("current-scene-ready", this);
     }

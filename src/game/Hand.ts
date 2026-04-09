@@ -1,6 +1,7 @@
-//import { Scene } from "phaser";
-import { EventBus } from "./event-bus";
+import { Scene } from "phaser";
+//import { EventBus } from "./event-bus";
 import { Pockets } from "./Pockets";
+import { Item } from "./Item";
 //import { Scene } from "phaser";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
@@ -19,57 +20,89 @@ export class Hand {
     //fpsText: FpsText;
 
     handImage!: Phaser.GameObjects.Image;
-    Key1!: Phaser.GameObjects.Image;
+    itemsTotal!: Item[];
+    items!: Phaser.GameObjects.Image[];
+
+    itemsInPockets: string[];
+    itemsInHand: string[];
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
-
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
 
     create() {
+        this.itemsInPockets = this.scene.registry.get(
+            "ItemsInPockets",
+        ) as string[];
+        this.itemsInHand = this.scene.registry.get("ItemsInHand") as string[];
+
         this.handImage = this.scene.add.image(70, 530, "HandSlot");
 
-        this.Key1 = this.scene.add.image(70, 530, "KeyTest");
-        this.Key1.setScale(0.02, 0.02);
+        this.items = [];
 
-        //this.pocketsImage.setActive(false).setVisible(false);
-        this.Key1.setActive(false).setVisible(false);
+        this.itemsTotal = [
+            {
+                itemName: "Key",
+                itemGlobalVar: "HasKey1",
+                itemGlobalVarBool: "key1InPocket",
+                itemInHand: "key1InHand",
+                itemImage: "KeyTest",
+            },
+        ];
 
-        EventBus.emit("current-scene-ready", this);
-    }
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            this.items[i] = this.scene.add.image(
+                70,
+                530,
+                this.itemsTotal[i].itemImage,
+            );
+            this.items[i].setScale(0.02, 0.02);
 
-    /*
-    itemInHand(scene: Scene, myText: Phaser.GameObjects.Text) {
-        //const pocketsImage = this.scene.add.image(200, 100, "logo");
+            this.items[i].setActive(false).setVisible(false);
 
-        if (!scene.registry.get("pocketsOpen")) {
-            //const pocketsImage = scene.add.image(200, 100, "logo");
-
-            scene.registry.set("pocketsOpen", true);
-
-            this.pocketsImage.setActive(true).setVisible(true);
-            if (scene.registry.get("HasKey1")) {
-                this.Key1.setActive(true).setVisible(true);
+            if (this.scene.registry.get(this.itemsInHand[i])) {
+                this.items[i].setActive(true).setVisible(true);
             }
         }
-
-        myText.text = "Insert Command Here";
     }
 
-    /*
-    closeInventory(scene: Scene, myText: Phaser.GameObjects.Text) {
-        if (scene.registry.get("pocketsOpen")) {
-            scene.registry.set("pocketsOpen", false);
+    itemInHand(name: string, scene: Scene) {
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            if (
+                this.itemsTotal[i].itemName === name &&
+                //itemsInPockets[i] === this.itemsTotal[i].itemGlobalVarBool
+                scene.registry.get(this.itemsInPockets[i])
 
-            this.pocketsImage.setActive(false).setVisible(false);
-            this.Key1.setActive(false).setVisible(false);
+                //itemsInPockets[i] === this.itemsTotal[i].itemGlobalVarBool
+
+                //itemsInPockets.includes(this.itemsTotal[i].itemGlobalVarBool)
+
+                //scene.registry.get("key1InPocket")
+
+                //scene.registry.values.ItemsInPockets[i]
+                //scene.registry.get("ItemsInPockets").includes
+            ) {
+                this.items[i].setActive(true).setVisible(true);
+                scene.registry.set(this.itemsInHand[i], true);
+                scene.registry.set(this.itemsInPockets[i], false);
+            }
         }
-
-        myText.text = "Insert Command Here";
     }
 
-    */
+    hideItemInHand(name: string, scene: Scene) {
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            if (
+                this.itemsTotal[i].itemName === name &&
+                scene.registry.get(this.itemsInHand[i])
+            ) {
+                this.items[i].setActive(false).setVisible(false);
+                scene.registry.set(this.itemsInHand[i], false);
+                scene.registry.set(this.itemsInPockets[i], true);
+            }
+        }
+    }
+
     update() {
         //this.fpsText.update();
     }

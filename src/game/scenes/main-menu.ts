@@ -20,8 +20,18 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("SkellyOpen", true);
         this.registry.set("HasKey1", false);
         this.registry.set("pocketsOpen", false);
-        this.registry.set("keyInHand", false);
+        this.registry.set("key1InHand", false);
+        this.registry.set("key1InPocket", false);
         this.registry.set("Tutorial", true);
+
+        this.registry.set("ItemsInHand", ["key1InHand"]);
+        this.registry.set("ItemsInPockets", ["key1InPocket"]);
+        this.registry.set("ItemsNames", ["Key"]);
+
+        this.registry.set("code", Phaser.Math.Between(1000, 9999).toString());
+
+        //this.registry.set("notes", ["WeirdNote"]);
+        this.registry.set("noteOpen", false);
 
         this.background = this.add.image(400, 300, "background");
 

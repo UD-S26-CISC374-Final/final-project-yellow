@@ -1,6 +1,8 @@
 import { EventBus } from "./event-bus";
 import { GameObjects, Scene } from "phaser";
 import { Pockets } from "./Pockets";
+import { Hand } from "./Hand";
+import { Notes } from "./Notes";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
 
 //import PhaserLogo from "../objects/phaser-logo";
@@ -11,6 +13,8 @@ export class CommandWriter {
     scene: Phaser.Scene;
 
     pockets!: Pockets;
+    hand!: Hand;
+    note!: Notes;
     //camera: Phaser.Cameras.Scene2D.Camera;
     //background: Phaser.GameObjects.Image;
     //phaserLogo: PhaserLogo;
@@ -19,6 +23,10 @@ export class CommandWriter {
     myText!: Phaser.GameObjects.Text;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+
+    create() {
+        EventBus.emit("current-scene-ready", this);
+    }
 
     static lsCommand(
         input: string,
@@ -75,6 +83,25 @@ export class CommandWriter {
         }
     }
 
+    static cdCommandNote(
+        input: string,
+        scene: Scene,
+        notes: Notes,
+        mytext: Phaser.GameObjects.Text,
+        noteText: GameObjects.Text,
+        noteInRoom: string,
+    ) {
+        if (input === "cd " + noteInRoom && !scene.registry.get("noteOpen")) {
+            notes.openNote(noteInRoom, scene);
+            noteText.setActive(true).setVisible(true);
+            mytext.text = "Insert Command Here";
+        } else if (input === "cd .." && scene.registry.get("noteOpen")) {
+            notes.closeNote(scene);
+            noteText.setActive(false).setVisible(false);
+            mytext.text = "Insert Command Here";
+        }
+    }
+
     static cdBack(
         input: string,
         scene: Scene,
@@ -82,7 +109,11 @@ export class CommandWriter {
         //scenesAvailable: GameObjects.Text,
         previousSceneName: string,
     ) {
-        if (input === "cd .." && !scene.registry.get("pocketsOpen")) {
+        if (
+            input === "cd .." &&
+            !scene.registry.get("pocketsOpen") &&
+            !scene.registry.get("noteOpen")
+        ) {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";
         }
@@ -95,11 +126,13 @@ export class CommandWriter {
         object: GameObjects.Text,
         myText: Phaser.GameObjects.Text,
         globalVar: string,
+        globalVarInPockets: string,
     ) {
         if (input === "mv " + objectText + " pockets") {
             object.setActive(false);
             object.alpha = 0;
             scene.registry.set(globalVar, true);
+            scene.registry.set(globalVarInPockets, true);
             myText.text = "Insert Command Here";
         }
     }
@@ -118,10 +151,12 @@ export class CommandWriter {
         myText: Phaser.GameObjects.Text,
         globalVar: string,
         objectGlobalVar: string,
+        objectGlobalVarInHand: string,
     ) {
         if (
             input === "mv " + objectText + " " + objectToInteract &&
-            scene.registry.get(globalVar)
+            scene.registry.get(globalVar) &&
+            scene.registry.get(objectGlobalVarInHand)
         ) {
             scene.registry.set(objectGlobalVar, true);
             background.setTexture(textureToLoad);
@@ -129,27 +164,33 @@ export class CommandWriter {
         }
     }
 
-    /*
     static mvCommandItemToHand(
         input: string,
+        hand: Hand,
+        pockets: Pockets,
         scene: Scene,
-        objectText: string,
-
-        //objectToInteract: string,
-
-        //textureToLoad: string,
-
+        //objectText: string,
+        objectItems: string[],
         myText: Phaser.GameObjects.Text,
-        globalVar: string,
-        objectGlobalVar: string,
     ) {
-        if(input === "mv " + objectText + " Hand" && scene.registry.get("pocketsOpen")){
+        const inputParts = input.split(" ");
 
+        const command = inputParts[0];
+        const object = inputParts[1];
+        const destination = inputParts[2];
+
+        if (command === "mv" && objectItems.includes(object)) {
+            if (destination === "Hand" && scene.registry.get("pocketsOpen")) {
+                hand.itemInHand(object, scene);
+                pockets.closeInventory(scene, myText);
+                myText.text = "Insert Command Here";
+            } else if (destination === "pockets") {
+                hand.hideItemInHand(object, scene);
+                pockets.closeInventory(scene, myText);
+                myText.text = "Insert Command Here";
+            }
         }
-
-        myText.text = "Insert Command Here";
     }
-        */
 
     static checkCommandFound(myText: Phaser.GameObjects.Text) {
         if (
@@ -188,10 +229,6 @@ export class CommandWriter {
     constructor(scene: Phaser.Scene) {
         //super("Level1");
         this.scene = scene;
-    }
-
-    create() {
-        EventBus.emit("current-scene-ready", this);
     }
 
     update() {
