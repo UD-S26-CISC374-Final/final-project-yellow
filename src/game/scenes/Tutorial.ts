@@ -137,6 +137,15 @@ export class Tutorial extends Scene {
                         "Room1",
                     );
 
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
+                    );
+
                     CommandWriter.checkCommandFound(myText);
                 },
             });

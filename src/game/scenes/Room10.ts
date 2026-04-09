@@ -1,5 +1,6 @@
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
+import { Hand } from "../Hand";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -12,7 +13,7 @@ export class Room10 extends Scene {
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
     pockets!: Pockets;
-    //fpsText: FpsText;
+    hand!: Hand;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -53,6 +54,15 @@ export class Room10 extends Scene {
 
                     CommandWriter.cdBack(input, this, myText, "Room9");
 
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
+                    );
+
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -77,6 +87,9 @@ export class Room10 extends Scene {
 
         this.pockets = new Pockets(this);
         this.pockets.create();
+
+        this.hand = new Hand(this);
+        this.hand.create();
 
         EventBus.emit("current-scene-ready", this);
     }

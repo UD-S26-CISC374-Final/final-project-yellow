@@ -144,20 +144,23 @@ export class CommandWriter {
         hand: Hand,
         pockets: Pockets,
         scene: Scene,
-        objectText: string,
+        //objectText: string,
         objectItems: string[],
         myText: Phaser.GameObjects.Text,
     ) {
-        if (objectItems.includes(objectText)) {
-            if (
-                input === "mv " + objectText + " Hand" &&
-                scene.registry.get("pocketsOpen")
-            ) {
-                hand.itemInHand(objectText, scene);
+        const inputParts = input.split(" ");
+
+        const command = inputParts[0];
+        const object = inputParts[1];
+        const destination = inputParts[2];
+
+        if (command === "mv" && objectItems.includes(object)) {
+            if (destination === "Hand" && scene.registry.get("pocketsOpen")) {
+                hand.itemInHand(object, scene);
                 pockets.closeInventory(scene, myText);
                 myText.text = "Insert Command Here";
-            } else if (input === "mv " + objectText + " pockets") {
-                hand.hideItemInHand(objectText, scene);
+            } else if (destination === "pockets") {
+                hand.hideItemInHand(object, scene);
                 pockets.closeInventory(scene, myText);
                 myText.text = "Insert Command Here";
             }

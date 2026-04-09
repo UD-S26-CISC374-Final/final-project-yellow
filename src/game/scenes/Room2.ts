@@ -2,6 +2,7 @@ import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
+import { Hand } from "../Hand";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -9,6 +10,7 @@ export class Room2 extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
+    hand!: Hand;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -85,39 +87,16 @@ export class Room2 extends Scene {
                         this,
                     );
 
-                    CommandWriter.checkCommandFound(myText);
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
+                    );
 
-                    /*
-                    if (
-                        myText.text === "cd " + skelly.text &&
-                        skelly.active &&
-                        this.registry.get("SkellyOpen")
-                    ) {
-                        this.scene.start("GameOver");
-                    } else if (
-                        myText.text === "cd " + skelly.text &&
-                        skelly.active &&
-                        !this.registry.get("SkellyOpen")
-                    ) {
-                        myText.text = "Door Locked";
-                    } else 
-                        
-                        *if (myText.text === "ls" && !skelly.active) {
-                        skelly.setActive(true);
-                        skelly.alpha = 1;
-                        myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && skelly.active) {
-                        myText.text = "Insert Command Here";
-                    } else if (myText.text === "cd ..") {
-                        this.scene.start("Level1");
-                    } else if (
-                        myText.text !== "cd .." &&
-                        myText.text !== "cd " + skelly.text &&
-                        myText.text !== "ls"
-                    ) {
-                        myText.text = "Command Not Found";
-                    }
-                        */
+                    CommandWriter.checkCommandFound(myText);
                 },
             });
         });
@@ -127,6 +106,9 @@ export class Room2 extends Scene {
 
         this.pockets = new Pockets(this);
         this.pockets.create();
+
+        this.hand = new Hand(this);
+        this.hand.create();
 
         EventBus.emit("current-scene-ready", this);
     }

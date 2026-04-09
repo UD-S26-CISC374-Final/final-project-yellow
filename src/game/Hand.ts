@@ -27,7 +27,6 @@ export class Hand {
     itemsInHand: string[];
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
-
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
@@ -61,17 +60,11 @@ export class Hand {
             this.items[i].setScale(0.02, 0.02);
 
             this.items[i].setActive(false).setVisible(false);
+
+            if (this.scene.registry.get(this.itemsInHand[i])) {
+                this.items[i].setActive(true).setVisible(true);
+            }
         }
-
-        /*
-        this.Key1 = this.scene.add.image(70, 530, "KeyTest");
-        this.Key1.setScale(0.02, 0.02);
-
-        //this.pocketsImage.setActive(false).setVisible(false);
-        this.Key1.setActive(false).setVisible(false);
-        */
-
-        //EventBus.emit("current-scene-ready", this);
     }
 
     itemInHand(name: string, scene: Scene) {
