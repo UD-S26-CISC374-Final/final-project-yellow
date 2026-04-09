@@ -11,6 +11,8 @@ export class Skelly extends Scene {
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
     hand!: Hand;
+
+    dialogueTexts!: string[];
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -27,6 +29,14 @@ export class Skelly extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room3");
+
+        this.dialogueTexts = [
+            "",
+            "You are not supposed to be here yet",
+            "2",
+            "3",
+            "4",
+        ];
 
         const KeyObject = this.add.text(330, 200, "Key", {
             fixedWidth: 200,
@@ -67,6 +77,11 @@ export class Skelly extends Scene {
         let skellyTextIndex = 0;
 
         const updateSkellyText = () => {
+            if (skellyTextIndex >= 1) {
+                skellyText.text = this.dialogueTexts[skellyTextIndex];
+            }
+
+            /*
             if (skellyTextIndex === 1) {
                 skellyText.text = "You shouldn't be here yet...";
             } else if (skellyTextIndex === 2) {
@@ -76,12 +91,14 @@ export class Skelly extends Scene {
             } else if (skellyTextIndex === 4) {
                 skellyText.text = "4";
             }
+                */
+
             skellyTextIndex++;
             if (skellyTextIndex > 5) {
                 skellyText.setActive(false);
                 skellyText.alpha = 0;
-                skellyTextIndex = 0;
-                skellyText.text = "Hey!";
+                //skellyTextIndex = 0;
+                skellyText.text = "Go on";
             }
         };
 
