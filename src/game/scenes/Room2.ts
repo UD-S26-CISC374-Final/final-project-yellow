@@ -65,7 +65,7 @@ export class Room2 extends Scene {
                         this,
                         myText,
                         skelly.text,
-                        "GameOver",
+                        "Skelly",
                         "SkellyOpen",
                     );
 
