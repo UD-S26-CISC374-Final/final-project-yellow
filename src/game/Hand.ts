@@ -26,12 +26,26 @@ export class Hand {
     itemsInPockets: string[];
     itemsInHand: string[];
 
+    itemNamesHand: string[];
+
+    itemInHandName: Phaser.GameObjects.Text;
+
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
 
     create() {
+        this.itemNamesHand = ["Room4Key"];
+
+        this.itemInHandName = this.scene.add.text(20, 450, "itemHeld", {
+            fixedWidth: 100,
+            fixedHeight: 24,
+            backgroundColor: "#3898ff",
+            padding: { x: 9, y: 4.5 },
+        });
+        this.itemInHandName.setActive(false).setVisible(false);
+
         this.itemsInPockets = this.scene.registry.get(
             "ItemsInPockets",
         ) as string[];
@@ -50,6 +64,15 @@ export class Hand {
                 itemImage: "KeyTest",
             },
         ];
+        /*
+        const accessPocket = this.scene.add.text(70, 500, "pockets", {
+            fixedWidth: 100,
+            fixedHeight: 24,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        accessPocket.setActive(false).setVisible(false);
+        */
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
             this.items[i] = this.scene.add.image(
@@ -99,6 +122,15 @@ export class Hand {
                 this.items[i].setActive(false).setVisible(false);
                 scene.registry.set(this.itemsInHand[i], false);
                 scene.registry.set(this.itemsInPockets[i], true);
+            }
+        }
+    }
+
+    showInHandItem(scene: Scene) {
+        for (let i = 0; i < this.itemsTotal.length; i++) {
+            if (scene.registry.get(this.itemsInHand[i])) {
+                this.itemInHandName.setActive(true).setVisible(true);
+                this.itemInHandName.text = this.itemNamesHand[i];
             }
         }
     }

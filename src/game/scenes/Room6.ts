@@ -73,7 +73,13 @@ export class Room6 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
-                    CommandWriter.lsCommand(input, myText, [cdRoom7]);
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [cdRoom7],
+                        this.hand,
+                        this,
+                    );
 
                     CommandWriter.cdCommand(
                         input,

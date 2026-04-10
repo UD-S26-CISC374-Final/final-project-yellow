@@ -24,6 +24,10 @@ export class Pockets {
     itemsInPockets: string[];
     itemsInHand: string[];
 
+    itemNames: Phaser.GameObjects.Text[];
+
+    //imagePositionX: number[];
+
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor(scene: Phaser.Scene) {
@@ -38,15 +42,24 @@ export class Pockets {
 
         this.pocketsImage = this.scene.add.image(400, 330, "Inventory");
 
+        this.itemNames = [];
+
         this.items = [];
 
         this.itemsTotal = [
             {
-                itemName: "Key1",
-                itemGlobalVar: "KeyTest",
-                itemGlobalVarBool: "key1InPocket",
-                itemInHand: "key1InHand",
+                itemName: "Room4Key",
+                itemGlobalVar: "HasRoom4Key",
+                itemGlobalVarBool: "Room4KeyInPocket",
+                itemInHand: "Room4KeyInHand",
                 itemImage: "KeyTest",
+            },
+            {
+                itemName: "Room11Key",
+                itemGlobalVar: "HasRoom11Key",
+                itemGlobalVarBool: "Room11KeyInPocket",
+                itemInHand: "Room11KeyInHand",
+                itemImage: "Key2",
             },
         ];
 
@@ -59,6 +72,20 @@ export class Pockets {
             this.items[i].setScale(0.02, 0.02);
 
             this.items[i].setActive(false).setVisible(false);
+
+            this.itemNames[i] = this.scene.add.text(
+                70,
+                200,
+                this.itemsTotal[i].itemName,
+                {
+                    fixedWidth: 100,
+                    fixedHeight: 36,
+                    backgroundColor: "#000000",
+                    padding: { x: 9, y: 9.5 },
+                },
+            );
+
+            this.itemNames[i].setActive(false).setVisible(false);
         }
 
         /*
@@ -94,6 +121,23 @@ export class Pockets {
                     scene.registry.get(this.itemsInPockets[i])
                 ) {
                     this.items[i].setActive(true).setVisible(true);
+                    this.itemNames[i].setActive(true).setVisible(true);
+
+                    if (i === 0) {
+                        this.items[i].x = 225;
+                        this.items[i].y = 135;
+
+                        this.itemNames[i].x = 180;
+                        this.itemNames[i].y = 170;
+                    } else if (i === 1) {
+                        this.items[i].x = 385;
+                        this.items[i].y = 135;
+
+                        this.itemNames[i].x = 345;
+                        this.itemNames[i].y = 200;
+                    }
+
+                    //Hardcodear cada posicion
                 }
             }
         }
@@ -109,6 +153,7 @@ export class Pockets {
 
             for (let i = 0; i < this.itemsTotal.length; i++) {
                 this.items[i].setActive(false).setVisible(false);
+                this.itemNames[i].setActive(false).setVisible(false);
             }
         }
 

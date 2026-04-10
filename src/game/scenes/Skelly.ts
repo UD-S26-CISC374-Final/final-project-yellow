@@ -94,11 +94,12 @@ export class Skelly extends Scene {
                 */
 
             skellyTextIndex++;
-            if (skellyTextIndex > 5) {
+            if (skellyTextIndex > this.dialogueTexts.length) {
                 skellyText.setActive(false);
                 skellyText.alpha = 0;
                 //skellyTextIndex = 0;
                 skellyText.text = "Go on";
+                myText.text = "Insert Command Here";
             }
         };
 
@@ -116,7 +117,13 @@ export class Skelly extends Scene {
                     onClose: () => {
                         const input = myText.text;
 
-                        CommandWriter.lsCommand(input, myText, [cdSkelly]);
+                        CommandWriter.lsCommand(
+                            input,
+                            myText,
+                            [cdSkelly],
+                            this.hand,
+                            this,
+                        );
 
                         CommandWriter.mvCommandItemToHand(
                             input,

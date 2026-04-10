@@ -31,7 +31,7 @@ export class Room3 extends Scene {
         const KeyObject = this.add.text(330, 200, "Room4Key", {
             fixedWidth: 200,
             fixedHeight: 36,
-            backgroundColor: "#000000",
+            backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
         });
         KeyObject.setOrigin(0.15, 0);
@@ -83,17 +83,6 @@ export class Room3 extends Scene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     const input = myText.text;
-
-                    /*
-                    CommandWriter.mvCommandToPockets(
-                        input,
-                        this,
-                        KeyObject.text,
-                        KeyObject,
-                        myText,
-                        "HasKey1",
-                    );
-                    */
 
                     CommandWriter.mvCommandToPockets(
                         input,

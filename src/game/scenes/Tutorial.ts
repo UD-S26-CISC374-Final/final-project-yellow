@@ -4,6 +4,7 @@ import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Safe } from "../Safe";
 
 export class Tutorial extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
@@ -11,6 +12,7 @@ export class Tutorial extends Scene {
     phaserLogo: PhaserLogo;
     pockets!: Pockets;
     hand!: Hand;
+    safe!: Safe;
 
     constructor() {
         super("Tutorial");
@@ -20,7 +22,7 @@ export class Tutorial extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "DoorOnlyFront");
+        this.background = this.add.image(400, 300, "TutorialSafeClosed");
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
@@ -40,6 +42,16 @@ export class Tutorial extends Scene {
             },
         );
         LocationText.setActive(true);
+
+        const KeyObject = this.add.text(620, 400, "Room11Key", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#3898ff",
+            padding: { x: 9, y: 9.5 },
+        });
+        KeyObject.setOrigin(0.15, 0);
+        KeyObject.setActive(false);
+        KeyObject.alpha = 0;
 
         const cdRoom1 = this.add.text(330, 150, "Room1", {
             fixedWidth: 200,
@@ -92,6 +104,23 @@ export class Tutorial extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    if (
+                        myText.text === "ls" &&
+                        !KeyObject.active &&
+                        !this.registry.get("HasRoom11Key") &&
+                        this.registry.get("safeOpen")
+                    ) {
+                        KeyObject.setActive(true);
+                        KeyObject.alpha = 1;
+                        myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" && KeyObject.active) ||
+                        (myText.text === "ls" &&
+                            this.registry.get("HasRoom11Key"))
+                    ) {
+                        myText.text = "Insert Command Here";
+                    }
+
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -118,16 +147,23 @@ export class Tutorial extends Scene {
                         "Room4Open",
                         "key1InHand",
                     );
-                    CommandWriter.lsCommand(input, myText, [cdRoom1]);
-
-                    /*
-                    CommandWriter.mvCommandItemToHand(
+                    CommandWriter.lsCommand(
                         input,
+                        myText,
+                        [cdRoom1],
                         this.hand,
                         this,
-                        "Key",
                     );
-                    */
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        KeyObject.text,
+                        KeyObject,
+                        myText,
+                        "HasRoom11Key",
+                        "Room11KeyInPocket",
+                    );
 
                     CommandWriter.cdCommand(
                         input,
@@ -146,6 +182,9 @@ export class Tutorial extends Scene {
                         myText,
                     );
 
+                    this.safe.padlockCloseUp(input, this, myText);
+                    this.safe.enterCode(input, this, myText, this.background);
+
                     CommandWriter.checkCommandFound(myText);
                 },
             });
@@ -156,6 +195,9 @@ export class Tutorial extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.safe = new Safe(this);
+        this.safe.create();
 
         EventBus.emit("current-scene-ready", this);
     }

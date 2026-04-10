@@ -143,11 +143,13 @@ export class Room1 extends Scene {
                         "Room4KeyInHand",
                     );
 
-                    CommandWriter.lsCommand(input, myText, [
-                        cdRoom2,
-                        cdRoom3,
-                        cdRoom4,
-                    ]);
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [cdRoom2, cdRoom3, cdRoom4],
+                        this.hand,
+                        this,
+                    );
 
                     CommandWriter.cdCommand(
                         input,

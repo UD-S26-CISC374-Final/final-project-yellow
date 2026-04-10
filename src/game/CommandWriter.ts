@@ -32,11 +32,14 @@ export class CommandWriter {
         input: string,
         myText: Phaser.GameObjects.Text,
         objectsToShow: GameObjects.Text[],
+        hand: Hand,
+        scene: Scene,
     ) {
-        if (input === "ls") {
+        if (input === "ls" && !scene.registry.get("pocketsOpen")) {
             for (let i = 0; i < objectsToShow.length; i++) {
                 objectsToShow[i].setActive(true);
                 objectsToShow[i].alpha = 1;
+                hand.showInHandItem(scene);
             }
             myText.text = "Insert Command Here";
         }
@@ -52,7 +55,8 @@ export class CommandWriter {
     ) {
         if (
             input === "cd " + sceneToChange &&
-            !scene.registry.get("pocketsOpen")
+            !scene.registry.get("pocketsOpen") &&
+            !scene.registry.get("padCloseUp")
         ) {
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
@@ -71,7 +75,8 @@ export class CommandWriter {
         if (
             input === "cd " + sceneToChange &&
             scene.registry.get(globalVar) &&
-            !scene.registry.get("pocketsOpen")
+            !scene.registry.get("pocketsOpen") &&
+            !scene.registry.get("padCloseUp")
         ) {
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";

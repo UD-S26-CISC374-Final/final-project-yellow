@@ -81,11 +81,13 @@ export class Room4Locked extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
-                    CommandWriter.lsCommand(input, myText, [
-                        cdRoom5,
-                        cdRoom6,
-                        cdRoom8,
-                    ]);
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [cdRoom5, cdRoom6, cdRoom8],
+                        this.hand,
+                        this,
+                    );
 
                     CommandWriter.cdCommand(
                         input,
