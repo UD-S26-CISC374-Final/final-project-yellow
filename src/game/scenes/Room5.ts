@@ -28,7 +28,7 @@ export class Room5 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room1");
+        this.background = this.add.image(400, 300, "room3");
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

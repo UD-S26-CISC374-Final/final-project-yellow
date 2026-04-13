@@ -71,15 +71,18 @@ export class Tutorial extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        const TutorialText = this.add.text(150, 300, "Tutorial Text", {
-            fixedWidth: 650,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-            wordWrap: { width: 640 },
-        });
+        const TutorialText = this.add.text(
+            150,
+            300,
+            "The 'ls' command will show you the places you can go from here. Try typing 'ls' and pressing enter!",
+            {
+                fixedWidth: 650,
+                backgroundColor: "#000000",
+                padding: { x: 9, y: 9.5 },
+                wordWrap: { width: 640 },
+            },
+        );
         TutorialText.setOrigin(0.15, 0);
-        TutorialText.text =
-            "The 'ls' command will show you the places you can go from here. Try typing 'ls' and pressing enter!";
         if (this.registry.get("Tutorial") === false) {
             TutorialText.setActive(false);
             TutorialText.alpha = 0;
