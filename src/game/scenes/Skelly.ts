@@ -32,10 +32,17 @@ export class Skelly extends Scene {
 
         this.dialogueTexts = [
             "",
-            "You are not supposed to be here yet",
-            "2",
-            "3",
-            "4",
+            "Another victim of the dungeon.",
+            "You were also trapped here without knowledge on who put you here?",
+            "That is exactly my story as well.",
+            "But listen to me.",
+            "I refuse to see another soul succumb to my fate.",
+            "On my time here, before my inevitable death",
+            "I have found this paper.",
+            "It is said to uncover the hidden artifacts around this dungeon.",
+            "It'll allow you to go in search of that that opens the final door.",
+            "Good luck traveller.",
+            "May God help you avoid my fate.",
         ];
 
         const KeyObject = this.add.text(330, 200, "Key", {
@@ -66,7 +73,7 @@ export class Skelly extends Scene {
         cdSkelly.setActive(false);
         cdSkelly.alpha = 0;
 
-        const skellyText = this.add.text(150, 300, "Hey!", {
+        const skellyText = this.add.text(150, 300, "Oh.", {
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
             wordWrap: { width: 200 },
@@ -81,24 +88,13 @@ export class Skelly extends Scene {
                 skellyText.text = this.dialogueTexts[skellyTextIndex];
             }
 
-            /*
-            if (skellyTextIndex === 1) {
-                skellyText.text = "You shouldn't be here yet...";
-            } else if (skellyTextIndex === 2) {
-                skellyText.text = "2";
-            } else if (skellyTextIndex === 3) {
-                skellyText.text = "3";
-            } else if (skellyTextIndex === 4) {
-                skellyText.text = "4";
-            }
-                */
-
             skellyTextIndex++;
             if (skellyTextIndex > this.dialogueTexts.length) {
                 skellyText.setActive(false);
                 skellyText.alpha = 0;
                 //skellyTextIndex = 0;
                 skellyText.text = "Go on";
+                this.registry.set("lsACommandActive", true);
                 myText.text = "Insert Command Here";
             }
         };

@@ -14,8 +14,7 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
-        //console.log("Empezo");
-        //if (!this.input.keyboard) return;
+        this.registry.set("lsACommandActive", false);
 
         this.registry.set("SkellyOpen", false);
 

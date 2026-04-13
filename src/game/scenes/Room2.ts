@@ -41,6 +41,16 @@ export class Room2 extends Scene {
         skelly.setActive(false);
         skelly.alpha = 0;
 
+        const hiddenObjectTest = this.add.text(500, 200, "Hidden", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        hiddenObjectTest.setOrigin(0.15, 0);
+        hiddenObjectTest.setActive(false);
+        hiddenObjectTest.alpha = 0;
+
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -66,6 +76,14 @@ export class Room2 extends Scene {
                         input,
                         myText,
                         [skelly],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [skelly, hiddenObjectTest],
                         this.hand,
                         this,
                     );
