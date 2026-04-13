@@ -68,6 +68,7 @@ export class Safe {
             !scene.registry.get("safeOpen")
         ) {
             this.padLock.setActive(false).setVisible(false);
+            scene.registry.set("padCloseUp", false);
             this.indications.setActive(false).setVisible(false);
             background.setTexture("TutorialSafeOpen");
             scene.registry.set("safeOpen", true);
@@ -75,34 +76,6 @@ export class Safe {
 
         myText.text = "Insert Command Here";
     }
-
-    /*
-    openNote(name: string, scene: Scene) {
-        //const pocketsImage = this.scene.add.image(200, 100, "logo");
-
-        if (!scene.registry.get("noteOpen")) {
-            //const pocketsImage = scene.add.image(200, 100, "logo");
-
-            scene.registry.set("noteOpen", true);
-
-            for (let i = 0; i < this.notesNames.length; i++) {
-                if (this.notesNames[i].noteName === name) {
-                    this.notesImages[i].setActive(true).setVisible(true);
-                }
-            }
-        }
-    }
-
-    closeNote(scene: Scene) {
-        if (scene.registry.get("noteOpen")) {
-            scene.registry.set("noteOpen", false);
-
-            for (let i = 0; i < this.notesNames.length; i++) {
-                this.notesImages[i].setActive(false).setVisible(false);
-            }
-        }
-    }
-
     update() {
         //this.fpsText.update();
     }
@@ -110,5 +83,4 @@ export class Safe {
     changeScene() {
         //this.scene.start("GameOver");
     }
-        */
 }

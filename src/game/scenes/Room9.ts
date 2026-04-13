@@ -24,12 +24,18 @@ export class Room9 extends Scene {
 
     create() {
         //if (!this.input.keyboard) return;
-        this.registry.set("Room11Open", true);
+        this.registry.set("Room11Open", false);
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room4");
+
+        /*
+        if (this.registry.get("Room11Open")) {
+            this.background = this.add.image(400, 300, "roomRightOpen");
+        }
+        */
 
         const cdRoom10 = this.add.text(70, 200, "Room10", {
             fixedWidth: 200,
@@ -95,6 +101,19 @@ export class Room9 extends Scene {
                         cdRoom11.text,
                         "Room11",
                         "Room11Open",
+                    );
+
+                    CommandWriter.mvCommandToObject(
+                        input,
+                        this,
+                        "Room11Key",
+                        this.background,
+                        cdRoom11.text,
+                        "roomRightOpen",
+                        myText,
+                        "HasRoom11Key",
+                        "Room11Open",
+                        "Room11KeyInHand",
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room8");

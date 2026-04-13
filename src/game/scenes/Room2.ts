@@ -27,7 +27,9 @@ export class Room2 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room1");
-        //this.background.setDisplaySize(this.scale.width, this.scale.height);
+        if (this.registry.get("SkellyOpen")) {
+            this.background = this.add.image(400, 300, "DoorOnlyFront");
+        }
 
         const skelly = this.add.text(330, 200, "Door", {
             fixedWidth: 200,
@@ -100,6 +102,19 @@ export class Room2 extends Scene {
                         this,
                         this.registry.get("ItemsNames") as string[],
                         myText,
+                    );
+
+                    CommandWriter.mvCommandToObject(
+                        input,
+                        this,
+                        "SkellyKey",
+                        this.background,
+                        skelly.text,
+                        "DoorOnlyFront",
+                        myText,
+                        "HasSkellyKey",
+                        "SkellyOpen",
+                        "SkellyKeyInHand",
                     );
 
                     CommandWriter.checkCommandFound(myText);

@@ -30,13 +30,17 @@ export class Hand {
 
     itemInHandName: Phaser.GameObjects.Text;
 
+    //thereIsItemInHand: boolean;
+
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
 
     create() {
-        this.itemNamesHand = ["Room4Key"];
+        //this.thereIsItemInHand = false;
+
+        this.itemNamesHand = ["Room4Key", "Room11Key", "SkellyKey"];
 
         this.itemInHandName = this.scene.add.text(20, 450, "itemHeld", {
             fixedWidth: 100,
@@ -62,6 +66,20 @@ export class Hand {
                 itemGlobalVarBool: "Room4KeyInPocket",
                 itemInHand: "Room4KeyInHand",
                 itemImage: "KeyTest",
+            },
+            {
+                itemName: "Room11Key",
+                itemGlobalVar: "HasRoom11Key",
+                itemGlobalVarBool: "Room11KeyInPocket",
+                itemInHand: "Room11KeyInHand",
+                itemImage: "Key2",
+            },
+            {
+                itemName: "SkellyKey",
+                itemGlobalVar: "HasSkellyKey",
+                itemGlobalVarBool: "SkellyKeyInPocket",
+                itemInHand: "SkellyKeyInHand",
+                itemImage: "skellyKey",
             },
         ];
         /*
@@ -91,24 +109,20 @@ export class Hand {
     }
 
     itemInHand(name: string, scene: Scene) {
+        for (let i = 0; i < this.itemsInHand.length; i++) {
+            if (scene.registry.get(this.itemsInHand[i])) return;
+        }
         for (let i = 0; i < this.itemsTotal.length; i++) {
             if (
                 this.itemsTotal[i].itemName === name &&
                 //itemsInPockets[i] === this.itemsTotal[i].itemGlobalVarBool
                 scene.registry.get(this.itemsInPockets[i])
-
-                //itemsInPockets[i] === this.itemsTotal[i].itemGlobalVarBool
-
-                //itemsInPockets.includes(this.itemsTotal[i].itemGlobalVarBool)
-
-                //scene.registry.get("key1InPocket")
-
-                //scene.registry.values.ItemsInPockets[i]
-                //scene.registry.get("ItemsInPockets").includes
+                //!this.thereIsItemInHand
             ) {
                 this.items[i].setActive(true).setVisible(true);
                 scene.registry.set(this.itemsInHand[i], true);
                 scene.registry.set(this.itemsInPockets[i], false);
+                //this.thereIsItemInHand = true;
             }
         }
     }
@@ -120,8 +134,10 @@ export class Hand {
                 scene.registry.get(this.itemsInHand[i])
             ) {
                 this.items[i].setActive(false).setVisible(false);
+                this.itemInHandName.setActive(false).setVisible(false);
                 scene.registry.set(this.itemsInHand[i], false);
                 scene.registry.set(this.itemsInPockets[i], true);
+                //this.thereIsItemInHand = false;
             }
         }
     }

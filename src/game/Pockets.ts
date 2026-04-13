@@ -61,6 +61,13 @@ export class Pockets {
                 itemInHand: "Room11KeyInHand",
                 itemImage: "Key2",
             },
+            {
+                itemName: "SkellyKey",
+                itemGlobalVar: "HasSkellyKey",
+                itemGlobalVarBool: "SkellyKeyInPocket",
+                itemInHand: "SkellyKeyInHand",
+                itemImage: "skellyKey",
+            },
         ];
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
@@ -134,7 +141,13 @@ export class Pockets {
                         this.items[i].y = 135;
 
                         this.itemNames[i].x = 345;
-                        this.itemNames[i].y = 200;
+                        this.itemNames[i].y = 170;
+                    } else if (i === 2) {
+                        this.items[i].x = 545;
+                        this.items[i].y = 135;
+
+                        this.itemNames[i].x = 510;
+                        this.itemNames[i].y = 170;
                     }
 
                     //Hardcodear cada posicion
