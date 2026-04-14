@@ -27,7 +27,9 @@ export class Room2 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room1");
-        //this.background.setDisplaySize(this.scale.width, this.scale.height);
+        if (this.registry.get("SkellyOpen")) {
+            this.background = this.add.image(400, 300, "DoorOnlyFront");
+        }
 
         const skelly = this.add.text(330, 200, "Door", {
             fixedWidth: 200,
@@ -38,6 +40,16 @@ export class Room2 extends Scene {
         skelly.setOrigin(0.15, 0);
         skelly.setActive(false);
         skelly.alpha = 0;
+
+        const hiddenObjectTest = this.add.text(500, 200, "Hidden", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        hiddenObjectTest.setOrigin(0.15, 0);
+        hiddenObjectTest.setActive(false);
+        hiddenObjectTest.alpha = 0;
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -64,6 +76,14 @@ export class Room2 extends Scene {
                         input,
                         myText,
                         [skelly],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [skelly, hiddenObjectTest],
                         this.hand,
                         this,
                     );
@@ -100,6 +120,19 @@ export class Room2 extends Scene {
                         this,
                         this.registry.get("ItemsNames") as string[],
                         myText,
+                    );
+
+                    CommandWriter.mvCommandToObject(
+                        input,
+                        this,
+                        "SkellyKey",
+                        this.background,
+                        skelly.text,
+                        "DoorOnlyFront",
+                        myText,
+                        "HasSkellyKey",
+                        "SkellyOpen",
+                        "SkellyKeyInHand",
                     );
 
                     CommandWriter.checkCommandFound(myText);

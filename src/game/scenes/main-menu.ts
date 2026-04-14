@@ -14,10 +14,9 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
-        //console.log("Empezo");
-        //if (!this.input.keyboard) return;
+        this.registry.set("lsACommandActive", false);
 
-        this.registry.set("SkellyOpen", true);
+        this.registry.set("SkellyOpen", false);
 
         this.registry.set("HasRoom4Key", false);
         this.registry.set("Room4KeyInHand", false);
@@ -27,6 +26,10 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("Room11KeyInHand", false);
         this.registry.set("Room11KeyInPocket", false);
 
+        this.registry.set("HasSkellyKey", false);
+        this.registry.set("SkellyKeyInHand", false);
+        this.registry.set("SkellyKeyInPocket", false);
+
         this.registry.set("Tutorial", true);
 
         this.registry.set("pocketsOpen", false);
@@ -34,12 +37,17 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("safeOpen", false);
         this.registry.set("padCloseUp", false);
 
-        this.registry.set("ItemsInHand", ["Room4KeyInHand", "Room11KeyInHand"]);
+        this.registry.set("ItemsInHand", [
+            "Room4KeyInHand",
+            "Room11KeyInHand",
+            "SkellyKeyInHand",
+        ]);
         this.registry.set("ItemsInPockets", [
             "Room4KeyInPocket",
             "Room11KeyInPocket",
+            "SkellyKeyInPocket",
         ]);
-        this.registry.set("ItemsNames", ["Room4Key", "Room11Key"]);
+        this.registry.set("ItemsNames", ["Room4Key", "Room11Key", "SkellyKey"]);
 
         this.registry.set("code", Phaser.Math.Between(1000, 9999).toString());
 

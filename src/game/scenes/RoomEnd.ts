@@ -30,27 +30,15 @@ export class RoomEnd extends Scene {
 
         this.background = this.add.image(400, 300, "RoomEnd");
 
-        /*
-        const cdRoom7 = this.add.text(70, 200, "Room7", {
+        const KeyObject = this.add.text(620, 400, "SkellyKey", {
             fixedWidth: 200,
             fixedHeight: 36,
-            backgroundColor: "#000000",
+            backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom7.setOrigin(0.15, 0);
-        cdRoom7.setActive(false);
-        cdRoom7.alpha = 0;
-
-        const cdRoom6 = this.add.text(590, 200, "Room6", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        cdRoom6.setOrigin(0.15, 0);
-        cdRoom6.setActive(false);
-        cdRoom6.alpha = 0;
-        */
+        KeyObject.setOrigin(0.15, 0);
+        KeyObject.setActive(false);
+        KeyObject.alpha = 0;
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -72,6 +60,32 @@ export class RoomEnd extends Scene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     const input = myText.text;
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        KeyObject.text,
+                        KeyObject,
+                        myText,
+                        "HasSkellyKey",
+                        "SkellyKeyInPocket",
+                    );
+
+                    if (
+                        myText.text === "ls" &&
+                        !KeyObject.active &&
+                        !this.registry.get("HasSkellyKey")
+                    ) {
+                        KeyObject.setActive(true);
+                        KeyObject.alpha = 1;
+                        myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" && KeyObject.active) ||
+                        (myText.text === "ls" &&
+                            this.registry.get("HasSkellyKey"))
+                    ) {
+                        myText.text = "Insert Command Here";
+                    }
 
                     CommandWriter.cdBack(input, this, myText, "Room12");
 
