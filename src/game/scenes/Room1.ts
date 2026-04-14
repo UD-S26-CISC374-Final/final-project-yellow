@@ -34,6 +34,9 @@ export class Room1 extends Scene {
         this.registry.set("Tutorial", false);
 
         this.background = this.add.image(400, 300, "level1locked");
+        if (this.registry.get("Room4Open")) {
+            this.background.setTexture("level1");
+        }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
@@ -98,9 +101,18 @@ export class Room1 extends Scene {
             },
         );
         TutorialText.setOrigin(0.15, 0);
-        if (this.registry.get("HasRoom4Key")) {
+        if (this.registry.get("Room4Open")) {
+            TutorialText.setActive(false);
+            TutorialText.alpha = 0;
+        } else if (
+            this.registry.get("HasRoom4Key") &&
+            !this.registry.get("Room4KeyInHand")
+        ) {
             TutorialText.text =
                 "Use 'cd pockets' to open your inventory, then 'mv Room4Key Hand' to put the key in your hand.";
+        } else if (this.registry.get("Room4KeyInHand")) {
+            TutorialText.text =
+                "To open the door, move the key to the door by typing 'mv Room4Key Room4'.";
         }
 
         this.registry.set("CommandFound", false);
@@ -193,8 +205,7 @@ export class Room1 extends Scene {
                     if (this.registry.get("Room4Open")) {
                         TutorialText.setActive(false);
                         TutorialText.alpha = 0;
-                    }
-                    if (this.registry.get("Room4KeyInHand")) {
+                    } else if (this.registry.get("Room4KeyInHand")) {
                         TutorialText.text =
                             "To open the door, move the key to the door by typing 'mv Room4Key Room4'.";
                     }
