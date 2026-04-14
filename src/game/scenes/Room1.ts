@@ -28,8 +28,6 @@ export class Room1 extends Scene {
     create() {
         //if (!this.input.keyboard) return;
 
-        this.registry.set("Room4Open", false);
-
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 

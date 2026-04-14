@@ -48,6 +48,17 @@ export class Room12 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
+        const maskText = this.add.text(
+            400,
+            150,
+            "A mask used to be used to escape this place, but has since shattered into pieces.",
+            {
+                wordWrap: { width: 200 },
+                backgroundColor: "#000000",
+            },
+        );
+        maskText.setOrigin(0.15, 0);
+
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
                 event.key !== "Enter" &&
