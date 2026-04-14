@@ -15,7 +15,7 @@ export class Room12 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     //fpsText: FpsText;
-
+    dialogueTexts!: string[];
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
@@ -29,6 +29,13 @@ export class Room12 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "OnlyDoorLeft");
+
+        this.dialogueTexts = [
+            "Another victim of the dungeon.",
+            "A mask like me used to be the key to escaping this place, but has since shattered.",
+            "To put it back together, the clock must move in reverse.",
+            "Good luck.",
+        ];
 
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
             fixedWidth: 200,
@@ -48,16 +55,43 @@ export class Room12 extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        const maskText = this.add.text(
-            400,
-            150,
-            "A mask used to be used to escape this place, but has since shattered into pieces.",
-            {
-                wordWrap: { width: 200 },
-                backgroundColor: "#000000",
-            },
-        );
+        const cdMask = this.add.text(400, 100, "Mask", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        cdMask.setOrigin(0.15, 0);
+        cdMask.setActive(false);
+        cdMask.alpha = 0;
+
+        const maskText = this.add.text(400, 150, "", {
+            wordWrap: { width: 200 },
+            backgroundColor: "#000000",
+        });
         maskText.setOrigin(0.15, 0);
+        maskText.setActive(false);
+        maskText.alpha = 0;
+        let maskTextIndex = 0;
+        if (this.registry.get("talkedToMask")) {
+            maskTextIndex = this.dialogueTexts.length - 2;
+        }
+
+        const updateMaskText = () => {
+            if (maskTextIndex >= 1) {
+                maskText.text = this.dialogueTexts[maskTextIndex];
+            }
+            maskTextIndex++;
+            if (maskTextIndex > this.dialogueTexts.length) {
+                this.registry.set("talkedToMask", true);
+                maskText.setActive(false);
+                maskText.alpha = 0;
+                //maskTextIndex = 0;
+                maskText.text = "Go on";
+                this.registry.set("lsACommandActive", true);
+                myText.text = "Insert Command Here";
+            }
+        };
 
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
@@ -68,54 +102,69 @@ export class Room12 extends Scene {
             ) {
                 myText.text = "";
             }
-            this.rexUI.edit(myText, {
-                onClose: () => {
-                    const input = myText.text;
+            if (!maskText.active) {
+                this.rexUI.edit(myText, {
+                    onClose: () => {
+                        const input = myText.text;
 
-                    CommandWriter.lsCommand(
-                        input,
-                        myText,
-                        [cdRoomEnd],
-                        this.hand,
-                        this,
-                    );
+                        CommandWriter.lsCommand(
+                            input,
+                            myText,
+                            [cdRoomEnd],
+                            this.hand,
+                            this,
+                        );
 
-                    CommandWriter.cdCommand(
-                        input,
-                        this,
-                        myText,
-                        cdRoomEnd.text,
-                        "RoomEnd",
-                    );
+                        CommandWriter.lsCommand(
+                            input,
+                            myText,
+                            [cdMask],
+                            this.hand,
+                            this,
+                        );
 
-                    CommandWriter.cdBack(input, this, myText, "Room11");
+                        CommandWriter.cdCommand(
+                            input,
+                            this,
+                            myText,
+                            cdRoomEnd.text,
+                            "RoomEnd",
+                        );
 
-                    CommandWriter.openInventory(
-                        input,
-                        this.pockets,
-                        myText,
-                        this,
-                    );
+                        if (myText.text === "cd Mask") {
+                            maskText.setActive(true);
+                            maskText.alpha = 1;
+                            myText.text = "Insert Command Here";
+                        }
 
-                    CommandWriter.closeInventory(
-                        input,
-                        this.pockets,
-                        myText,
-                        this,
-                    );
+                        CommandWriter.cdBack(input, this, myText, "Room11");
 
-                    CommandWriter.mvCommandItemToHand(
-                        input,
-                        this.hand,
-                        this.pockets,
-                        this,
-                        this.registry.get("ItemsNames") as string[],
-                        myText,
-                    );
+                        CommandWriter.openInventory(
+                            input,
+                            this.pockets,
+                            myText,
+                            this,
+                        );
 
-                    CommandWriter.checkCommandFound(myText);
+                        CommandWriter.closeInventory(
+                            input,
+                            this.pockets,
+                            myText,
+                            this,
+                        );
 
-                    /*
+                        CommandWriter.mvCommandItemToHand(
+                            input,
+                            this.hand,
+                            this.pockets,
+                            this,
+                            this.registry.get("ItemsNames") as string[],
+                            myText,
+                        );
+
+                        CommandWriter.checkCommandFound(myText);
+
+                        /*
                     if (
                         myText.text === "cd " + cdRoom5.text &&
                         cdRoom5.active
@@ -147,8 +196,11 @@ export class Room12 extends Scene {
                         myText.text = "Command Not Found";
                     }
                         */
-                },
-            });
+                    },
+                });
+            } else if (event.key === "Enter") {
+                updateMaskText();
+            }
         });
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);

@@ -39,6 +39,8 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("safeOpen", false);
         this.registry.set("padCloseUp", false);
 
+        this.registry.set("talkedToMask", false);
+
         this.registry.set("ItemsInHand", [
             "Room4KeyInHand",
             "Room11KeyInHand",
