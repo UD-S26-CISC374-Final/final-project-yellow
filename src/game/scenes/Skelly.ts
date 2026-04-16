@@ -23,8 +23,6 @@ export class Skelly extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
-
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -41,9 +39,20 @@ export class Skelly extends Scene {
             "I have found this paper.",
             "It is said to uncover the hidden artifacts around this dungeon.",
             "It'll allow you to go in search of that that opens the final door.",
+            "Give it a try here, and then continue with your quest.",
             "Good luck traveller.",
             "May God help you avoid my fate.",
         ];
+
+        const mask3 = this.add.text(400, 100, "MaskPiece3", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        mask3.setOrigin(0.15, 0);
+        mask3.setActive(false);
+        mask3.alpha = 0;
 
         const KeyObject = this.add.text(330, 200, "Key", {
             fixedWidth: 200,
@@ -84,17 +93,30 @@ export class Skelly extends Scene {
         let skellyTextIndex = 0;
 
         const updateSkellyText = () => {
-            if (skellyTextIndex >= 1) {
+            if (skellyTextIndex >= 1 && !this.registry.get("TalkedSkelly")) {
                 skellyText.text = this.dialogueTexts[skellyTextIndex];
             }
 
             skellyTextIndex++;
-            if (skellyTextIndex > this.dialogueTexts.length) {
+            if (
+                skellyTextIndex > this.dialogueTexts.length &&
+                !this.registry.get("TalkedSkelly")
+            ) {
                 skellyText.setActive(false);
                 skellyText.alpha = 0;
                 //skellyTextIndex = 0;
                 skellyText.text = "Go on";
                 this.registry.set("lsACommandActive", true);
+                myText.text = "Insert Command Here";
+                this.registry.set("TalkedSkelly", true);
+            } else if (
+                skellyTextIndex > this.dialogueTexts.length &&
+                this.registry.get("TalkedSkelly")
+            ) {
+                skellyTextIndex = this.dialogueTexts.length - 1;
+                skellyText.setActive(false);
+                skellyText.alpha = 0;
+                skellyText.text = "Go on";
                 myText.text = "Insert Command Here";
             }
         };
@@ -119,6 +141,24 @@ export class Skelly extends Scene {
                             [cdSkelly],
                             this.hand,
                             this,
+                        );
+
+                        CommandWriter.lsACommand(
+                            input,
+                            myText,
+                            [cdSkelly, mask3],
+                            this.hand,
+                            this,
+                        );
+
+                        CommandWriter.mvCommandToPockets(
+                            input,
+                            this,
+                            mask3.text,
+                            mask3,
+                            myText,
+                            "HasMaskPiece3",
+                            "MaskPiece3InPocket",
                         );
 
                         CommandWriter.mvCommandItemToHand(

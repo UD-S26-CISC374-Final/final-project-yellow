@@ -30,6 +30,16 @@ export class Room5 extends Scene {
 
         this.background = this.add.image(400, 300, "room3");
 
+        const mask1 = this.add.text(400, 100, "MaskPiece1", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        mask1.setOrigin(0.15, 0);
+        mask1.setActive(false);
+        mask1.alpha = 0;
+
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -52,6 +62,24 @@ export class Room5 extends Scene {
                     const input = myText.text;
 
                     CommandWriter.cdBack(input, this, myText, "Room4Locked");
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        mask1.text,
+                        mask1,
+                        myText,
+                        "HasMaskPiece1",
+                        "MaskPiece1InPocket",
+                    );
+
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [mask1],
+                        this.hand,
+                        this,
+                    );
 
                     CommandWriter.openInventory(
                         input,

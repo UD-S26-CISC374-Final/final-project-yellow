@@ -14,44 +14,66 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
-        this.registry.set("lsACommandActive", false);
+        this.registry.set("lsACommandActive", true);
 
-        this.registry.set("SkellyOpen", false);
-
+        /*
         this.registry.set("HasRoom4Key", false);
         this.registry.set("Room4KeyInHand", false);
         this.registry.set("Room4KeyInPocket", false);
-        this.registry.set("Room4Open", false);
+        */
+        //this.registry.set("Room4Open", false);
 
+        /*
         this.registry.set("HasRoom11Key", false);
         this.registry.set("Room11KeyInHand", false);
         this.registry.set("Room11KeyInPocket", false);
-        this.registry.set("Room11Open", false);
+        */
+        //this.registry.set("Room11Open", false);
 
+        /*
         this.registry.set("HasSkellyKey", false);
         this.registry.set("SkellyKeyInHand", false);
         this.registry.set("SkellyKeyInPocket", false);
+        */
+        //this.registry.set("SkellyOpen", false);
 
         this.registry.set("Tutorial", true);
-
+        /*
         this.registry.set("pocketsOpen", false);
 
         this.registry.set("safeOpen", false);
         this.registry.set("padCloseUp", false);
 
         this.registry.set("talkedToMask", false);
+        */
 
         this.registry.set("ItemsInHand", [
             "Room4KeyInHand",
             "Room11KeyInHand",
             "SkellyKeyInHand",
+            "MaskPiece1InHand",
+            "MaskPiece2InHand",
+            "MaskPiece3InHand",
+            "MaskPiece4InHand",
         ]);
         this.registry.set("ItemsInPockets", [
             "Room4KeyInPocket",
             "Room11KeyInPocket",
             "SkellyKeyInPocket",
+            "MaskPiece1InPocket",
+            "MaskPiece2InPocket",
+            "MaskPiece3InPocket",
+            "MaskPiece4InPocket",
         ]);
-        this.registry.set("ItemsNames", ["Room4Key", "Room11Key", "SkellyKey"]);
+        this.registry.set("ItemsNames", [
+            "Room4Key",
+            "Room11Key",
+            "SkellyKey",
+            "MaskPiece1",
+            "MaskPiece2",
+            "MaskPiece3",
+            "MaskPiece4",
+        ]);
 
         this.registry.set("code", Phaser.Math.Between(1000, 9999).toString());
 

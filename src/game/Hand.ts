@@ -81,6 +81,34 @@ export class Hand {
                 itemInHand: "SkellyKeyInHand",
                 itemImage: "skellyKey",
             },
+            {
+                itemName: "MaskPiece1",
+                itemGlobalVar: "HasMaskPiece1",
+                itemGlobalVarBool: "MaskPiece1InPocket",
+                itemInHand: "MaskPiece1InHand",
+                itemImage: "MaskPiece1",
+            },
+            {
+                itemName: "MaskPiece2",
+                itemGlobalVar: "HasMaskPiece2",
+                itemGlobalVarBool: "MaskPiece2InPocket",
+                itemInHand: "MaskPiece2InHand",
+                itemImage: "MaskPiece2",
+            },
+            {
+                itemName: "MaskPiece3",
+                itemGlobalVar: "HasMaskPiece3",
+                itemGlobalVarBool: "MaskPiece3InPocket",
+                itemInHand: "MaskPiece3InHand",
+                itemImage: "MaskPiece3",
+            },
+            {
+                itemName: "MaskPiece4",
+                itemGlobalVar: "HasMaskPiece4",
+                itemGlobalVarBool: "MaskPiece4InPocket",
+                itemInHand: "MaskPiece4InHand",
+                itemImage: "MaskPiece4",
+            },
         ];
         /*
         const accessPocket = this.scene.add.text(70, 500, "pockets", {

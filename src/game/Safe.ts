@@ -62,6 +62,7 @@ export class Safe {
         scene: Scene,
         myText: Phaser.GameObjects.Text,
         background: Phaser.GameObjects.Image,
+        safeText: Phaser.GameObjects.Text,
     ) {
         if (
             input === scene.registry.get("code") &&
@@ -72,6 +73,8 @@ export class Safe {
             this.indications.setActive(false).setVisible(false);
             background.setTexture("TutorialSafeOpen");
             scene.registry.set("safeOpen", true);
+            safeText.setActive(false);
+            safeText.alpha = 0;
         }
 
         myText.text = "Insert Command Here";

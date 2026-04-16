@@ -53,6 +53,16 @@ export class Tutorial extends Scene {
         KeyObject.setActive(false);
         KeyObject.alpha = 0;
 
+        const safe = this.add.text(620, 400, "Safe", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        safe.setOrigin(0.15, 0);
+        safe.setActive(false);
+        safe.alpha = 0;
+
         const cdRoom1 = this.add.text(330, 150, "Room1", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -74,7 +84,7 @@ export class Tutorial extends Scene {
         const TutorialText = this.add.text(
             150,
             300,
-            "The 'ls' command will show you the places you can go from here. Try typing 'ls' and pressing enter!",
+            "Where to go? Where to go? You might need to look around, to see if there's anything that might help you. Try typing 'ls' on that small box down there.",
             {
                 fixedWidth: 650,
                 backgroundColor: "#000000",
@@ -101,7 +111,7 @@ export class Tutorial extends Scene {
             }
             if (cdRoom1.active && this.registry.get("Tutorial") === true) {
                 TutorialText.text =
-                    "The 'cd' command allows you to move from one location to another. Look at the text by the door. Try entering 'cd Room1' to move on from the Tutorial!";
+                    "Great. Now we can see a door. Seems to be the only way to go. Ususally you wouldn't explore an abandoned dungeon, but its not like there's other choices. Move to the door using the 'cd' command, and a space alongside the name of the door.";
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
@@ -153,7 +163,7 @@ export class Tutorial extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [cdRoom1],
+                        [cdRoom1, safe],
                         this.hand,
                         this,
                     );
@@ -186,7 +196,13 @@ export class Tutorial extends Scene {
                     );
 
                     this.safe.padlockCloseUp(input, this, myText);
-                    this.safe.enterCode(input, this, myText, this.background);
+                    this.safe.enterCode(
+                        input,
+                        this,
+                        myText,
+                        this.background,
+                        safe,
+                    );
 
                     CommandWriter.checkCommandFound(myText);
                 },

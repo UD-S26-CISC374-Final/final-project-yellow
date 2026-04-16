@@ -35,6 +35,16 @@ export class Room10 extends Scene {
 
         this.randCode = this.registry.get("code") as string;
 
+        const mask4 = this.add.text(400, 100, "MaskPiece4", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        mask4.setOrigin(0.15, 0);
+        mask4.setActive(false);
+        mask4.alpha = 0;
+
         const secretCode = this.add.text(330, 200, this.randCode, {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -83,6 +93,23 @@ export class Room10 extends Scene {
                         [code],
                         this.hand,
                         this,
+                    );
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [code, mask4],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        mask4.text,
+                        mask4,
+                        myText,
+                        "HasMaskPiece4",
+                        "MaskPiece4InPocket",
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room9");

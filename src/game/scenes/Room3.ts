@@ -49,7 +49,7 @@ export class Room3 extends Scene {
         const tutorialText = this.add.text(
             150,
             300,
-            "There are no rooms branching off from this room, but maybe we should try using 'ls' anyways.",
+            "There's no way to go from here. How about you try the 'ls' command again? You might find something useful.",
             {
                 fixedWidth: 200,
                 backgroundColor: "#000000",
@@ -77,7 +77,7 @@ export class Room3 extends Scene {
                 tutorialText.alpha = 0;
             } else if (KeyObject.active) {
                 tutorialText.text =
-                    "It seems there is a key. It may be useful to pick it up. Try using the 'mv' command. Type in 'mv Room4Key pockets'.";
+                    "Wow. Look at that. A key. it might be useful. How about if you 'move' it to your pockets? Type 'mv' plus a space, the name of the key, and the name of where will it go (pockets in this case).";
                 tutorialText.setPosition(450, 300);
             }
             this.rexUI.edit(myText, {

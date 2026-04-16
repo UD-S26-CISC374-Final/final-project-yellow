@@ -46,6 +46,11 @@ export class Preloader extends Scene {
         this.load.image("roomRightOpen", "roomRightOpen.png");
         this.load.image("skellyKey", "skellyKey.png");
 
+        this.load.image("MaskPiece1", "MaskPiece1.png");
+        this.load.image("MaskPiece2", "MaskPiece2.png");
+        this.load.image("MaskPiece3", "MaskPiece3.png");
+        this.load.image("MaskPiece4", "MaskPiece4.png");
+
         this.load.image("PadLock", "PadLock.png");
     }
 

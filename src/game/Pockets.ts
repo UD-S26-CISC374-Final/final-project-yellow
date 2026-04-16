@@ -68,6 +68,34 @@ export class Pockets {
                 itemInHand: "SkellyKeyInHand",
                 itemImage: "skellyKey",
             },
+            {
+                itemName: "MaskPiece1",
+                itemGlobalVar: "HasMaskPiece1",
+                itemGlobalVarBool: "MaskPiece1InPocket",
+                itemInHand: "MaskPiece1InHand",
+                itemImage: "MaskPiece1",
+            },
+            {
+                itemName: "MaskPiece2",
+                itemGlobalVar: "HasMaskPiece2",
+                itemGlobalVarBool: "MaskPiece2InPocket",
+                itemInHand: "MaskPiece2InHand",
+                itemImage: "MaskPiece2",
+            },
+            {
+                itemName: "MaskPiece3",
+                itemGlobalVar: "HasMaskPiece3",
+                itemGlobalVarBool: "MaskPiece3InPocket",
+                itemInHand: "MaskPiece3InHand",
+                itemImage: "MaskPiece3",
+            },
+            {
+                itemName: "MaskPiece4",
+                itemGlobalVar: "HasMaskPiece4",
+                itemGlobalVarBool: "MaskPiece4InPocket",
+                itemInHand: "MaskPiece4InHand",
+                itemImage: "MaskPiece4",
+            },
         ];
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
@@ -85,7 +113,7 @@ export class Pockets {
                 200,
                 this.itemsTotal[i].itemName,
                 {
-                    fixedWidth: 100,
+                    fixedWidth: 110,
                     fixedHeight: 36,
                     backgroundColor: "#000000",
                     padding: { x: 9, y: 9.5 },
@@ -148,6 +176,30 @@ export class Pockets {
 
                         this.itemNames[i].x = 510;
                         this.itemNames[i].y = 170;
+                    } else if (i === 3) {
+                        this.items[i].x = 225;
+                        this.items[i].y = 220;
+
+                        this.itemNames[i].x = 180;
+                        this.itemNames[i].y = 220;
+                    } else if (i === 4) {
+                        this.items[i].x = 385;
+                        this.items[i].y = 220;
+
+                        this.itemNames[i].x = 345;
+                        this.itemNames[i].y = 220;
+                    } else if (i === 5) {
+                        this.items[i].x = 545;
+                        this.items[i].y = 220;
+
+                        this.itemNames[i].x = 510;
+                        this.itemNames[i].y = 220;
+                    } else if (i === 6) {
+                        this.items[i].x = 225;
+                        this.items[i].y = 350;
+
+                        this.itemNames[i].x = 180;
+                        this.itemNames[i].y = 400;
                     }
 
                     //Hardcodear cada posicion

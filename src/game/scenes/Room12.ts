@@ -31,10 +31,24 @@ export class Room12 extends Scene {
         this.background = this.add.image(400, 300, "OnlyDoorLeft");
 
         this.dialogueTexts = [
-            "Another victim of the dungeon.",
-            "A mask like me used to be the key to escaping this place, but has since shattered.",
-            "To put it back together, the clock must move in reverse.",
-            "Good luck.",
+            "Holy cow",
+            "Another one?",
+            "I have to tell you, the guy that built the place doesn't get tired of this",
+            "Of putting people in here I mean",
+            "Anyway",
+            "I'm sure you don't care enough about my name",
+            "So I'm gonna get to the point",
+            "In the next room there's an exit",
+            "But you are going to need 4 pieces of a mask",
+            "The 4 pieces of my brother",
+            "He kinda deserved it thow, being shattered",
+            "So, just find the pieces, put them in the correct order, and you're out",
+            "The problem is my brother was hidden well",
+            "So you'll need to talk to a friend of mine, he'll give you the tools to look for my brother",
+            "Pick up the key next door, and find the door with his face.",
+            "One last thing",
+            "I can't tell you directly the order in which to put the pieces, only in the way of a riddle",
+            "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry",
         ];
 
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
@@ -86,8 +100,9 @@ export class Room12 extends Scene {
                 this.registry.set("talkedToMask", true);
                 maskText.setActive(false);
                 maskText.alpha = 0;
-                //maskTextIndex = 0;
-                maskText.text = "Go on";
+                maskTextIndex = this.dialogueTexts.length - 1;
+                maskText.text =
+                    "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry";
                 this.registry.set("lsACommandActive", true);
                 myText.text = "Insert Command Here";
             }
