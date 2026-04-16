@@ -37,8 +37,7 @@ export class Room11 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom12.setOrigin(0.15, 0);
-        cdRoom12.setActive(false);
-        cdRoom12.alpha = 0;
+        cdRoom12.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

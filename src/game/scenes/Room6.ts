@@ -37,9 +37,7 @@ export class Room6 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom7.setOrigin(0.15, 0);
-        cdRoom7.setActive(false);
-        cdRoom7.alpha = 0;
-
+        cdRoom7.setActive(false).setVisible(false);
         /*
         const cdRoom6 = this.add.text(590, 200, "Room6", {
             fixedWidth: 200,

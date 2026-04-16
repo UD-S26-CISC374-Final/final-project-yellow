@@ -30,28 +30,6 @@ export class Room8 extends Scene {
 
         this.background = this.add.image(400, 300, "DoorOnlyFront");
 
-        /*
-        const cdRoom7 = this.add.text(70, 200, "Room7", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        cdRoom7.setOrigin(0.15, 0);
-        cdRoom7.setActive(false);
-        cdRoom7.alpha = 0;
-
-        const cdRoom6 = this.add.text(590, 200, "Room6", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        cdRoom6.setOrigin(0.15, 0);
-        cdRoom6.setActive(false);
-        cdRoom6.alpha = 0;
-        */
-
         const cdRoom9 = this.add.text(330, 150, "Room9", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -59,8 +37,7 @@ export class Room8 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom9.setOrigin(0.15, 0);
-        cdRoom9.setActive(false);
-        cdRoom9.alpha = 0;
+        cdRoom9.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

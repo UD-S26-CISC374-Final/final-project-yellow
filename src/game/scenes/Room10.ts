@@ -42,8 +42,7 @@ export class Room10 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         mask4.setOrigin(0.15, 0);
-        mask4.setActive(false);
-        mask4.alpha = 0;
+        mask4.setActive(false).setVisible(false);
 
         const secretCode = this.add.text(330, 200, this.randCode, {
             fixedWidth: 200,
@@ -62,8 +61,7 @@ export class Room10 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         code.setOrigin(0.15, 0);
-        code.setActive(false);
-        code.alpha = 0;
+        code.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

@@ -37,8 +37,7 @@ export class Room4Locked extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom5.setOrigin(0.15, 0);
-        cdRoom5.setActive(false);
-        cdRoom5.alpha = 0;
+        cdRoom5.setActive(false).setVisible(false);
 
         const cdRoom6 = this.add.text(590, 200, "Room6", {
             fixedWidth: 200,
@@ -47,8 +46,7 @@ export class Room4Locked extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom6.setOrigin(0.15, 0);
-        cdRoom6.setActive(false);
-        cdRoom6.alpha = 0;
+        cdRoom6.setActive(false).setVisible(false);
 
         const cdRoom8 = this.add.text(330, 150, "Room8", {
             fixedWidth: 200,
@@ -57,8 +55,7 @@ export class Room4Locked extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom8.setOrigin(0.15, 0);
-        cdRoom8.setActive(false);
-        cdRoom8.alpha = 0;
+        cdRoom8.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

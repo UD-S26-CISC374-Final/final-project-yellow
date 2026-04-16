@@ -26,6 +26,8 @@ export class Pockets {
 
     itemNames: Phaser.GameObjects.Text[];
 
+    pocketsIndicator: Phaser.GameObjects.Text;
+
     //imagePositionX: number[];
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -35,6 +37,15 @@ export class Pockets {
     }
 
     create() {
+        this.pocketsIndicator = this.scene.add.text(680, 550, "pockets", {
+            fixedWidth: 90,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+            align: "center",
+        });
+        this.pocketsIndicator.setActive(false).setVisible(false);
+
         this.itemsInPockets = this.scene.registry.get(
             "ItemsInPockets",
         ) as string[];

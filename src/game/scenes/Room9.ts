@@ -30,12 +30,6 @@ export class Room9 extends Scene {
 
         this.background = this.add.image(400, 300, "room4");
 
-        /*
-        if (this.registry.get("Room11Open")) {
-            this.background = this.add.image(400, 300, "roomRightOpen");
-        }
-        */
-
         const cdRoom10 = this.add.text(70, 200, "Room10", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -43,8 +37,7 @@ export class Room9 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom10.setOrigin(0.15, 0);
-        cdRoom10.setActive(false);
-        cdRoom10.alpha = 0;
+        cdRoom10.setActive(false).setVisible(false);
 
         const cdRoom11 = this.add.text(590, 200, "Room11", {
             fixedWidth: 200,
@@ -53,8 +46,7 @@ export class Room9 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom11.setOrigin(0.15, 0);
-        cdRoom11.setActive(false);
-        cdRoom11.alpha = 0;
+        cdRoom11.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,

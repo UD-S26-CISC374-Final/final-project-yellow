@@ -57,8 +57,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom2.setOrigin(0.15, 0);
-        cdRoom2.setActive(false);
-        cdRoom2.alpha = 0;
+        cdRoom2.setActive(false).setVisible(false);
 
         const cdRoom3 = this.add.text(590, 200, "Room3", {
             fixedWidth: 200,
@@ -67,8 +66,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom3.setOrigin(0.15, 0);
-        cdRoom3.setActive(false);
-        cdRoom3.alpha = 0;
+        cdRoom3.setActive(false).setVisible(false);
 
         const cdRoom4 = this.add.text(330, 150, "Room4", {
             fixedWidth: 200,
@@ -77,8 +75,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom4.setOrigin(0.15, 0);
-        cdRoom4.setActive(false);
-        cdRoom4.alpha = 0;
+        cdRoom4.setActive(false).setVisible(false);
 
         //const rooms : string[] = ["Room2","Room3","Room4"];
 

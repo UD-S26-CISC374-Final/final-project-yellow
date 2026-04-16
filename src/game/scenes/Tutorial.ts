@@ -60,8 +60,7 @@ export class Tutorial extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         safe.setOrigin(0.15, 0);
-        safe.setActive(false);
-        safe.alpha = 0;
+        safe.setActive(false).setVisible(false);
 
         const cdRoom1 = this.add.text(330, 150, "Room1", {
             fixedWidth: 200,
@@ -70,8 +69,7 @@ export class Tutorial extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom1.setOrigin(0.15, 0);
-        cdRoom1.setActive(false);
-        cdRoom1.alpha = 0;
+        cdRoom1.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -163,7 +161,12 @@ export class Tutorial extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [cdRoom1, safe],
+                        [
+                            cdRoom1,
+                            safe,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );

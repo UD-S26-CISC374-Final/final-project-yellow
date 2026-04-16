@@ -37,9 +37,7 @@ export class Room7 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         mask2.setOrigin(0.15, 0);
-        mask2.setActive(false);
-        mask2.alpha = 0;
-
+        mask2.setActive(false).setVisible(false);
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,

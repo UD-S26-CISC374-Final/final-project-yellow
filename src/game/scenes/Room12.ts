@@ -58,8 +58,7 @@ export class Room12 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoomEnd.setOrigin(0.15, 0);
-        cdRoomEnd.setActive(false);
-        cdRoomEnd.alpha = 0;
+        cdRoomEnd.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -76,8 +75,7 @@ export class Room12 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdMask.setOrigin(0.15, 0);
-        cdMask.setActive(false);
-        cdMask.alpha = 0;
+        cdMask.setActive(false).setVisible(false);
 
         const maskText = this.add.text(400, 150, "", {
             wordWrap: { width: 200 },

@@ -30,6 +30,8 @@ export class Hand {
 
     itemInHandName: Phaser.GameObjects.Text;
 
+    handPrompt: Phaser.GameObjects.Text;
+
     //thereIsItemInHand: boolean;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -38,7 +40,15 @@ export class Hand {
     }
 
     create() {
-        //this.thereIsItemInHand = false;
+        this.handPrompt = this.scene.add.text(35, 550, "Hand", {
+            fixedWidth: 70,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+            align: "center",
+        });
+        this.handPrompt.setActive(false).setVisible(false);
+        this.handPrompt.setDepth(1);
 
         this.itemNamesHand = ["Room4Key", "Room11Key", "SkellyKey"];
 
@@ -56,6 +66,7 @@ export class Hand {
         this.itemsInHand = this.scene.registry.get("ItemsInHand") as string[];
 
         this.handImage = this.scene.add.image(70, 530, "HandSlot");
+        this.handImage.setDepth(0);
 
         this.items = [];
 
@@ -110,15 +121,6 @@ export class Hand {
                 itemImage: "MaskPiece4",
             },
         ];
-        /*
-        const accessPocket = this.scene.add.text(70, 500, "pockets", {
-            fixedWidth: 100,
-            fixedHeight: 24,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        accessPocket.setActive(false).setVisible(false);
-        */
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
             this.items[i] = this.scene.add.image(
