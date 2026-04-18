@@ -3,6 +3,7 @@ import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Location } from "../Location";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -11,6 +12,7 @@ export class Room2 extends Scene {
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
     hand!: Hand;
+    location!: Location;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -137,6 +139,9 @@ export class Room2 extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

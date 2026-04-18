@@ -6,6 +6,7 @@ import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Location } from "../Location";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -15,7 +16,7 @@ export class Room1 extends Scene {
     phaserLogo: PhaserLogo;
     pockets!: Pockets;
     hand!: Hand;
-    //fpsText: FpsText;
+    location!: Location;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -39,9 +40,11 @@ export class Room1 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
+        /*
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
 
+    
         const LocationText = this.add.text(280, 5, "Current Location: Room1", {
             fixedWidth: 300,
             fixedHeight: 36,
@@ -49,6 +52,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         LocationText.setActive(true);
+        */
 
         const cdRoom2 = this.add.text(70, 200, "Room2", {
             fixedWidth: 200,
@@ -218,6 +222,9 @@ export class Room1 extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

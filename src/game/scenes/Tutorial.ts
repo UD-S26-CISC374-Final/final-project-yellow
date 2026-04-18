@@ -5,6 +5,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Safe } from "../Safe";
+import { Location } from "../Location";
 
 export class Tutorial extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
@@ -13,22 +14,35 @@ export class Tutorial extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     safe!: Safe;
+    location!: Location;
 
     constructor() {
         super("Tutorial");
     }
 
     create() {
+        /*
+        this.registry.get("comesFromMenu");
+
+        if (this.registry.get("comesFromMenu")) {
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+            this.registry.set("comesFromMenu", true);
+        }
+            */
+
+        //this.cameras.main.resetFX();
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "TutorialSafeClosed");
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
+        /*
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
-
-        //let canType = true;
 
         const LocationText = this.add.text(
             280,
@@ -42,6 +56,7 @@ export class Tutorial extends Scene {
             },
         );
         LocationText.setActive(true);
+        */
 
         const KeyObject = this.add.text(620, 400, "Room11Key", {
             fixedWidth: 200,
@@ -220,6 +235,9 @@ export class Tutorial extends Scene {
 
         this.safe = new Safe(this);
         this.safe.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

@@ -6,6 +6,7 @@ import { Notes } from "../Notes";
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
+import { Location } from "../Location";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -16,6 +17,7 @@ export class Room10 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     notes!: Notes;
+    location!: Location;
 
     randCode!: string;
 
@@ -160,6 +162,9 @@ export class Room10 extends Scene {
 
         this.notes = new Notes(this);
         this.notes.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }
