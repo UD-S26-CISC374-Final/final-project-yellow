@@ -37,8 +37,7 @@ export class CommandWriter {
     ) {
         if (input === "ls" && !scene.registry.get("pocketsOpen")) {
             for (let i = 0; i < objectsToShow.length; i++) {
-                objectsToShow[i].setActive(true);
-                objectsToShow[i].alpha = 1;
+                objectsToShow[i].setActive(true).setVisible(true);
                 hand.showInHandItem(scene);
             }
             myText.text = "Insert Command Here";
@@ -55,8 +54,7 @@ export class CommandWriter {
         if (scene.registry.get("lsACommandActive")) {
             if (input === "ls -a" && !scene.registry.get("pocketsOpen")) {
                 for (let i = 0; i < objectsToShow.length; i++) {
-                    objectsToShow[i].setActive(true);
-                    objectsToShow[i].alpha = 1;
+                    objectsToShow[i].setActive(true).setVisible(true);
                     hand.showInHandItem(scene);
                 }
                 myText.text = "Insert Command Here";

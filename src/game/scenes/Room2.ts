@@ -3,6 +3,7 @@ import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Location } from "../Location";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -11,6 +12,7 @@ export class Room2 extends Scene {
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
     hand!: Hand;
+    location!: Location;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -38,18 +40,7 @@ export class Room2 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         skelly.setOrigin(0.15, 0);
-        skelly.setActive(false);
-        skelly.alpha = 0;
-
-        const hiddenObjectTest = this.add.text(500, 200, "Hidden", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        hiddenObjectTest.setOrigin(0.15, 0);
-        hiddenObjectTest.setActive(false);
-        hiddenObjectTest.alpha = 0;
+        skelly.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -83,7 +74,7 @@ export class Room2 extends Scene {
                     CommandWriter.lsACommand(
                         input,
                         myText,
-                        [skelly, hiddenObjectTest],
+                        [skelly],
                         this.hand,
                         this,
                     );
@@ -148,6 +139,9 @@ export class Room2 extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

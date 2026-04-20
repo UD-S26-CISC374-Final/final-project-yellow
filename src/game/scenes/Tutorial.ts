@@ -5,6 +5,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Safe } from "../Safe";
+import { Location } from "../Location";
 
 export class Tutorial extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
@@ -13,22 +14,35 @@ export class Tutorial extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     safe!: Safe;
+    location!: Location;
 
     constructor() {
         super("Tutorial");
     }
 
     create() {
+        /*
+        this.registry.get("comesFromMenu");
+
+        if (this.registry.get("comesFromMenu")) {
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
+            this.registry.set("comesFromMenu", true);
+        }
+            */
+
+        //this.cameras.main.resetFX();
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "TutorialSafeClosed");
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
+        /*
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
-
-        //let canType = true;
 
         const LocationText = this.add.text(
             280,
@@ -42,6 +56,7 @@ export class Tutorial extends Scene {
             },
         );
         LocationText.setActive(true);
+        */
 
         const KeyObject = this.add.text(620, 400, "Room11Key", {
             fixedWidth: 200,
@@ -53,6 +68,15 @@ export class Tutorial extends Scene {
         KeyObject.setActive(false);
         KeyObject.alpha = 0;
 
+        const safe = this.add.text(620, 400, "Safe", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        safe.setOrigin(0.15, 0);
+        safe.setActive(false).setVisible(false);
+
         const cdRoom1 = this.add.text(330, 150, "Room1", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -60,8 +84,7 @@ export class Tutorial extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom1.setOrigin(0.15, 0);
-        cdRoom1.setActive(false);
-        cdRoom1.alpha = 0;
+        cdRoom1.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -74,7 +97,7 @@ export class Tutorial extends Scene {
         const TutorialText = this.add.text(
             150,
             300,
-            "The 'ls' command will show you the places you can go from here. Try typing 'ls' and pressing enter!",
+            "Where to go? Where to go? You might need to look around, to see if there's anything that might help you. Try typing 'ls' on that small box down there.",
             {
                 fixedWidth: 650,
                 backgroundColor: "#000000",
@@ -101,7 +124,7 @@ export class Tutorial extends Scene {
             }
             if (cdRoom1.active && this.registry.get("Tutorial") === true) {
                 TutorialText.text =
-                    "The 'cd' command allows you to move from one location to another. Look at the text by the door. Try entering 'cd Room1' to move on from the Tutorial!";
+                    "Great. Now we can see a door. Seems to be the only way to go. Ususally you wouldn't explore an abandoned dungeon, but its not like there's other choices. Move to the door using the 'cd' command, and a space alongside the name of the door.";
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
@@ -153,7 +176,12 @@ export class Tutorial extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [cdRoom1],
+                        [
+                            cdRoom1,
+                            safe,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );
@@ -186,7 +214,13 @@ export class Tutorial extends Scene {
                     );
 
                     this.safe.padlockCloseUp(input, this, myText);
-                    this.safe.enterCode(input, this, myText, this.background);
+                    this.safe.enterCode(
+                        input,
+                        this,
+                        myText,
+                        this.background,
+                        safe,
+                    );
 
                     CommandWriter.checkCommandFound(myText);
                 },
@@ -201,6 +235,9 @@ export class Tutorial extends Scene {
 
         this.safe = new Safe(this);
         this.safe.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

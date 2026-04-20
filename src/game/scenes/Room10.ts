@@ -6,6 +6,7 @@ import { Notes } from "../Notes";
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
+import { Location } from "../Location";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -16,6 +17,7 @@ export class Room10 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     notes!: Notes;
+    location!: Location;
 
     randCode!: string;
 
@@ -35,6 +37,15 @@ export class Room10 extends Scene {
 
         this.randCode = this.registry.get("code") as string;
 
+        const mask4 = this.add.text(400, 100, "MaskPiece4", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        mask4.setOrigin(0.15, 0);
+        mask4.setActive(false).setVisible(false);
+
         const secretCode = this.add.text(330, 200, this.randCode, {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -52,8 +63,7 @@ export class Room10 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         code.setOrigin(0.15, 0);
-        code.setActive(false);
-        code.alpha = 0;
+        code.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -83,6 +93,23 @@ export class Room10 extends Scene {
                         [code],
                         this.hand,
                         this,
+                    );
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [code, mask4],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.mvCommandToPockets(
+                        input,
+                        this,
+                        mask4.text,
+                        mask4,
+                        myText,
+                        "HasMaskPiece4",
+                        "MaskPiece4InPocket",
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room9");
@@ -135,6 +162,9 @@ export class Room10 extends Scene {
 
         this.notes = new Notes(this);
         this.notes.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

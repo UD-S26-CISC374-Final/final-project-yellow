@@ -3,6 +3,7 @@ import { EventBus } from "../event-bus";
 import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Location } from "../Location";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -11,6 +12,7 @@ export class Skelly extends Scene {
     background: Phaser.GameObjects.Image;
     pockets!: Pockets;
     hand!: Hand;
+    location!: Location;
 
     dialogueTexts!: string[];
     //phaserLogo: PhaserLogo;
@@ -23,8 +25,6 @@ export class Skelly extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
-
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -41,10 +41,21 @@ export class Skelly extends Scene {
             "I have found this paper.",
             "It is said to uncover the hidden artifacts around this dungeon.",
             "It'll allow you to go in search of that that opens the final door.",
+            "Give it a try here, and then continue with your quest.",
             "Good luck traveller.",
             "May God help you avoid my fate.",
         ];
 
+        const mask3 = this.add.text(400, 100, "MaskPiece3", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        mask3.setOrigin(0.15, 0);
+        mask3.setActive(false).setVisible(false);
+
+        /*
         const KeyObject = this.add.text(330, 200, "Key", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -52,8 +63,8 @@ export class Skelly extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         KeyObject.setOrigin(0.15, 0);
-        KeyObject.setActive(false);
-        KeyObject.alpha = 0;
+        KeyObject.setActive(false).setVisible(false);
+        */
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -70,8 +81,7 @@ export class Skelly extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdSkelly.setOrigin(0.15, 0);
-        cdSkelly.setActive(false);
-        cdSkelly.alpha = 0;
+        cdSkelly.setActive(false).setVisible(false);
 
         const skellyText = this.add.text(150, 300, "Oh.", {
             backgroundColor: "#000000",
@@ -84,17 +94,30 @@ export class Skelly extends Scene {
         let skellyTextIndex = 0;
 
         const updateSkellyText = () => {
-            if (skellyTextIndex >= 1) {
+            if (skellyTextIndex >= 1 && !this.registry.get("TalkedSkelly")) {
                 skellyText.text = this.dialogueTexts[skellyTextIndex];
             }
 
             skellyTextIndex++;
-            if (skellyTextIndex > this.dialogueTexts.length) {
+            if (
+                skellyTextIndex > this.dialogueTexts.length &&
+                !this.registry.get("TalkedSkelly")
+            ) {
                 skellyText.setActive(false);
                 skellyText.alpha = 0;
                 //skellyTextIndex = 0;
                 skellyText.text = "Go on";
                 this.registry.set("lsACommandActive", true);
+                myText.text = "Insert Command Here";
+                this.registry.set("TalkedSkelly", true);
+            } else if (
+                skellyTextIndex > this.dialogueTexts.length &&
+                this.registry.get("TalkedSkelly")
+            ) {
+                skellyTextIndex = this.dialogueTexts.length - 1;
+                skellyText.setActive(false);
+                skellyText.alpha = 0;
+                skellyText.text = "Go on";
                 myText.text = "Insert Command Here";
             }
         };
@@ -119,6 +142,24 @@ export class Skelly extends Scene {
                             [cdSkelly],
                             this.hand,
                             this,
+                        );
+
+                        CommandWriter.lsACommand(
+                            input,
+                            myText,
+                            [cdSkelly, mask3],
+                            this.hand,
+                            this,
+                        );
+
+                        CommandWriter.mvCommandToPockets(
+                            input,
+                            this,
+                            mask3.text,
+                            mask3,
+                            myText,
+                            "HasMaskPiece3",
+                            "MaskPiece3InPocket",
                         );
 
                         CommandWriter.mvCommandItemToHand(
@@ -169,6 +210,9 @@ export class Skelly extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }

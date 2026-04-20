@@ -6,6 +6,7 @@ import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
+import { Location } from "../Location";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -15,7 +16,7 @@ export class Room1 extends Scene {
     phaserLogo: PhaserLogo;
     pockets!: Pockets;
     hand!: Hand;
-    //fpsText: FpsText;
+    location!: Location;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -39,9 +40,11 @@ export class Room1 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
+        /*
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
         this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
 
+    
         const LocationText = this.add.text(280, 5, "Current Location: Room1", {
             fixedWidth: 300,
             fixedHeight: 36,
@@ -49,6 +52,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         LocationText.setActive(true);
+        */
 
         const cdRoom2 = this.add.text(70, 200, "Room2", {
             fixedWidth: 200,
@@ -57,8 +61,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom2.setOrigin(0.15, 0);
-        cdRoom2.setActive(false);
-        cdRoom2.alpha = 0;
+        cdRoom2.setActive(false).setVisible(false);
 
         const cdRoom3 = this.add.text(590, 200, "Room3", {
             fixedWidth: 200,
@@ -67,8 +70,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom3.setOrigin(0.15, 0);
-        cdRoom3.setActive(false);
-        cdRoom3.alpha = 0;
+        cdRoom3.setActive(false).setVisible(false);
 
         const cdRoom4 = this.add.text(330, 150, "Room4", {
             fixedWidth: 200,
@@ -77,8 +79,7 @@ export class Room1 extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         cdRoom4.setOrigin(0.15, 0);
-        cdRoom4.setActive(false);
-        cdRoom4.alpha = 0;
+        cdRoom4.setActive(false).setVisible(false);
 
         //const rooms : string[] = ["Room2","Room3","Room4"];
 
@@ -109,10 +110,10 @@ export class Room1 extends Scene {
             !this.registry.get("Room4KeyInHand")
         ) {
             TutorialText.text =
-                "Use 'cd pockets' to open your inventory, then 'mv Room4Key Hand' to put the key in your hand.";
+                "Now we can't open the door if we are not holding the key, can't we? Go look into your pockets with the 'cd' command. And remember the 'mv' command from before? Use it again but change the 'pockets' word with 'Hand'.";
         } else if (this.registry.get("Room4KeyInHand")) {
             TutorialText.text =
-                "To open the door, move the key to the door by typing 'mv Room4Key Room4'.";
+                "Amazing! One last thing. When a door is locked, it means it needs a key. And since you have the key in your hand, you should 'move' it to the door to use it. You see what I'm saying?";
         }
 
         this.registry.set("CommandFound", false);
@@ -221,6 +222,9 @@ export class Room1 extends Scene {
 
         this.hand = new Hand(this);
         this.hand.create();
+
+        this.location = new Location(this);
+        this.location.create();
 
         EventBus.emit("current-scene-ready", this);
     }
