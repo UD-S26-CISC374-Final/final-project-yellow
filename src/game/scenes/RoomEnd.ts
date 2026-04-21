@@ -42,6 +42,10 @@ export class RoomEnd extends Scene {
         KeyObject.setActive(false);
         KeyObject.alpha = 0;
 
+        const maskAnswer = ["mask1", "mask2", "mask3", "mask4"];
+
+        let maskCurrent = ["", "", "", ""];
+
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -55,12 +59,50 @@ export class RoomEnd extends Scene {
                 event.key !== "Enter" &&
                 (myText.text === "Insert Command Here" ||
                     myText.text === "Command Not Found" ||
-                    myText.text === "Door Locked")
+                    myText.text === "Door Locked" ||
+                    myText.text === "mask piece inserted")
             ) {
                 myText.text = "";
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    if (myText.text === "mv mask1 maskhole") {
+                        for (let i = 0; i < maskAnswer.length; i++) {
+                            if (maskCurrent[i] === "") {
+                                maskCurrent[i] = "mask1";
+                                myText.text = "mask piece inserted";
+                                break;
+                            }
+                        }
+                    }
+                    if (myText.text === "mv mask2 maskhole") {
+                        for (let i = 0; i < maskAnswer.length; i++) {
+                            if (maskCurrent[i] === "") {
+                                maskCurrent[i] = "mask2";
+                                myText.text = "mask piece inserted";
+                                break;
+                            }
+                        }
+                    }
+                    if (myText.text === "mv mask3 maskhole") {
+                        for (let i = 0; i < maskAnswer.length; i++) {
+                            if (maskCurrent[i] === "") {
+                                maskCurrent[i] = "mask3";
+                                myText.text = "mask piece inserted";
+                                break;
+                            }
+                        }
+                    }
+                    if (myText.text === "mv mask4 maskhole") {
+                        for (let i = 0; i < maskAnswer.length; i++) {
+                            if (maskCurrent[i] === "") {
+                                maskCurrent[i] = "mask4";
+                                myText.text = "mask piece inserted";
+                                break;
+                            }
+                        }
+                    }
+
                     const input = myText.text;
 
                     CommandWriter.mvCommandToPockets(
@@ -115,6 +157,18 @@ export class RoomEnd extends Scene {
                     );
 
                     CommandWriter.checkCommandFound(myText);
+
+                    if (maskCurrent[3] != "") {
+                        if (
+                            maskCurrent.every(
+                                (value, index) => value === maskAnswer[index],
+                            )
+                        ) {
+                            this.scene.start("GameEnd");
+                        } else {
+                            maskCurrent = ["", "", "", ""];
+                        }
+                    }
                 },
             });
         });

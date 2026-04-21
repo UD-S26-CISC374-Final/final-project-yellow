@@ -225,7 +225,8 @@ export class CommandWriter {
     static checkCommandFound(myText: Phaser.GameObjects.Text) {
         if (
             myText.text !== "Insert Command Here" &&
-            myText.text !== "Door Locked"
+            myText.text !== "Door Locked" &&
+            myText.text !== "mask piece inserted"
         ) {
             myText.text = "Command Not Found";
         }
