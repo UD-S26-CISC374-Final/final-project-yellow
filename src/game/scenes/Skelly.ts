@@ -38,6 +38,8 @@ export class Skelly extends Scene {
 
         this.dialogue.characterIsTalking = this.skellyText;
 
+        this.dialogue.changeScene = false;
+
         this.dialogue.starterDialog = "Another victim of the dungeon.";
 
         this.dialogue.dialogueLines = [
@@ -243,6 +245,8 @@ export class Skelly extends Scene {
                     this.skellyText = false;
 
                     myText.text = "Insert Command Here";
+
+                    console.log("Reached boolean");
 
                     this.rexUI.edit(myText);
                 };

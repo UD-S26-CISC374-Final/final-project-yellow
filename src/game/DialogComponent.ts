@@ -89,7 +89,7 @@ export class DialogComponent {
                 dialogue.setActive(false).setVisible(false);
                 if (this.changeScene) {
                     this.scene.scene.start(this.sceneToChange);
-                } else if (this.characterIsTalking) {
+                } else {
                     this.onComplete?.();
                 }
             }
