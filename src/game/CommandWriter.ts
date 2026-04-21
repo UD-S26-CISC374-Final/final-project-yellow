@@ -83,6 +83,8 @@ export class CommandWriter {
             })
             */
 
+            scene.game.sound.play("ChangeRoom", { volume: 0.5 });
+
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
         }
