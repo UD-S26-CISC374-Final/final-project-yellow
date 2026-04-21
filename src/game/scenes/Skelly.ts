@@ -4,6 +4,7 @@ import { Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
+import { DialogComponent } from "../DialogComponent";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -14,7 +15,10 @@ export class Skelly extends Scene {
     hand!: Hand;
     location!: Location;
 
-    dialogueTexts!: string[];
+    skellyText!: boolean;
+    //dialogueTexts!: string[];
+
+    dialogue!: DialogComponent;
     //phaserLogo: PhaserLogo;
     //fpsText: FpsText;
 
@@ -25,11 +29,40 @@ export class Skelly extends Scene {
     }
 
     create() {
+        this.skellyText = false;
+
+        this.dialogue = new DialogComponent(this);
+
+        this.dialogue.xPos = 500;
+        this.dialogue.yPos = 300;
+
+        this.dialogue.characterIsTalking = this.skellyText;
+
+        this.dialogue.starterDialog = "Another victim of the dungeon.";
+
+        this.dialogue.dialogueLines = [
+            "Another victim of the dungeon.",
+            "You were also trapped here without knowledge on who put you here?",
+            "That is exactly my story as well.",
+            "But listen to me.",
+            "I refuse to see another soul succumb to my fate.",
+            "On my time here, before my inevitable death",
+            "I have found this paper.",
+            "It is said to uncover the hidden artifacts around this dungeon.",
+            "It'll allow you to go in search of that that opens the final door.",
+            "Give it a try here, and then continue with your quest.",
+            "Good luck traveller.",
+            "May God help you avoid my fate.",
+        ];
+
+        this.dialogue.changeScene = false;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room3");
 
+        /*
         this.dialogueTexts = [
             "",
             "Another victim of the dungeon.",
@@ -45,6 +78,7 @@ export class Skelly extends Scene {
             "Good luck traveller.",
             "May God help you avoid my fate.",
         ];
+        */
 
         const mask3 = this.add.text(400, 100, "MaskPiece3", {
             fixedWidth: 200,
@@ -83,6 +117,7 @@ export class Skelly extends Scene {
         cdSkelly.setOrigin(0.15, 0);
         cdSkelly.setActive(false).setVisible(false);
 
+        /*
         const skellyText = this.add.text(150, 300, "Oh.", {
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -93,6 +128,7 @@ export class Skelly extends Scene {
         skellyText.alpha = 0;
         let skellyTextIndex = 0;
 
+        
         const updateSkellyText = () => {
             if (skellyTextIndex >= 1 && !this.registry.get("TalkedSkelly")) {
                 skellyText.text = this.dialogueTexts[skellyTextIndex];
@@ -121,6 +157,7 @@ export class Skelly extends Scene {
                 myText.text = "Insert Command Here";
             }
         };
+        */
 
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
@@ -131,7 +168,7 @@ export class Skelly extends Scene {
             ) {
                 myText.text = "";
             }
-            if (!skellyText.active) {
+            if (!this.skellyText) {
                 this.rexUI.edit(myText, {
                     onClose: () => {
                         const input = myText.text;
@@ -172,8 +209,14 @@ export class Skelly extends Scene {
                         );
 
                         if (myText.text === "cd Skelly") {
+                            /*
                             skellyText.setActive(true);
                             skellyText.alpha = 1;
+                            */
+
+                            this.skellyText = true;
+
+                            this.dialogue.create();
                         }
 
                         CommandWriter.cdBack(input, this, myText, "Room2");
@@ -196,10 +239,21 @@ export class Skelly extends Scene {
                     },
                 });
             } else {
+                this.dialogue.onComplete = () => {
+                    this.skellyText = false;
+
+                    myText.text = "Insert Command Here";
+
+                    this.rexUI.edit(myText);
+                };
+            }
+
+            /*else {
                 if (event.key === "Enter") {
                     updateSkellyText();
                 }
             }
+                */
         });
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);

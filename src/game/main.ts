@@ -18,6 +18,7 @@ import { Skelly } from "./scenes/Skelly";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
 import { Preloader } from "./scenes/preloader";
+import { cutscene } from "./scenes/cutscene";
 import RexUIPlugin from "phaser3-rex-plugins/templates/ui/ui-plugin.js";
 
 //  Find out more information about the Game Config at:
@@ -35,6 +36,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Boot,
         Preloader,
         MainMenu,
+        cutscene,
         Tutorial,
         MainGame,
         Room2,

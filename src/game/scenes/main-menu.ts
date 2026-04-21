@@ -35,7 +35,7 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("SkellyKeyInHand", false);
         this.registry.set("SkellyKeyInPocket", false);
         */
-        this.registry.set("SkellyOpen", false);
+        this.registry.set("SkellyOpen", true);
 
         this.registry.set("Tutorial", true);
         /*
@@ -117,7 +117,7 @@ export class MainMenu extends Scene implements ChangeableScene {
                         });
                         */
 
-                        this.scene.start("Tutorial");
+                        this.scene.start("cutscene");
                     }
                 },
             });

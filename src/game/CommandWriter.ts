@@ -75,6 +75,14 @@ export class CommandWriter {
             !scene.registry.get("pocketsOpen") &&
             !scene.registry.get("padCloseUp")
         ) {
+            /*
+            scene.game.sound.play("ChangeRoom", { volume: 0.5 });
+
+            scene.time.delayedCall(150, () => {
+                
+            })
+            */
+
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
         }
