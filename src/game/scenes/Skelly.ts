@@ -48,7 +48,7 @@ export class Skelly extends Scene {
             "That is exactly my story as well.",
             "But listen to me.",
             "I refuse to see another soul succumb to my fate.",
-            "On my time here, before my inevitable death",
+            "On my time here, before my inevitable death...",
             "I have found this paper.",
             "It is said to uncover the hidden artifacts around this dungeon.",
             "It'll allow you to go in search of that that opens the final door.",
@@ -161,16 +161,29 @@ export class Skelly extends Scene {
         };
         */
 
-        this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
-            if (
-                event.key !== "Enter" &&
-                (myText.text === "Insert Command Here" ||
-                    myText.text === "Command Not Found" ||
-                    myText.text === "Door Locked")
-            ) {
-                myText.text = "";
-            }
-            if (!this.skellyText) {
+        this.input.keyboard!.on(
+            "keydown",
+            (event: KeyboardEvent) => {
+                if (
+                    event.key !== "Enter" &&
+                    (myText.text === "Insert Command Here" ||
+                        myText.text === "Command Not Found" ||
+                        myText.text === "Door Locked")
+                ) {
+                    myText.text = "";
+                }
+                if (this.skellyText) {
+                    this.dialogue.onComplete = () => {
+                        this.skellyText = false;
+
+                        myText.text = "Insert Command Here";
+
+                        console.log("Reached boolean");
+
+                        this.rexUI.edit(myText);
+                    };
+                    return;
+                }
                 this.rexUI.edit(myText, {
                     onClose: () => {
                         const input = myText.text;
@@ -240,25 +253,16 @@ export class Skelly extends Scene {
                         CommandWriter.checkCommandFound(myText);
                     },
                 });
-            } else {
-                this.dialogue.onComplete = () => {
-                    this.skellyText = false;
+            },
+            this,
+        );
 
-                    myText.text = "Insert Command Here";
-
-                    console.log("Reached boolean");
-
-                    this.rexUI.edit(myText);
-                };
-            }
-
-            /*else {
+        /*else {
                 if (event.key === "Enter") {
                     updateSkellyText();
                 }
             }
                 */
-        });
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
         //this.fpsText = new FpsText(this);
