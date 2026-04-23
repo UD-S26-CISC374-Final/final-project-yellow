@@ -42,7 +42,7 @@ export class DialogComponent {
             .dialog({
                 x: this.xPos,
                 y: this.yPos,
-                //width: 400,
+                width: AUTO,
                 height: 130,
 
                 background: this.scene.rexUI.add.roundRectangle(
