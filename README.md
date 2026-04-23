@@ -1,16 +1,16 @@
 # Game Name
 
-TEXT GOES HERE
+Command The Dungeon!
 
 # Team Color
 
-TEXT GOES HERE
+Yellow
 
 # Developers
 
-* Name (email)
-* Name (email)
-* Name (email)
+* Jeremias Brana Tonelli (jerebt@udel.edu)
+* Matthew Goldstein (themattg@udel.edu)
+
 
 # Blurb
 
