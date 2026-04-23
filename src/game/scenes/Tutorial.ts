@@ -31,8 +31,13 @@ export class Tutorial extends Scene {
             */
 
         //this.cameras.main.resetFX();
+        if (!this.registry.get("removeFadeIn")) {
+            this.cameras.main.fadeIn(1000, 0, 0, 0);
 
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+            this.time.delayedCall(150, () =>
+                this.registry.set("removeFadeIn", true),
+            );
+        }
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
@@ -174,6 +179,19 @@ export class Tutorial extends Scene {
                         "key1InHand",
                     );
                     CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [
+                            cdRoom1,
+                            safe,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
                         input,
                         myText,
                         [

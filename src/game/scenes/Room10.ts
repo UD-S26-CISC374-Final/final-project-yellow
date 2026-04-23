@@ -90,14 +90,23 @@ export class Room10 extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [code],
+                        [
+                            code,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );
                     CommandWriter.lsACommand(
                         input,
                         myText,
-                        [code, mask4],
+                        [
+                            code,
+                            mask4,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );

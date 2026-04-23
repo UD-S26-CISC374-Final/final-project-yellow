@@ -72,29 +72,6 @@ export class Room12 extends Scene {
 
         this.background = this.add.image(400, 300, "OnlyDoorLeft");
 
-        /*
-        this.dialogueTexts = [
-            "Holy cow",
-            "Another one?",
-            "I have to tell you, the guy that built the place doesn't get tired of this",
-            "Of putting people in here I mean",
-            "Anyway",
-            "I'm sure you don't care enough about my name",
-            "So I'm gonna get to the point",
-            "In the next room there's an exit",
-            "But you are going to need 4 pieces of a mask",
-            "The 4 pieces of my brother",
-            "He kinda deserved it thow, being shattered",
-            "So, just find the pieces, put them in the correct order, and you're out",
-            "The problem is my brother was hidden well",
-            "So you'll need to talk to a friend of mine, he'll give you the tools to look for my brother",
-            "Pick up the key next door, and find the door with his face.",
-            "One last thing",
-            "I can't tell you directly the order in which to put the pieces, only in the way of a riddle",
-            "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry",
-        ];
-        */
-
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -170,15 +147,25 @@ export class Room12 extends Scene {
                         CommandWriter.lsCommand(
                             input,
                             myText,
-                            [cdRoomEnd],
+                            [
+                                cdRoomEnd,
+                                cdMask,
+                                this.pockets.pocketsIndicator,
+                                this.hand.handPrompt,
+                            ],
                             this.hand,
                             this,
                         );
 
-                        CommandWriter.lsCommand(
+                        CommandWriter.lsACommand(
                             input,
                             myText,
-                            [cdMask],
+                            [
+                                cdRoomEnd,
+                                cdMask,
+                                this.pockets.pocketsIndicator,
+                                this.hand.handPrompt,
+                            ],
                             this.hand,
                             this,
                         );

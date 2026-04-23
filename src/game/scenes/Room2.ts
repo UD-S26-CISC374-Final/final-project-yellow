@@ -66,7 +66,11 @@ export class Room2 extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [skelly],
+                        [
+                            skelly,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );
@@ -74,7 +78,11 @@ export class Room2 extends Scene {
                     CommandWriter.lsACommand(
                         input,
                         myText,
-                        [skelly],
+                        [
+                            skelly,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );
