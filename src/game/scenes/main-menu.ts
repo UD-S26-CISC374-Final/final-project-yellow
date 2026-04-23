@@ -28,14 +28,14 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("Room11KeyInHand", false);
         this.registry.set("Room11KeyInPocket", false);
         */
-        this.registry.set("Room11Open", true);
+        this.registry.set("Room11Open", false);
 
         /*
         this.registry.set("HasSkellyKey", false);
         this.registry.set("SkellyKeyInHand", false);
         this.registry.set("SkellyKeyInPocket", false);
         */
-        this.registry.set("SkellyOpen", true);
+        this.registry.set("SkellyOpen", false);
 
         this.registry.set("Tutorial", true);
         /*

@@ -172,7 +172,27 @@ export class Room1 extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [cdRoom2, cdRoom3, cdRoom4],
+                        [
+                            cdRoom2,
+                            cdRoom3,
+                            cdRoom4,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [
+                            cdRoom2,
+                            cdRoom3,
+                            cdRoom4,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );

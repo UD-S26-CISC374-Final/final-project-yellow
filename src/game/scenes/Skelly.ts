@@ -33,12 +33,12 @@ export class Skelly extends Scene {
 
         this.dialogue = new DialogComponent(this);
 
-        this.dialogue.xPos = 500;
+        this.dialogue.xPos = 350;
         this.dialogue.yPos = 300;
 
         this.dialogue.characterIsTalking = this.skellyText;
 
-        this.dialogue.soundToPlay = "Skeleton";
+        this.dialogue.soundToPlay = "Skeleton2";
 
         this.dialogue.changeScene = false;
 
@@ -54,12 +54,25 @@ export class Skelly extends Scene {
             "I have found this paper.",
             "It is said to uncover the hidden artifacts around this dungeon.",
             "It'll allow you to go in search of that that opens the final door.",
+            "Just use 'ls -a' to reveal the secrets of this place.",
             "Give it a try here, and then continue with your quest.",
             "Good luck traveller.",
             "May God help you avoid my fate.",
         ];
 
         this.dialogue.changeScene = false;
+
+        this.dialogue.ImageTalk1 = this.add
+            .image(450, 300, "SkellyTalk")
+            .setDepth(10);
+        this.dialogue.ImageTalk1.setScale(0.4, 0.4);
+        this.dialogue.ImageTalk1.setActive(false).setVisible(false);
+
+        this.dialogue.ImageTalk2 = this.add
+            .image(450, 300, "SkellyTalk2")
+            .setDepth(10);
+        this.dialogue.ImageTalk2.setScale(0.4, 0.4);
+        this.dialogue.ImageTalk2.setActive(false).setVisible(false);
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
@@ -180,7 +193,9 @@ export class Skelly extends Scene {
 
                         myText.text = "Insert Command Here";
 
-                        console.log("Reached boolean");
+                        //skellyTalk.setActive(false).setVisible(false);
+
+                        this.registry.set("lsACommandActive", true);
 
                         this.rexUI.edit(myText);
                     };
@@ -193,7 +208,11 @@ export class Skelly extends Scene {
                         CommandWriter.lsCommand(
                             input,
                             myText,
-                            [cdSkelly],
+                            [
+                                cdSkelly,
+                                this.pockets.pocketsIndicator,
+                                this.hand.handPrompt,
+                            ],
                             this.hand,
                             this,
                         );
@@ -201,7 +220,12 @@ export class Skelly extends Scene {
                         CommandWriter.lsACommand(
                             input,
                             myText,
-                            [cdSkelly, mask3],
+                            [
+                                cdSkelly,
+                                mask3,
+                                this.pockets.pocketsIndicator,
+                                this.hand.handPrompt,
+                            ],
                             this.hand,
                             this,
                         );
@@ -234,6 +258,8 @@ export class Skelly extends Scene {
                             this.skellyText = true;
 
                             this.dialogue.create();
+
+                            //skellyTalk.setActive(true).setVisible(true);
                         }
 
                         CommandWriter.cdBack(input, this, myText, "Room2");

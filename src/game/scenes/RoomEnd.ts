@@ -122,6 +122,10 @@ export class RoomEnd extends Scene {
                     ) {
                         KeyObject.setActive(true);
                         KeyObject.alpha = 1;
+                        this.pockets.pocketsIndicator
+                            .setActive(true)
+                            .setVisible(true);
+                        this.hand.handPrompt.setActive(true).setVisible(true);
                         myText.text = "Insert Command Here";
                     } else if (
                         (myText.text === "ls" && KeyObject.active) ||

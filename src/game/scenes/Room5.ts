@@ -75,10 +75,22 @@ export class Room5 extends Scene {
                         "MaskPiece1InPocket",
                     );
 
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [this.pockets.pocketsIndicator, this.hand.handPrompt],
+                        this.hand,
+                        this,
+                    );
+
                     CommandWriter.lsACommand(
                         input,
                         myText,
-                        [mask1],
+                        [
+                            mask1,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
                         this.hand,
                         this,
                     );

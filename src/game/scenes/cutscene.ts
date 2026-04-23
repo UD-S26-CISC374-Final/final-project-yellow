@@ -26,7 +26,12 @@ export class cutscene extends Scene implements ChangeableScene {
         this.dialogue.xPos = 400;
         this.dialogue.yPos = 300;
 
+        this.dialogue.ImageTalk1 = null;
+        this.dialogue.ImageTalk2 = null;
+
         //this.dialogue.width = 300;
+
+        this.dialogue.soundToPlay = "IntroCutscene";
 
         this.dialogue.starterDialog =
             "You have been trapped in a dungeon.         ";

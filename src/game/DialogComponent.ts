@@ -18,6 +18,9 @@ export class DialogComponent {
 
     soundToPlay!: string;
 
+    ImageTalk1!: Phaser.GameObjects.Image | null;
+    ImageTalk2!: Phaser.GameObjects.Image | null;
+
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
@@ -74,6 +77,7 @@ export class DialogComponent {
                     actions: 0,
                 },
             })
+            .setDepth(10)
             .layout();
 
         const content = dialogue.getElement(
@@ -82,6 +86,27 @@ export class DialogComponent {
 
         const typing = this.scene.rexUI.add.textTyping(content, {
             speed: 30,
+        });
+
+        typing.on("typechar", () => {
+            this.scene.sound.play(this.soundToPlay, {
+                volume: 0.5,
+                //rate: Phaser.Math.FloatBetween(0.9, 0.11),
+            });
+        });
+
+        typing.on("type", () => {
+            if (this.ImageTalk1 && this.ImageTalk2) {
+                this.ImageTalk1.setActive(true).setVisible(true);
+                this.ImageTalk2.setActive(false).setVisible(false);
+            }
+        });
+
+        typing.on("complete", () => {
+            if (this.ImageTalk1 && this.ImageTalk2) {
+                this.ImageTalk1.setActive(false).setVisible(false);
+                this.ImageTalk2.setActive(true).setVisible(true);
+            }
         });
 
         const newLine = () => {
@@ -93,19 +118,16 @@ export class DialogComponent {
             ) {
                 //content.setText(lines[index]);
                 typing.start(this.dialogueLines[index]);
-                /*
-                while (typing.isTyping) {
-                    this.scene.game.sound.play(this.soundToPlay, {
-                        volume: 0.5,
-                    });
-                }
-                    */
             } else {
                 dialogue.setActive(false).setVisible(false);
                 if (this.changeScene) {
                     this.scene.scene.start(this.sceneToChange);
                 } else {
                     this.onComplete?.();
+                    if (this.ImageTalk1 && this.ImageTalk2) {
+                        this.ImageTalk1.setActive(false).setVisible(false);
+                        this.ImageTalk2.setActive(false).setVisible(false);
+                    }
                 }
             }
         };

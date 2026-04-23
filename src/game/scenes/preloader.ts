@@ -51,9 +51,13 @@ export class Preloader extends Scene {
         this.load.image("MaskPiece3", "MaskPiece3.png");
         this.load.image("MaskPiece4", "MaskPiece4.png");
 
+        this.load.image("SkellyTalk", "SkellyTalk.jpg");
+        this.load.image("SkellyTalk2", "SkellyTalk2.jpg");
+
         this.load.audio("ChangeRoom", "ChangeRoom.wav");
         this.load.audio("IntroCutscene", "IntroCutscene.wav");
         this.load.audio("Skeleton", "Skeleton.wav");
+        this.load.audio("Skeleton2", "Skeleton2.wav");
 
         this.load.image("PadLock", "PadLock.png");
     }
