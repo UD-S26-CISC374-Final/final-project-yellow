@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 export class DialogComponent {
     scene: Scene;
@@ -39,6 +39,8 @@ export class DialogComponent {
             .dialog({
                 x: this.xPos,
                 y: this.yPos,
+                //width: 400,
+                height: 130,
 
                 background: this.scene.rexUI.add.roundRectangle(
                     0,
@@ -52,20 +54,24 @@ export class DialogComponent {
                 //title: this.add.text(0, 0, ""),
 
                 content: this.scene.add.text(0, 0, this.starterDialog, {
-                    wordWrap: { width: 280 },
+                    wordWrap: { width: 240 },
                     lineSpacing: 8,
                 }),
 
                 actions: [this.scene.add.text(0, 0, "Enter")],
 
                 space: {
-                    left: 20,
+                    left: 10,
                     right: 20,
                     top: 20,
                     bottom: 20,
                     title: 20,
                     content: 20,
-                    action: 20,
+                    action: 40,
+                },
+                proportion: {
+                    content: 1,
+                    actions: 0,
                 },
             })
             .layout();
