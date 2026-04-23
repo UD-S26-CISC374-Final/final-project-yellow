@@ -16,6 +16,8 @@ export class DialogComponent {
 
     characterIsTalking!: boolean;
 
+    soundToPlay!: string;
+
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
@@ -91,6 +93,13 @@ export class DialogComponent {
             ) {
                 //content.setText(lines[index]);
                 typing.start(this.dialogueLines[index]);
+                /*
+                while (typing.isTyping) {
+                    this.scene.game.sound.play(this.soundToPlay, {
+                        volume: 0.5,
+                    });
+                }
+                    */
             } else {
                 dialogue.setActive(false).setVisible(false);
                 if (this.changeScene) {

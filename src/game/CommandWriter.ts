@@ -85,6 +85,14 @@ export class CommandWriter {
 
             scene.game.sound.play("ChangeRoom", { volume: 0.5 });
 
+            /*
+            for (let i = 0; i < 3; i++) {
+                scene.time.delayedCall(1000, () => {
+                    scene.game.sound.play("ChangeRoom", { volume: 0.5 });
+                });
+            }
+                */
+
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
         }
@@ -165,6 +173,9 @@ export class CommandWriter {
             object.alpha = 0;
             scene.registry.set(globalVar, true);
             scene.registry.set(globalVarInPockets, true);
+
+            scene.game.sound.play("Skeleton", { volume: 0.8 });
+
             myText.text = "Insert Command Here";
         }
     }

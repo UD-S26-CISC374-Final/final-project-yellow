@@ -6,6 +6,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
+import { DialogComponent } from "../DialogComponent";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -17,7 +18,10 @@ export class Room12 extends Scene {
     hand!: Hand;
     location!: Location;
     //fpsText: FpsText;
-    dialogueTexts!: string[];
+    maskText!: boolean;
+    //dialogueTexts!: string[];
+
+    dialogue!: DialogComponent;
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
@@ -25,13 +29,50 @@ export class Room12 extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
+        this.maskText = false;
+
+        this.dialogue = new DialogComponent(this);
+
+        this.dialogue.xPos = 500;
+        this.dialogue.yPos = 300;
+
+        this.dialogue.characterIsTalking = this.maskText;
+
+        this.dialogue.soundToPlay = "Skeleton";
+
+        this.dialogue.changeScene = false;
+
+        this.dialogue.starterDialog = "Holy cow                           ";
+
+        this.dialogue.dialogueLines = [
+            "Holy cow",
+            "Another one?",
+            "I have to tell you, the guy that built the place doesn't get tired of this",
+            "Of putting people in here I mean",
+            "Anyway",
+            "I'm sure you don't care enough about my name",
+            "So I'm gonna get to the point",
+            "In the next room there's an exit",
+            "But you are going to need 4 pieces of a mask",
+            "The 4 pieces of my brother",
+            "He kinda deserved it thow, being shattered",
+            "So, just find the pieces, put them in the correct order, and you're out",
+            "The problem is my brother was hidden well",
+            "So you'll need to talk to a friend of mine, he'll give you the tools to look for my brother",
+            "Pick up the key next door, and find the door with his face.",
+            "One last thing",
+            "I can't tell you directly the order in which to put the pieces, only in the way of a riddle",
+            "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry",
+        ];
+
+        this.dialogue.changeScene = false;
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "OnlyDoorLeft");
 
+        /*
         this.dialogueTexts = [
             "Holy cow",
             "Another one?",
@@ -52,6 +93,7 @@ export class Room12 extends Scene {
             "I can't tell you directly the order in which to put the pieces, only in the way of a riddle",
             "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry",
         ];
+        */
 
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
             fixedWidth: 200,
@@ -79,6 +121,7 @@ export class Room12 extends Scene {
         cdMask.setOrigin(0.15, 0);
         cdMask.setActive(false).setVisible(false);
 
+        /*
         const maskText = this.add.text(400, 150, "", {
             wordWrap: { width: 200 },
             backgroundColor: "#000000",
@@ -90,6 +133,7 @@ export class Room12 extends Scene {
         if (this.registry.get("talkedToMask")) {
             maskTextIndex = this.dialogueTexts.length - 2;
         }
+            
 
         const updateMaskText = () => {
             if (maskTextIndex >= 1) {
@@ -107,6 +151,7 @@ export class Room12 extends Scene {
                 myText.text = "Insert Command Here";
             }
         };
+        */
 
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
@@ -117,7 +162,7 @@ export class Room12 extends Scene {
             ) {
                 myText.text = "";
             }
-            if (!maskText.active) {
+            if (!this.maskText) {
                 this.rexUI.edit(myText, {
                     onClose: () => {
                         const input = myText.text;
@@ -147,9 +192,15 @@ export class Room12 extends Scene {
                         );
 
                         if (myText.text === "cd Mask") {
+                            /*
                             maskText.setActive(true);
                             maskText.alpha = 1;
                             myText.text = "Insert Command Here";
+                            */
+
+                            this.maskText = true;
+
+                            this.dialogue.create();
                         }
 
                         CommandWriter.cdBack(input, this, myText, "Room11");
@@ -213,8 +264,16 @@ export class Room12 extends Scene {
                         */
                     },
                 });
-            } else if (event.key === "Enter") {
-                updateMaskText();
+            } else {
+                this.dialogue.onComplete = () => {
+                    this.maskText = false;
+
+                    myText.text = "Insert Command Here";
+
+                    console.log("Reached boolean");
+
+                    this.rexUI.edit(myText);
+                };
             }
         });
 
