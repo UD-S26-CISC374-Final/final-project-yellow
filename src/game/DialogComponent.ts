@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 export class DialogComponent {
     scene: Scene;
