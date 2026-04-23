@@ -38,6 +38,8 @@ export class Skelly extends Scene {
 
         this.dialogue.characterIsTalking = this.skellyText;
 
+        this.dialogue.soundToPlay = "Skeleton";
+
         this.dialogue.changeScene = false;
 
         this.dialogue.starterDialog = "Another victim of the dungeon.";
