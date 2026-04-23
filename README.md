@@ -1,16 +1,16 @@
 # Game Name
 
-TEXT GOES HERE
+Command The Dungeon
 
 # Team Color
 
-TEXT GOES HERE
+Yellow
 
 # Developers
 
-* Name (email)
-* Name (email)
-* Name (email)
+- Name (email)
+- Name (email)
+- Name (email)
 
 # Blurb
 
@@ -30,7 +30,7 @@ TEXT GOES HERE
 
 # Educational Game Design Document
 
-Link to our [egdd](Educational Game Design Document)
+https://github.com/chimuelo1011/Command-The-Dungeon-EGDD/blob/main/index.md
 
 # Credits
 
