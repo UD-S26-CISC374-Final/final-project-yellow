@@ -122,6 +122,24 @@ export class Hand {
             },
         ];
 
+        const code = this.scene.add.text(
+            330,
+            200,
+            this.scene.registry.get("code") as string,
+            {
+                fixedWidth: 200,
+                fixedHeight: 36,
+                backgroundColor: "#000000",
+                padding: { x: 9, y: 9.5 },
+            },
+        );
+        code.setOrigin(0.15, 0);
+        code.setActive(false).setVisible(false);
+
+        if (this.scene.registry.get("hasCode")) {
+            code.setActive(true).setVisible(true);
+        }
+
         for (let i = 0; i < this.itemsTotal.length; i++) {
             this.items[i] = this.scene.add.image(
                 70,
@@ -183,6 +201,12 @@ export class Hand {
 
     update() {
         //this.fpsText.update();
+
+        /*
+        if (this.scene.registry.get("hasCode")) {
+            code.setActive(true).setVisible(true);
+        }
+            */
     }
 
     changeScene() {

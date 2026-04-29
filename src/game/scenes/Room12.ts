@@ -42,7 +42,7 @@ export class Room12 extends Scene {
 
         this.dialogue.changeScene = false;
 
-        this.dialogue.starterDialog = "Holy cow                           ";
+        this.dialogue.starterDialog = "Holy cow";
 
         this.dialogue.dialogueLines = [
             "Holy cow",
@@ -58,14 +58,29 @@ export class Room12 extends Scene {
             "He kinda deserved it thow, being shattered",
             "So, just find the pieces, put them in the correct order, and you're out",
             "The problem is my brother was hidden well",
-            "So you'll need to talk to a friend of mine, he'll give you the tools to look for my brother",
+            "So you'll need to talk to a friend of mine.",
+            "He'll give you the tools to look for my brother",
             "Pick up the key next door, and find the door with his face.",
             "One last thing",
-            "I can't tell you directly the order in which to put the pieces, only in the way of a riddle",
-            "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry",
+            "I can't tell you directly the order in which to put the pieces.",
+            "Only in the way of a riddle",
+            "Listen to this because you might know it too.",
+            "The story of a dog that run fast for.",
+            "A squirell that climbed to the top of a tree.",
+            "While it was holding one strawberry",
+        ];
+
+        this.dialogue.dialogueAfterTalked = [
+            "",
+            "Listen to this because you might know it too.",
+            "The story of a dog that run fast for.",
+            "A squirell that climbed to the top of a tree.",
+            "While it was holding one strawberry",
         ];
 
         this.dialogue.changeScene = false;
+
+        this.dialogue.hasTalked = "MaskTalked";
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);

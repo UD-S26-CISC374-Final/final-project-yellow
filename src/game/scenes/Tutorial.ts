@@ -21,15 +21,6 @@ export class Tutorial extends Scene {
     }
 
     create() {
-        /*
-        this.registry.get("comesFromMenu");
-
-        if (this.registry.get("comesFromMenu")) {
-            this.cameras.main.fadeIn(1000, 0, 0, 0);
-            this.registry.set("comesFromMenu", true);
-        }
-            */
-
         //this.cameras.main.resetFX();
         if (!this.registry.get("removeFadeIn")) {
             this.cameras.main.fadeIn(1000, 0, 0, 0);

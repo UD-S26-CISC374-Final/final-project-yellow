@@ -38,7 +38,7 @@ export class Skelly extends Scene {
 
         this.dialogue.characterIsTalking = this.skellyText;
 
-        this.dialogue.soundToPlay = "Skeleton2";
+        this.dialogue.soundToPlay = "Sans";
 
         this.dialogue.changeScene = false;
 
@@ -60,7 +60,15 @@ export class Skelly extends Scene {
             "May God help you avoid my fate.",
         ];
 
+        this.dialogue.dialogueAfterTalked = [
+            "",
+            "Remember to use 'ls -a' to search for hidden mysteries.",
+            "It might be your only way out of this place.",
+        ];
+
         this.dialogue.changeScene = false;
+
+        this.dialogue.hasTalked = "SkellyTalked";
 
         this.dialogue.ImageTalk1 = this.add
             .image(450, 300, "SkellyTalk")

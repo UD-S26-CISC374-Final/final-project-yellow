@@ -59,6 +59,8 @@ export class Preloader extends Scene {
         this.load.audio("Skeleton", "Skeleton.wav");
         this.load.audio("Skeleton2", "Skeleton2.wav");
 
+        this.load.audio("Sans", "Sans.mp3");
+
         this.load.image("PadLock", "PadLock.png");
     }
 

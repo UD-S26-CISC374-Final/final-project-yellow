@@ -75,6 +75,7 @@ export class Safe {
             scene.registry.set("safeOpen", true);
             safeText.setActive(false);
             safeText.alpha = 0;
+            scene.registry.set("hasCode", false);
         }
 
         myText.text = "Insert Command Here";

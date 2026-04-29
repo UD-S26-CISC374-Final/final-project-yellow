@@ -1,10 +1,13 @@
-import { AUTO, Scene } from "phaser";
+import { Scene } from "phaser";
 
 export class DialogComponent {
     scene: Scene;
 
     starterDialog!: string;
+
     dialogueLines!: string[];
+    dialogueAfterTalked!: string[];
+
     xPos!: number;
     yPos!: number;
 
@@ -21,12 +24,15 @@ export class DialogComponent {
     ImageTalk1!: Phaser.GameObjects.Image | null;
     ImageTalk2!: Phaser.GameObjects.Image | null;
 
+    hasTalked!: string;
+
     constructor(scene: Phaser.Scene) {
         this.scene = scene;
     }
 
     create() {
         let index = 0;
+        let indexPosTalk = 0;
 
         /*
         const lines = [
@@ -42,7 +48,8 @@ export class DialogComponent {
             .dialog({
                 x: this.xPos,
                 y: this.yPos,
-                width: AUTO,
+                //width: Auto
+                width: 300,
                 height: 130,
 
                 background: this.scene.rexUI.add.roundRectangle(
@@ -57,7 +64,7 @@ export class DialogComponent {
                 //title: this.add.text(0, 0, ""),
 
                 content: this.scene.add.text(0, 0, this.starterDialog, {
-                    wordWrap: { width: 240 },
+                    wordWrap: { width: 260 },
                     lineSpacing: 8,
                 }),
 
@@ -88,11 +95,13 @@ export class DialogComponent {
             speed: 30,
         });
 
-        typing.on("typechar", () => {
-            this.scene.sound.play(this.soundToPlay, {
-                volume: 0.5,
-                //rate: Phaser.Math.FloatBetween(0.9, 0.11),
-            });
+        typing.on("typechar", (char: string) => {
+            if (char !== " ") {
+                this.scene.sound.play(this.soundToPlay, {
+                    volume: 0.5,
+                    //rate: Phaser.Math.FloatBetween(0.9, 0.11),
+                });
+            }
         });
 
         typing.on("type", () => {
@@ -110,19 +119,41 @@ export class DialogComponent {
         });
 
         const newLine = () => {
-            index++;
+            if (!this.scene.registry.get(this.hasTalked)) {
+                index++;
 
-            if (
-                index < this.dialogueLines.length ||
-                (index < this.dialogueLines.length && this.characterIsTalking)
-            ) {
-                //content.setText(lines[index]);
-                typing.start(this.dialogueLines[index]);
-            } else {
-                dialogue.setActive(false).setVisible(false);
-                if (this.changeScene) {
-                    this.scene.scene.start(this.sceneToChange);
+                if (
+                    index < this.dialogueLines.length ||
+                    (index < this.dialogueLines.length &&
+                        this.characterIsTalking)
+                ) {
+                    //content.setText(lines[index]);
+                    typing.start(this.dialogueLines[index]);
                 } else {
+                    dialogue.setActive(false).setVisible(false);
+                    this.scene.registry.set(this.hasTalked, true);
+                    if (this.changeScene) {
+                        this.scene.scene.start(this.sceneToChange);
+                    } else {
+                        this.onComplete?.();
+                        if (this.ImageTalk1 && this.ImageTalk2) {
+                            this.ImageTalk1.setActive(false).setVisible(false);
+                            this.ImageTalk2.setActive(false).setVisible(false);
+                        }
+                    }
+                }
+            } else {
+                indexPosTalk++;
+
+                if (
+                    indexPosTalk < this.dialogueAfterTalked.length ||
+                    (indexPosTalk < this.dialogueAfterTalked.length &&
+                        this.characterIsTalking)
+                ) {
+                    //content.setText(lines[index]);
+                    typing.start(this.dialogueAfterTalked[indexPosTalk]);
+                } else {
+                    dialogue.setActive(false).setVisible(false);
                     this.onComplete?.();
                     if (this.ImageTalk1 && this.ImageTalk2) {
                         this.ImageTalk1.setActive(false).setVisible(false);

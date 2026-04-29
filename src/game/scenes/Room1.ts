@@ -110,10 +110,10 @@ export class Room1 extends Scene {
             !this.registry.get("Room4KeyInHand")
         ) {
             TutorialText.text =
-                "Now we can't open the door if we are not holding the key, can't we? Go look into your pockets with the 'cd' command. And remember the 'mv' command from before? Use it again but change the 'pockets' word with 'Hand'.";
+                "Now we can't open the door if we are not holding the key, can't we? Go look into your pockets with the 'cd' command. And remember the 'mv' command from before? Inside your pockets, use it again like 'mv Room4Key Hand'.";
         } else if (this.registry.get("Room4KeyInHand")) {
             TutorialText.text =
-                "Amazing! One last thing. When a door is locked, it means it needs a key. And since you have the key in your hand, you should 'move' it to the door to use it. You see what I'm saying?";
+                "Amazing! One last thing. When a door is locked, it means it needs a key. And since you have the key in your hand, you should 'move' it to the door to use it. You see what I'm saying? Do 'mv Room4Key Room4'.";
         }
 
         this.registry.set("CommandFound", false);

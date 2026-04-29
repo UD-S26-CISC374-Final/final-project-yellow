@@ -135,6 +135,9 @@ export class CommandWriter {
             notes.openNote(noteInRoom, scene);
             noteText.setActive(true).setVisible(true);
             mytext.text = "Insert Command Here";
+            if (noteInRoom === "WeirdNote" && !scene.registry.get("safeOpen")) {
+                scene.registry.set("hasCode", true);
+            }
         } else if (input === "cd .." && scene.registry.get("noteOpen")) {
             notes.closeNote(scene);
             noteText.setActive(false).setVisible(false);
