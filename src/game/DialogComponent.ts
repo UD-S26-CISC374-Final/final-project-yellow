@@ -33,6 +33,7 @@ export class DialogComponent {
     create() {
         let index = 0;
         let indexPosTalk = 0;
+        let charCount = 0;
 
         /*
         const lines = [
@@ -97,10 +98,14 @@ export class DialogComponent {
 
         typing.on("typechar", (char: string) => {
             if (char !== " ") {
-                this.scene.sound.play(this.soundToPlay, {
-                    volume: 0.5,
-                    //rate: Phaser.Math.FloatBetween(0.9, 0.11),
-                });
+                charCount++;
+
+                if (charCount % 3 === 0) {
+                    this.scene.sound.play(this.soundToPlay, {
+                        volume: 0.5,
+                        //rate: Phaser.Math.FloatBetween(0.9, 0.11),
+                    });
+                }
             }
         });
 

@@ -71,7 +71,7 @@ export class Skelly extends Scene {
         this.dialogue.hasTalked = "SkellyTalked";
 
         this.dialogue.ImageTalk1 = this.add
-            .image(450, 300, "SkellyTalk")
+            .image(450, 300, "SkellyTalk1")
             .setDepth(10);
         this.dialogue.ImageTalk1.setScale(0.4, 0.4);
         this.dialogue.ImageTalk1.setActive(false).setVisible(false);

@@ -16,6 +16,8 @@ export class Tutorial extends Scene {
     safe!: Safe;
     location!: Location;
 
+    frameCounter!: number;
+
     constructor() {
         super("Tutorial");
     }
@@ -30,29 +32,16 @@ export class Tutorial extends Scene {
             );
         }
 
-        this.camera = this.cameras.main;
-        this.camera.setBackgroundColor(0x00ff00);
-
-        this.background = this.add.image(400, 300, "TutorialSafeClosed");
+        this.background = this.add.image(400, 300, "Tutorial1SafeClosed");
+        if (this.registry.get("safeOpen")) {
+            this.background = this.add.image(400, 300, "Tutorial2SafeOpen");
+        }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
-        /*
-        this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
-        this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
+        this.frameCounter = 0;
 
-        const LocationText = this.add.text(
-            280,
-            5,
-            "Current Location: Tutorial",
-            {
-                fixedWidth: 300,
-                fixedHeight: 36,
-                backgroundColor: "#00000000",
-                padding: { x: 9, y: 9.5 },
-            },
-        );
-        LocationText.setActive(true);
-        */
+        this.camera = this.cameras.main;
+        this.camera.setBackgroundColor(0x00ff00);
 
         const KeyObject = this.add.text(620, 400, "Room11Key", {
             fixedWidth: 200,
@@ -249,5 +238,33 @@ export class Tutorial extends Scene {
         this.location.create();
 
         EventBus.emit("current-scene-ready", this);
+    }
+
+    update(): void {
+        this.frameCounter++;
+
+        if (!this.registry.get("SkellyOpen")) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Tutorial1-2SafeClosed" ?
+                        "Tutorial1SafeClosed"
+                    :   "Tutorial1-2SafeClosed";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Tutorial2-2SafeOpen" ?
+                        "Tutorial2SafeOpen"
+                    :   "Tutorial2-2SafeOpen";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 }

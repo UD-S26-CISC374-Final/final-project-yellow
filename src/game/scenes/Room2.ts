@@ -28,10 +28,11 @@ export class Room2 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room1");
-        if (this.registry.get("SkellyOpen")) {
+        this.background = this.add.image(400, 300, "Room2");
+        if (this.registry.get("SkeRoom2llyOpen")) {
             this.background = this.add.image(400, 300, "DoorOnlyFront");
         }
+        this.background.setDisplaySize(this.scale.width, this.scale.height);
 
         const skelly = this.add.text(330, 200, "Door", {
             fixedWidth: 200,

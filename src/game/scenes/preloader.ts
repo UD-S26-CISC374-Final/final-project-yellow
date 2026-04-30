@@ -51,8 +51,18 @@ export class Preloader extends Scene {
         this.load.image("MaskPiece3", "MaskPiece3.png");
         this.load.image("MaskPiece4", "MaskPiece4.png");
 
-        this.load.image("SkellyTalk", "SkellyTalk.jpg");
-        this.load.image("SkellyTalk2", "SkellyTalk2.jpg");
+        this.load.image("SkellyTalk1", "SkellyTalk1.png");
+        this.load.image("SkellyTalk2", "SkellyTalk2.png");
+
+        this.load.image("Room1Open", "Room1Open.jpg");
+        this.load.image("Room1Closed", "Room1Closed.jpg");
+        this.load.image("Room2", "Room2.png");
+        this.load.image("Room3", "Room3.jpg");
+        this.load.image("SkellyRoom", "SkellyRoom.jpg");
+        this.load.image("Tutorial1-2SafeClosed", "Tutorial1-2SafeClosed.png");
+        this.load.image("Tutorial1SafeClosed", "Tutorial1SafeClosed.png");
+        this.load.image("Tutorial2-2SafeOpen", "Tutorial2-2SafeOpen.png");
+        this.load.image("Tutorial2SafeOpen", "Tutorial2SafeOpen.png");
 
         this.load.audio("ChangeRoom", "ChangeRoom.wav");
         this.load.audio("IntroCutscene", "IntroCutscene.wav");
@@ -60,6 +70,8 @@ export class Preloader extends Scene {
         this.load.audio("Skeleton2", "Skeleton2.wav");
 
         this.load.audio("Sans", "Sans.mp3");
+
+        this.load.audio("LockedDoor", "LockedDoor.wav");
 
         this.load.image("PadLock", "PadLock.png");
     }

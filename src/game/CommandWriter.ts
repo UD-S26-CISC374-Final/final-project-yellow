@@ -75,26 +75,23 @@ export class CommandWriter {
             !scene.registry.get("pocketsOpen") &&
             !scene.registry.get("padCloseUp")
         ) {
-            /*
-            scene.game.sound.play("ChangeRoom", { volume: 0.5 });
-
-            scene.time.delayedCall(150, () => {
-                
-            })
-            */
-
-            scene.game.sound.play("ChangeRoom", { volume: 0.5 });
-
-            /*
-            for (let i = 0; i < 3; i++) {
-                scene.time.delayedCall(1000, () => {
-                    scene.game.sound.play("ChangeRoom", { volume: 0.5 });
-                });
-            }
-                */
+            scene.sound.play("ChangeRoom", { volume: 0.5 });
 
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
+            /*
+            const loopCount = 3;
+            for (let i = 0; i < loopCount; i++) {
+                scene.time.delayedCall(300 * i, () => {
+                    scene.sound.play("ChangeRoom", { volume: 0.5 });
+                });
+            }
+
+            scene.time.delayedCall(300 * loopCount, () => {
+                scene.scene.start(nextSceneName);
+                myText.text = "Insert Command Here";
+            });
+            */
         }
     }
 
@@ -113,13 +110,30 @@ export class CommandWriter {
             !scene.registry.get("pocketsOpen") &&
             !scene.registry.get("padCloseUp")
         ) {
+            scene.sound.play("ChangeRoom", { volume: 0.5 });
+
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
+
+            /*
+            const loopCount = 3;
+            for (let i = 0; i < loopCount; i++) {
+                scene.time.delayedCall(300 * i, () => {
+                    scene.sound.play("ChangeRoom", { volume: 0.5 });
+                });
+            }
+
+            scene.time.delayedCall(300 * loopCount, () => {
+                scene.scene.start(nextSceneName);
+                myText.text = "Insert Command Here";
+            });
+            */
         } else if (
             input === "cd " + sceneToChange &&
             !scene.registry.get(globalVar)
         ) {
             myText.text = "Door Locked";
+            scene.sound.play("LockedDoor", { volume: 0.5 });
         }
     }
 

@@ -34,9 +34,9 @@ export class Room1 extends Scene {
 
         this.registry.set("Tutorial", false);
 
-        this.background = this.add.image(400, 300, "level1locked");
+        this.background = this.add.image(400, 300, "Room1Closed");
         if (this.registry.get("Room4Open")) {
-            this.background.setTexture("level1");
+            this.background.setTexture("Room1Open");
         }
         this.background.setDisplaySize(this.scale.width, this.scale.height);
 
@@ -162,7 +162,7 @@ export class Room1 extends Scene {
                         "Room4Key",
                         this.background,
                         cdRoom4.text,
-                        "level1",
+                        "Room1Open",
                         myText,
                         "HasRoom4Key",
                         "Room4Open",

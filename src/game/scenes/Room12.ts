@@ -154,85 +154,95 @@ export class Room12 extends Scene {
             ) {
                 myText.text = "";
             }
-            if (!this.maskText) {
-                this.rexUI.edit(myText, {
-                    onClose: () => {
-                        const input = myText.text;
+            if (this.maskText) {
+                this.dialogue.onComplete = () => {
+                    this.maskText = false;
 
-                        CommandWriter.lsCommand(
-                            input,
-                            myText,
-                            [
-                                cdRoomEnd,
-                                cdMask,
-                                this.pockets.pocketsIndicator,
-                                this.hand.handPrompt,
-                            ],
-                            this.hand,
-                            this,
-                        );
+                    myText.text = "Insert Command Here";
 
-                        CommandWriter.lsACommand(
-                            input,
-                            myText,
-                            [
-                                cdRoomEnd,
-                                cdMask,
-                                this.pockets.pocketsIndicator,
-                                this.hand.handPrompt,
-                            ],
-                            this.hand,
-                            this,
-                        );
+                    this.rexUI.edit(myText);
+                };
+                return;
+            }
 
-                        CommandWriter.cdCommand(
-                            input,
-                            this,
-                            myText,
-                            cdRoomEnd.text,
-                            "RoomEnd",
-                        );
+            this.rexUI.edit(myText, {
+                onClose: () => {
+                    const input = myText.text;
 
-                        if (myText.text === "cd Mask") {
-                            /*
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [
+                            cdRoomEnd,
+                            cdMask,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
+                        input,
+                        myText,
+                        [
+                            cdRoomEnd,
+                            cdMask,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.cdCommand(
+                        input,
+                        this,
+                        myText,
+                        cdRoomEnd.text,
+                        "RoomEnd",
+                    );
+
+                    if (myText.text === "cd Mask") {
+                        /*
                             maskText.setActive(true);
                             maskText.alpha = 1;
                             myText.text = "Insert Command Here";
                             */
 
-                            this.maskText = true;
+                        this.maskText = true;
 
-                            this.dialogue.create();
-                        }
+                        this.dialogue.create();
+                    }
 
-                        CommandWriter.cdBack(input, this, myText, "Room11");
+                    CommandWriter.cdBack(input, this, myText, "Room11");
 
-                        CommandWriter.openInventory(
-                            input,
-                            this.pockets,
-                            myText,
-                            this,
-                        );
+                    CommandWriter.openInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
 
-                        CommandWriter.closeInventory(
-                            input,
-                            this.pockets,
-                            myText,
-                            this,
-                        );
+                    CommandWriter.closeInventory(
+                        input,
+                        this.pockets,
+                        myText,
+                        this,
+                    );
 
-                        CommandWriter.mvCommandItemToHand(
-                            input,
-                            this.hand,
-                            this.pockets,
-                            this,
-                            this.registry.get("ItemsNames") as string[],
-                            myText,
-                        );
+                    CommandWriter.mvCommandItemToHand(
+                        input,
+                        this.hand,
+                        this.pockets,
+                        this,
+                        this.registry.get("ItemsNames") as string[],
+                        myText,
+                    );
 
-                        CommandWriter.checkCommandFound(myText);
+                    CommandWriter.checkCommandFound(myText);
 
-                        /*
+                    /*
                     if (
                         myText.text === "cd " + cdRoom5.text &&
                         cdRoom5.active
@@ -264,19 +274,8 @@ export class Room12 extends Scene {
                         myText.text = "Command Not Found";
                     }
                         */
-                    },
-                });
-            } else {
-                this.dialogue.onComplete = () => {
-                    this.maskText = false;
-
-                    myText.text = "Insert Command Here";
-
-                    console.log("Reached boolean");
-
-                    this.rexUI.edit(myText);
-                };
-            }
+                },
+            });
         });
 
         //this.phaserLogo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
