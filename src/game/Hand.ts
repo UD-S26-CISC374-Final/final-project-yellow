@@ -157,9 +157,20 @@ export class Hand {
     }
 
     itemInHand(name: string, scene: Scene) {
+        /*
         for (let i = 0; i < this.itemsInHand.length; i++) {
             if (scene.registry.get(this.itemsInHand[i])) return;
         }
+            */
+
+        for (let j = 0; j < this.itemsTotal.length; j++) {
+            if (scene.registry.get(this.itemsInHand[j])) {
+                this.items[j].setActive(false).setVisible(false);
+                scene.registry.set(this.itemsInHand[j], false);
+                scene.registry.set(this.itemsInPockets[j], true);
+            }
+        }
+
         for (let i = 0; i < this.itemsTotal.length; i++) {
             if (
                 this.itemsTotal[i].itemName === name &&
@@ -170,6 +181,9 @@ export class Hand {
                 this.items[i].setActive(true).setVisible(true);
                 scene.registry.set(this.itemsInHand[i], true);
                 scene.registry.set(this.itemsInPockets[i], false);
+                if (this.itemInHandName.active) {
+                    this.itemInHandName.text = this.itemNamesHand[i];
+                }
                 //this.thereIsItemInHand = true;
             }
         }
@@ -201,7 +215,6 @@ export class Hand {
 
     update() {
         //this.fpsText.update();
-
         /*
         if (this.scene.registry.get("hasCode")) {
             code.setActive(true).setVisible(true);
