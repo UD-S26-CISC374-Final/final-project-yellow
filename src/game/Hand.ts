@@ -50,7 +50,15 @@ export class Hand {
         this.handPrompt.setActive(false).setVisible(false);
         this.handPrompt.setDepth(1);
 
-        this.itemNamesHand = ["Room4Key", "Room11Key", "SkellyKey"];
+        this.itemNamesHand = [
+            "Room4Key",
+            "Room11Key",
+            "SkellyKey",
+            "MaskPiece1",
+            "MaskPiece2",
+            "MaskPiece3",
+            "MaskPiece4",
+        ];
 
         this.itemInHandName = this.scene.add.text(20, 450, "itemHeld", {
             fixedWidth: 100,

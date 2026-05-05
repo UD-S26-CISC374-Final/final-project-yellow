@@ -29,6 +29,7 @@ export class Room3 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room3");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(330, 200, "Room4Key", {
             fixedWidth: 200,
@@ -75,8 +76,14 @@ export class Room3 extends Scene {
                 myText.text = "";
             }
             if (this.registry.get("HasRoom4Key")) {
+                /*
                 tutorialText.setActive(false);
                 tutorialText.alpha = 0;
+                */
+
+                tutorialText.text =
+                    "Note: Remember that the blue squares are items you can put in your pockets. Black squares are places, people, or things only accessible with the 'cd' command. They are not to be stored.";
+                tutorialText.setPosition(450, 300);
             } else if (KeyObject.active) {
                 tutorialText.text =
                     "Wow. Look at that. A key. it might be useful. How about if you 'move' it to your pockets? Type 'mv' plus a space, the name of the key, and the name of where will it go (pockets in this case).";

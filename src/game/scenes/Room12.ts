@@ -86,6 +86,7 @@ export class Room12 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "OnlyDoorLeft");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
             fixedWidth: 200,
@@ -112,38 +113,6 @@ export class Room12 extends Scene {
         });
         cdMask.setOrigin(0.15, 0);
         cdMask.setActive(false).setVisible(false);
-
-        /*
-        const maskText = this.add.text(400, 150, "", {
-            wordWrap: { width: 200 },
-            backgroundColor: "#000000",
-        });
-        maskText.setOrigin(0.15, 0);
-        maskText.setActive(false);
-        maskText.alpha = 0;
-        let maskTextIndex = 0;
-        if (this.registry.get("talkedToMask")) {
-            maskTextIndex = this.dialogueTexts.length - 2;
-        }
-            
-
-        const updateMaskText = () => {
-            if (maskTextIndex >= 1) {
-                maskText.text = this.dialogueTexts[maskTextIndex];
-            }
-            maskTextIndex++;
-            if (maskTextIndex > this.dialogueTexts.length) {
-                this.registry.set("talkedToMask", true);
-                maskText.setActive(false);
-                maskText.alpha = 0;
-                maskTextIndex = this.dialogueTexts.length - 1;
-                maskText.text =
-                    "Listen to this because you might know it too, the story of a dog that run fast for, a squirell that climbed to the top of a tree, while it was holding one strawberry";
-                this.registry.set("lsACommandActive", true);
-                myText.text = "Insert Command Here";
-            }
-        };
-        */
 
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             if (
@@ -241,39 +210,6 @@ export class Room12 extends Scene {
                     );
 
                     CommandWriter.checkCommandFound(myText);
-
-                    /*
-                    if (
-                        myText.text === "cd " + cdRoom5.text &&
-                        cdRoom5.active
-                    ) {
-                        this.scene.start("Room1_1");
-                    } else if (
-                        myText.text === "cd " + cdRoom6.text &&
-                        cdRoom6.active
-                    ) {
-                        this.scene.start("RoomStartRight");
-                    } else if (myText.text === "cd ..") {
-                        this.scene.start("Level1");
-                    } else if (myText.text === "ls" && !cdRoom5.active) {
-                        //mySprite.setActive(true);
-                        //mySprite.alpha = 1;
-
-                        cdRoom5.setActive(true);
-                        cdRoom6.setActive(true);
-                        cdRoom5.alpha = 1;
-                        cdRoom6.alpha = 1;
-                        myText.text = "Insert Command Here";
-                    } else if (myText.text === "ls" && cdRoom5.active) {
-                        myText.text = "Insert Command Here";
-                    } else if (
-                        myText.text !== "cd .." &&
-                        myText.text !== "cd " + cdRoom5.text &&
-                        myText.text !== "ls"
-                    ) {
-                        myText.text = "Command Not Found";
-                    }
-                        */
                 },
             });
         });

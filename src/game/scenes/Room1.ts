@@ -38,7 +38,7 @@ export class Room1 extends Scene {
         if (this.registry.get("Room4Open")) {
             this.background.setTexture("Room1Open");
         }
-        this.background.setDisplaySize(this.scale.width, this.scale.height);
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         /*
         this.add.rectangle(400, 25, 800, 60, 0x000000, 1);

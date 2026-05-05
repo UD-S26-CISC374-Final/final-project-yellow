@@ -19,6 +19,8 @@ export class Notes {
 
         this.notesNames = [
             { noteName: "WeirdNote", noteOpen: false, noteImage: "Inventory" },
+            { noteName: "Note", noteOpen: false, noteImage: "Inventory" },
+            { noteName: "TornNote", noteOpen: false, noteImage: "Inventory" },
         ];
 
         for (let i = 0; i < this.notesNames.length; i++) {

@@ -16,6 +16,7 @@ export class Room6 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+    bookShelf: Phaser.GameObjects.Image;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -30,7 +31,8 @@ export class Room6 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "OnlyDoorLeft");
+        this.background = this.add.image(400, 300, "Room6");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom7 = this.add.text(70, 200, "Room7", {
             fixedWidth: 200,
@@ -40,17 +42,19 @@ export class Room6 extends Scene {
         });
         cdRoom7.setOrigin(0.15, 0);
         cdRoom7.setActive(false).setVisible(false);
-        /*
-        const cdRoom6 = this.add.text(590, 200, "Room6", {
+
+        const booksText = this.add.text(220, 200, "BookShelf", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        cdRoom6.setOrigin(0.15, 0);
-        cdRoom6.setActive(false);
-        cdRoom6.alpha = 0;
-        */
+        booksText.setOrigin(0.15, 0);
+        booksText.setActive(false).setVisible(false);
+
+        this.bookShelf = this.add.image(140, 200, "Inventory");
+        this.bookShelf.setActive(false).setVisible(false);
+        this.bookShelf.setDepth(10);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -73,11 +77,32 @@ export class Room6 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    if (
+                        input === "cd BookShelf"
+                        //&& !this.registry.get("bookCloseUp")
+                    ) {
+                        this.bookShelf.setActive(true).setVisible(true);
+                        this.registry.set("bookCloseUp", true);
+                    } else if (
+                        input === "cd .." &&
+                        this.registry.get("bookCloseUp")
+                    ) {
+                        this.backUp();
+                    } else {
+                        CommandWriter.cdBack(
+                            input,
+                            this,
+                            myText,
+                            "Room4Locked",
+                        );
+                    }
+
                     CommandWriter.lsCommand(
                         input,
                         myText,
                         [
                             cdRoom7,
+                            booksText,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -90,6 +115,7 @@ export class Room6 extends Scene {
                         myText,
                         [
                             cdRoom7,
+                            booksText,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -104,8 +130,6 @@ export class Room6 extends Scene {
                         cdRoom7.text,
                         "Room7",
                     );
-
-                    CommandWriter.cdBack(input, this, myText, "Room4Locked");
 
                     CommandWriter.openInventory(
                         input,
@@ -148,6 +172,11 @@ export class Room6 extends Scene {
         this.location.create();
 
         EventBus.emit("current-scene-ready", this);
+    }
+
+    backUp() {
+        this.registry.set("bookCloseUp", false);
+        this.bookShelf.setActive(false).setVisible(false);
     }
 
     update() {

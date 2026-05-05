@@ -1,6 +1,6 @@
 import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
@@ -11,6 +11,7 @@ import { DialogComponent } from "../DialogComponent";
 export class Skelly extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
+    backgroundAfterMask: Phaser.GameObjects.Image;
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
@@ -19,16 +20,19 @@ export class Skelly extends Scene {
     //dialogueTexts!: string[];
 
     dialogue!: DialogComponent;
-    //phaserLogo: PhaserLogo;
-    //fpsText: FpsText;
+    frameCounter!: number;
 
-    //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
+    mask3!: GameObjects.Text;
 
     constructor() {
         super("Skelly");
     }
 
     create() {
+        this.registry.set("Mask3InView", false);
+
+        this.frameCounter = 0;
+
         this.skellyText = false;
 
         this.dialogue = new DialogComponent(this);
@@ -85,45 +89,24 @@ export class Skelly extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room3");
+        this.background = this.add.image(400, 300, "Skelly1_1NoMask");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        /*
-        this.dialogueTexts = [
-            "",
-            "Another victim of the dungeon.",
-            "You were also trapped here without knowledge on who put you here?",
-            "That is exactly my story as well.",
-            "But listen to me.",
-            "I refuse to see another soul succumb to my fate.",
-            "On my time here, before my inevitable death",
-            "I have found this paper.",
-            "It is said to uncover the hidden artifacts around this dungeon.",
-            "It'll allow you to go in search of that that opens the final door.",
-            "Give it a try here, and then continue with your quest.",
-            "Good luck traveller.",
-            "May God help you avoid my fate.",
-        ];
-        */
-
-        const mask3 = this.add.text(400, 100, "MaskPiece3", {
+        this.mask3 = this.add.text(400, 100, "MaskPiece3", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        mask3.setOrigin(0.15, 0);
-        mask3.setActive(false).setVisible(false);
+        this.mask3.setOrigin(0.15, 0);
+        this.mask3.setActive(false).setVisible(false);
 
-        /*
-        const KeyObject = this.add.text(330, 200, "Key", {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        KeyObject.setOrigin(0.15, 0);
-        KeyObject.setActive(false).setVisible(false);
-        */
+        this.backgroundAfterMask = this.add.image(400, 300, "Skelly2_1Mask");
+        this.backgroundAfterMask.setDisplaySize(
+            this.scale.width + 5,
+            this.scale.height,
+        );
+        this.backgroundAfterMask.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -141,48 +124,6 @@ export class Skelly extends Scene {
         });
         cdSkelly.setOrigin(0.15, 0);
         cdSkelly.setActive(false).setVisible(false);
-
-        /*
-        const skellyText = this.add.text(150, 300, "Oh.", {
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-            wordWrap: { width: 200 },
-        });
-        skellyText.setOrigin(0.15, 0);
-        skellyText.setActive(false);
-        skellyText.alpha = 0;
-        let skellyTextIndex = 0;
-
-        
-        const updateSkellyText = () => {
-            if (skellyTextIndex >= 1 && !this.registry.get("TalkedSkelly")) {
-                skellyText.text = this.dialogueTexts[skellyTextIndex];
-            }
-
-            skellyTextIndex++;
-            if (
-                skellyTextIndex > this.dialogueTexts.length &&
-                !this.registry.get("TalkedSkelly")
-            ) {
-                skellyText.setActive(false);
-                skellyText.alpha = 0;
-                //skellyTextIndex = 0;
-                skellyText.text = "Go on";
-                this.registry.set("lsACommandActive", true);
-                myText.text = "Insert Command Here";
-                this.registry.set("TalkedSkelly", true);
-            } else if (
-                skellyTextIndex > this.dialogueTexts.length &&
-                this.registry.get("TalkedSkelly")
-            ) {
-                skellyTextIndex = this.dialogueTexts.length - 1;
-                skellyText.setActive(false);
-                skellyText.alpha = 0;
-                skellyText.text = "Go on";
-                myText.text = "Insert Command Here";
-            }
-        };
-        */
 
         this.input.keyboard!.on(
             "keydown",
@@ -230,7 +171,7 @@ export class Skelly extends Scene {
                             myText,
                             [
                                 cdSkelly,
-                                mask3,
+                                this.mask3,
                                 this.pockets.pocketsIndicator,
                                 this.hand.handPrompt,
                             ],
@@ -241,8 +182,8 @@ export class Skelly extends Scene {
                         CommandWriter.mvCommandToPockets(
                             input,
                             this,
-                            mask3.text,
-                            mask3,
+                            this.mask3.text,
+                            this.mask3,
                             myText,
                             "HasMaskPiece3",
                             "MaskPiece3InPocket",
@@ -315,11 +256,40 @@ export class Skelly extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (this.registry.get("HasMaskPiece3")) {
+            this.mask3.setActive(false).setVisible(false);
+        }
+
+        if (
+            !this.registry.get("Mask3InView") ||
+            this.registry.get("HasMaskPiece3")
+        ) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Skelly1_1NoMask" ?
+                        "Skelly1_2NoMask"
+                    :   "Skelly1_1NoMask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+
+                this.mask3.setActive(false).setVisible(false);
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Skelly2_1Mask" ?
+                        "Skelly2_2Mask"
+                    :   "Skelly2_1Mask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 }

@@ -6,6 +6,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
+import { Notes } from "../Notes";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -16,6 +17,7 @@ export class Room7 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+    notes!: Notes;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -31,6 +33,35 @@ export class Room7 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "room3");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
+
+        const noteMessage = this.add.text(
+            395,
+            305,
+            "Day 15: This place feels like a maze. I don't know where to go anymore. The skeleton told me there are hidden things in some rooms, even in this one. But I can't see it. Where is it? What is it? W̸h̴a̶t̴ is it? W̴h̷a̴t̶ ̸i̷s̵ ̶i̶t̶?",
+            {
+                fixedWidth: 320,
+                //fixedHeight: 36,
+                backgroundColor: "#000000",
+                fontFamily: "Architext",
+                fontSize: 27,
+                padding: { x: 9, y: 9.5 },
+                lineSpacing: 12,
+                wordWrap: { width: 310 },
+            },
+        );
+        noteMessage.setOrigin(0.5, 0.5);
+        noteMessage.setActive(false).setVisible(false);
+        noteMessage.setDepth(1);
+
+        const note = this.add.text(100, 200, "TornNote", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        note.setOrigin(0.15, 0);
+        note.setActive(false).setVisible(false);
 
         const mask2 = this.add.text(400, 100, "MaskPiece2", {
             fixedWidth: 200,
@@ -66,7 +97,11 @@ export class Room7 extends Scene {
                     CommandWriter.lsCommand(
                         input,
                         myText,
-                        [this.pockets.pocketsIndicator, this.hand.handPrompt],
+                        [
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                            note,
+                        ],
                         this.hand,
                         this,
                     );
@@ -78,6 +113,7 @@ export class Room7 extends Scene {
                             mask2,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
+                            note,
                         ],
                         this.hand,
                         this,
@@ -91,6 +127,15 @@ export class Room7 extends Scene {
                         myText,
                         "HasMaskPiece2",
                         "MaskPiece2InPocket",
+                    );
+
+                    CommandWriter.cdCommandNote(
+                        input,
+                        this,
+                        this.notes,
+                        myText,
+                        noteMessage,
+                        note.text,
                     );
 
                     CommandWriter.openInventory(
@@ -132,6 +177,9 @@ export class Room7 extends Scene {
 
         this.location = new Location(this);
         this.location.create();
+
+        this.notes = new Notes(this);
+        this.notes.create();
 
         EventBus.emit("current-scene-ready", this);
     }

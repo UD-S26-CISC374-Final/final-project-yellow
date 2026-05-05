@@ -16,6 +16,8 @@ export class Room9 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+
+    frameCounter!: number;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -25,12 +27,14 @@ export class Room9 extends Scene {
     }
 
     create() {
+        this.frameCounter = 0;
         //if (!this.input.keyboard) return;
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room4");
+        this.background = this.add.image(400, 300, "Room9_Closed");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom10 = this.add.text(70, 200, "Room10", {
             fixedWidth: 200,
@@ -172,11 +176,31 @@ export class Room9 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (!this.registry.get("Room11Open")) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room9_2Closed" ?
+                        "Room9_Closed"
+                    :   "Room9_2Closed";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room9_2" ?
+                        "Room9_1"
+                    :   "Room9_2";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 }

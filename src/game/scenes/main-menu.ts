@@ -21,7 +21,7 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("Room4KeyInHand", false);
         this.registry.set("Room4KeyInPocket", false);
         */
-        this.registry.set("Room4Open", false);
+        this.registry.set("Room4Open", true);
 
         /*
         this.registry.set("HasRoom11Key", false);
