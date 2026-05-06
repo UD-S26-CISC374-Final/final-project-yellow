@@ -1,6 +1,7 @@
 import { Boot } from "./scenes/boot";
 import { GameOver } from "./scenes/game-over";
 import { FinalScene } from "./scenes/FinalScene";
+import { FinalScene2 } from "./scenes/FinalScene2";
 import { Room2 } from "./scenes/Room2";
 import { Room3 } from "./scenes/Room3";
 import { Room4Locked } from "./scenes/Room4Locked";
@@ -14,7 +15,7 @@ import { Room11 } from "./scenes/Room11";
 import { Room12 } from "./scenes/Room12";
 import { RoomEnd } from "./scenes/RoomEnd";
 import { Room1 as MainGame } from "./scenes/Room1";
-import { Tutorial } from "./scenes/Tutorial";
+import { Start } from "./scenes/Start";
 import { Skelly } from "./scenes/Skelly";
 import { MainMenu } from "./scenes/main-menu";
 import { AUTO, Game } from "phaser";
@@ -38,7 +39,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Preloader,
         MainMenu,
         cutscene,
-        Tutorial,
+        Start,
         MainGame,
         Room2,
         Skelly,
@@ -54,6 +55,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Room12,
         RoomEnd,
         FinalScene,
+        FinalScene2,
         GameOver,
     ],
     plugins: {

@@ -7,7 +7,7 @@ import { DialogComponent } from "../DialogComponent";
 //import { EventBus } from "../event-bus";
 //import type { ChangeableScene } from "../reactable-scene";
 
-export class FinalScene extends Scene {
+export class FinalScene2 extends Scene {
     background: GameObjects.Image;
 
     dialogue!: DialogComponent;
@@ -15,13 +15,11 @@ export class FinalScene extends Scene {
     //index: number;
 
     constructor() {
-        super("FinalScene");
+        super("FinalScene2");
     }
 
     create() {
-        this.registry.set("FinalSceneChange", true);
-
-        this.cameras.main.fadeIn(1000, 0, 0, 0);
+        this.cameras.main.fadeIn(150, 255, 255, 255);
 
         this.dialogue = new DialogComponent(this);
 
@@ -35,24 +33,22 @@ export class FinalScene extends Scene {
 
         this.dialogue.soundToPlay = "IntroCutscene";
 
-        this.dialogue.starterDialog = "Congratulations.                  ";
+        this.dialogue.starterDialog = "IT WAS ME!                  ";
 
         this.dialogue.dialogueLines = [
-            "Congratulations.",
-            "You have successfully escaped the command dungeon.",
-            "You are free too leave.",
-            "But first",
-            "Wouldn't you like to know who trapped you here?",
-            "Wouldn't you like to know who's responsible for all of this?",
-            "Well...",
-            "I'll show you",
+            "IT WAS ME!.",
+            "DR BART!",
+            "AND MY ASSISTANT!",
+            "{dog name}",
+            "Hope you now know your commands",
+            "Goodbye",
         ];
 
         this.dialogue.changeAfterSound = true;
 
-        this.dialogue.changeScene = true;
+        this.dialogue.changeScene = false;
 
-        this.dialogue.sceneToChange = "FinalScene2";
+        this.dialogue.sceneToChange = "Start";
 
         this.dialogue.create();
     }

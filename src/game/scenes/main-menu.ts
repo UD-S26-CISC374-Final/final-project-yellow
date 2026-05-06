@@ -108,15 +108,6 @@ export class MainMenu extends Scene implements ChangeableScene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     if (myText.text === "cd Start") {
-                        /*
-                        this.cameras.main.fadeOut(1000, 0, 0, 0);
-
-                        this.time.delayedCall(1000, () => {
-                            this.registry.set("comesFromMenu", true);
-                            this.scene.start("Tutorial");
-                        });
-                        */
-
                         this.scene.start("cutscene");
                     }
                 },

@@ -46,7 +46,7 @@ export class cutscene extends Scene implements ChangeableScene {
 
         this.dialogue.changeScene = true;
 
-        this.dialogue.sceneToChange = "Tutorial";
+        this.dialogue.sceneToChange = "Start";
 
         this.dialogue.create();
     }

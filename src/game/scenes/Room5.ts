@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { GameObjects, Scene } from "phaser";
+import { AUTO, GameObjects, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -59,8 +59,8 @@ export class Room5 extends Scene {
         noteMessage.setActive(false).setVisible(false);
         noteMessage.setDepth(1);
 
-        const note = this.add.text(100, 200, "Note", {
-            fixedWidth: 200,
+        const note = this.add.text(145, 400, "Note", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -68,10 +68,10 @@ export class Room5 extends Scene {
         note.setOrigin(0.15, 0);
         note.setActive(false).setVisible(false);
 
-        this.mask1 = this.add.text(400, 100, "MaskPiece1", {
-            fixedWidth: 200,
+        this.mask1 = this.add.text(490, 290, "MaskPiece1", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
-            backgroundColor: "#000000",
+            backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
         });
         this.mask1.setOrigin(0.15, 0);

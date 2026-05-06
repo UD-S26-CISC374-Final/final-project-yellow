@@ -75,6 +75,10 @@ export class Preloader extends Scene {
 
         this.load.audio("Sans", "Sans.mp3");
 
+        this.load.audio("LockedDoor", "LockedDoor.wav");
+
+        this.load.image("PadLock", "PadLock.png");
+
         this.load.setPath("assets/ImagesForGame");
 
         this.load.image("Room1Open", "Room1Open.png");
@@ -110,10 +114,6 @@ export class Preloader extends Scene {
         this.load.image("Room10_2NoMask", "Room10_2NoMask.png");
 
         this.load.image("Room11", "Room11.png");
-
-        this.load.audio("LockedDoor", "LockedDoor.wav");
-
-        this.load.image("PadLock", "PadLock.png");
 
         this.load.setPath("assets/ImagesForGame2");
 

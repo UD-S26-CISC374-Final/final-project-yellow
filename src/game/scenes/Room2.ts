@@ -1,6 +1,6 @@
 import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
@@ -34,8 +34,8 @@ export class Room2 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const skelly = this.add.text(330, 200, "Door", {
-            fixedWidth: 200,
+        const skelly = this.add.text(382, 220, "Door", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },

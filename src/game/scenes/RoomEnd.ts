@@ -16,6 +16,8 @@ export class RoomEnd extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+
+    frameCounter!: number;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -27,10 +29,23 @@ export class RoomEnd extends Scene {
     create() {
         //if (!this.input.keyboard) return;
 
+        this.frameCounter = 0;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "RoomEnd");
+        this.background = this.add.image(400, 300, "Room12_1Key");
+        if (this.registry.get("HasSkellyKey")) {
+            this.background.setTexture("Room12_1NoMasks");
+        } else if (this.registry.get("Mask1In")) {
+            this.background.setTexture("Room12_1OneMasks");
+        } else if (this.registry.get("Mask2In")) {
+            this.background.setTexture("Room12_1TwoMasks");
+        } else if (this.registry.get("Mask3In")) {
+            this.background.setTexture("Room12_1ThreeMasks");
+        } else if (this.registry.get("Mask4In")) {
+            this.background.setTexture("Room12_1AllMasks");
+        }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(620, 400, "SkellyKey", {
@@ -72,6 +87,7 @@ export class RoomEnd extends Scene {
                             if (maskCurrent[i] === "") {
                                 maskCurrent[i] = "mask1";
                                 myText.text = "mask piece inserted";
+                                this.registry.set("Mask1In", true);
                                 break;
                             }
                         }
@@ -81,6 +97,8 @@ export class RoomEnd extends Scene {
                             if (maskCurrent[i] === "") {
                                 maskCurrent[i] = "mask2";
                                 myText.text = "mask piece inserted";
+                                this.registry.set("Mask2In", true);
+                                this.registry.set("Mask1In", false);
                                 break;
                             }
                         }
@@ -90,6 +108,8 @@ export class RoomEnd extends Scene {
                             if (maskCurrent[i] === "") {
                                 maskCurrent[i] = "mask3";
                                 myText.text = "mask piece inserted";
+                                this.registry.set("Mask3In", true);
+                                this.registry.set("Mask2In", false);
                                 break;
                             }
                         }
@@ -99,9 +119,14 @@ export class RoomEnd extends Scene {
                             if (maskCurrent[i] === "") {
                                 maskCurrent[i] = "mask4";
                                 myText.text = "mask piece inserted";
+                                this.registry.set("Mask4In", true);
+                                this.registry.set("Mask3In", false);
                                 break;
                             }
                         }
+                    }
+                    if (myText.text === "end") {
+                        this.scene.start("FinalScene");
                     }
 
                     const input = myText.text;
@@ -197,11 +222,74 @@ export class RoomEnd extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (!this.registry.get("HasSkellyKey")) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room12_1Key" ?
+                        "Room12_2Key"
+                    :   "Room12_1Key";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                if (
+                    !this.registry.get("Mask1In") &&
+                    !this.registry.get("Mask2In") &&
+                    !this.registry.get("Mask3In") &&
+                    !this.registry.get("Mask4In")
+                ) {
+                    const newBg =
+                        this.background.texture.key === "Room12_1NoMasks" ?
+                            "Room12_2NoMasks"
+                        :   "Room12_1NoMasks";
+
+                    this.background.setTexture(newBg);
+
+                    this.frameCounter = 0;
+                } else if (this.registry.get("Mask1In")) {
+                    const newBg =
+                        this.background.texture.key === "Room12_1OneMasks" ?
+                            "Room12_2OneMasks"
+                        :   "Room12_1OneMasks";
+
+                    this.background.setTexture(newBg);
+
+                    this.frameCounter = 0;
+                } else if (this.registry.get("Mask2In")) {
+                    const newBg =
+                        this.background.texture.key === "Room12_2TwoMasks" ?
+                            "Room12_2TwoMasks"
+                        :   "Room12_2TwoMasks";
+
+                    this.background.setTexture(newBg);
+
+                    this.frameCounter = 0;
+                } else if (this.registry.get("Mask3In")) {
+                    const newBg =
+                        this.background.texture.key === "Room12_1ThreeMasks" ?
+                            "Room12_2ThreeMasks"
+                        :   "Room12_1ThreeMasks";
+
+                    this.background.setTexture(newBg);
+
+                    this.frameCounter = 0;
+                } else if (this.registry.get("Mask4In")) {
+                    const newBg =
+                        this.background.texture.key === "Room12_1AllMasks" ?
+                            "Room12_2AllMasks"
+                        :   "Room12_1AllMasks";
+
+                    this.background.setTexture(newBg);
+
+                    this.frameCounter = 0;
+                }
+            }
+        }
     }
 }

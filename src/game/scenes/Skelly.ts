@@ -1,6 +1,6 @@
 import { CommandWriter } from "../CommandWriter";
 import { EventBus } from "../event-bus";
-import { GameObjects, Scene } from "phaser";
+import { AUTO, GameObjects, Scene } from "phaser";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
@@ -92,10 +92,10 @@ export class Skelly extends Scene {
         this.background = this.add.image(400, 300, "Skelly1_1NoMask");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        this.mask3 = this.add.text(400, 100, "MaskPiece3", {
-            fixedWidth: 200,
+        this.mask3 = this.add.text(260, 300, "MaskPiece3", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
-            backgroundColor: "#000000",
+            backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
         });
         this.mask3.setOrigin(0.15, 0);
@@ -116,8 +116,8 @@ export class Skelly extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        const cdSkelly = this.add.text(70, 200, "Skelly", {
-            fixedWidth: 200,
+        const cdSkelly = this.add.text(382, 320, "Skelly", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
