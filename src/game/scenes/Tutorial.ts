@@ -243,7 +243,7 @@ export class Tutorial extends Scene {
     update(): void {
         this.frameCounter++;
 
-        if (!this.registry.get("SkellyOpen")) {
+        if (!this.registry.get("safeOpen")) {
             if (this.frameCounter === 30) {
                 const newBg =
                     this.background.texture.key === "Tutorial1-2SafeClosed" ?

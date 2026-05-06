@@ -27,8 +27,6 @@ export class Room1 extends Scene {
     update() {}
 
     create() {
-        //if (!this.input.keyboard) return;
-
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -38,21 +36,7 @@ export class Room1 extends Scene {
         if (this.registry.get("Room4Open")) {
             this.background.setTexture("Room1Open");
         }
-        this.background.setDisplaySize(this.scale.width, this.scale.height);
-
-        /*
-        this.add.rectangle(400, 25, 800, 60, 0x000000, 1);
-        this.add.rectangle(400, 20, 780, 40, 0x373737, 1);
-
-    
-        const LocationText = this.add.text(280, 5, "Current Location: Room1", {
-            fixedWidth: 300,
-            fixedHeight: 36,
-            backgroundColor: "#00000000",
-            padding: { x: 9, y: 9.5 },
-        });
-        LocationText.setActive(true);
-        */
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom2 = this.add.text(70, 200, "Room2", {
             fixedWidth: 200,

@@ -56,6 +56,16 @@ export class CommandWriter {
                 for (let i = 0; i < objectsToShow.length; i++) {
                     objectsToShow[i].setActive(true).setVisible(true);
                     hand.showInHandItem(scene);
+
+                    if (scene.sys.settings.key === "Skelly") {
+                        scene.registry.set("Mask3InView", true);
+                    } else if (scene.sys.settings.key === "Room5") {
+                        scene.registry.set("Mask1InView", true);
+                    } else if (scene.sys.settings.key === "Room7") {
+                        scene.registry.set("Mask2InView", true);
+                    } else if (scene.sys.settings.key === "Room10") {
+                        scene.registry.set("Mask4InView", true);
+                    }
                 }
                 myText.text = "Insert Command Here";
             }
@@ -169,7 +179,8 @@ export class CommandWriter {
         if (
             input === "cd .." &&
             !scene.registry.get("pocketsOpen") &&
-            !scene.registry.get("noteOpen")
+            !scene.registry.get("noteOpen") &&
+            !scene.registry.get("bookCloseUp")
         ) {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";

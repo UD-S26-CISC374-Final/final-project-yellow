@@ -1,5 +1,6 @@
 import { Boot } from "./scenes/boot";
 import { GameOver } from "./scenes/game-over";
+import { FinalScene } from "./scenes/FinalScene";
 import { Room2 } from "./scenes/Room2";
 import { Room3 } from "./scenes/Room3";
 import { Room4Locked } from "./scenes/Room4Locked";
@@ -52,6 +53,7 @@ const config: Phaser.Types.Core.GameConfig = {
         Room11,
         Room12,
         RoomEnd,
+        FinalScene,
         GameOver,
     ],
     plugins: {

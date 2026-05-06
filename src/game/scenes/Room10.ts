@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
 import { Hand } from "../Hand";
 import { Notes } from "../Notes";
 
@@ -21,6 +21,10 @@ export class Room10 extends Scene {
 
     randCode!: string;
 
+    frameCounter!: number;
+
+    mask4!: GameObjects.Text;
+
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
@@ -28,23 +32,27 @@ export class Room10 extends Scene {
     }
 
     create() {
+        this.registry.set("Mask4InView", false);
+
+        this.frameCounter = 0;
         //if (!this.input.keyboard) return;
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room3");
+        this.background = this.add.image(400, 300, "Room10_1NoMask");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         this.randCode = this.registry.get("code") as string;
 
-        const mask4 = this.add.text(400, 100, "MaskPiece4", {
+        this.mask4 = this.add.text(400, 100, "MaskPiece4", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        mask4.setOrigin(0.15, 0);
-        mask4.setActive(false).setVisible(false);
+        this.mask4.setOrigin(0.15, 0);
+        this.mask4.setActive(false).setVisible(false);
 
         const secretCode = this.add.text(330, 200, this.randCode, {
             fixedWidth: 200,
@@ -103,7 +111,7 @@ export class Room10 extends Scene {
                         myText,
                         [
                             code,
-                            mask4,
+                            this.mask4,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -114,8 +122,8 @@ export class Room10 extends Scene {
                     CommandWriter.mvCommandToPockets(
                         input,
                         this,
-                        mask4.text,
-                        mask4,
+                        this.mask4.text,
+                        this.mask4,
                         myText,
                         "HasMaskPiece4",
                         "MaskPiece4InPocket",
@@ -178,8 +186,39 @@ export class Room10 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
+    update(): void {
+        this.frameCounter++;
+
+        if (this.registry.get("HasMaskPiece4")) {
+            this.mask4.setActive(false).setVisible(false);
+        }
+
+        if (
+            !this.registry.get("Mask4InView") ||
+            this.registry.get("HasMaskPiece4")
+        ) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room10_1NoMask" ?
+                        "Room10_2NoMask"
+                    :   "Room10_1NoMask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room10_1Mask" ?
+                        "Room10_2Mask"
+                    :   "Room10_1Mask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 
     changeScene() {

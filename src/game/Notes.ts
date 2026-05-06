@@ -18,17 +18,19 @@ export class Notes {
         this.notesImages = [];
 
         this.notesNames = [
-            { noteName: "WeirdNote", noteOpen: false, noteImage: "Inventory" },
+            { noteName: "WeirdNote", noteOpen: false, noteImage: "Note" },
+            { noteName: "Note", noteOpen: false, noteImage: "Note" },
+            { noteName: "TornNote", noteOpen: false, noteImage: "Note" },
         ];
 
         for (let i = 0; i < this.notesNames.length; i++) {
             this.notesImages[i] = this.scene.add.image(
                 400,
-                330,
+                320,
                 this.notesNames[i].noteImage,
             );
 
-            this.notesImages[i].setScale(0.8, 0.8);
+            this.notesImages[i].setScale(0.4, 0.4);
 
             this.notesImages[i].setActive(false).setVisible(false);
         }

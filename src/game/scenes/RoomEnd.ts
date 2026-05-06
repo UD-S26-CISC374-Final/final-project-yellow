@@ -31,6 +31,7 @@ export class RoomEnd extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "RoomEnd");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(620, 400, "SkellyKey", {
             fixedWidth: 200,
@@ -168,7 +169,11 @@ export class RoomEnd extends Scene {
                                 (value, index) => value === maskAnswer[index],
                             )
                         ) {
-                            this.scene.start("GameEnd");
+                            this.camera.fadeOut(1000, 0, 0, 0);
+
+                            this.time.delayedCall(1000, () => {
+                                this.scene.start("FinalScene");
+                            });
                         } else {
                             maskCurrent = ["", "", "", ""];
                         }

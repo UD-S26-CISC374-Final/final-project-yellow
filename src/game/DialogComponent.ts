@@ -7,6 +7,7 @@ export class DialogComponent {
 
     dialogueLines!: string[];
     dialogueAfterTalked!: string[];
+    dialogueAfterSound!: string[];
 
     xPos!: number;
     yPos!: number;
@@ -15,11 +16,15 @@ export class DialogComponent {
 
     changeScene!: boolean;
 
+    changeAfterSound!: boolean;
+
     onComplete?: () => void;
 
     characterIsTalking!: boolean;
 
     soundToPlay!: string;
+
+    soundToPlayForChange!: string;
 
     ImageTalk1!: Phaser.GameObjects.Image | null;
     ImageTalk2!: Phaser.GameObjects.Image | null;
@@ -33,6 +38,7 @@ export class DialogComponent {
     create() {
         let index = 0;
         let indexPosTalk = 0;
+        let indexPosChange = 0;
         let charCount = 0;
 
         /*
@@ -138,7 +144,22 @@ export class DialogComponent {
                     dialogue.setActive(false).setVisible(false);
                     this.scene.registry.set(this.hasTalked, true);
                     if (this.changeScene) {
-                        this.scene.scene.start(this.sceneToChange);
+                        this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                        this.scene.time.delayedCall(500, () => {
+                            this.scene.scene.start(this.sceneToChange);
+                        });
+                    } else if (this.changeAfterSound) {
+                        indexPosChange++;
+
+                        if (
+                            indexPosChange < this.dialogueAfterSound.length ||
+                            (indexPosChange < this.dialogueAfterSound.length &&
+                                this.characterIsTalking)
+                        ) {
+                            typing.start(
+                                this.dialogueAfterSound[indexPosChange],
+                            );
+                        }
                     } else {
                         this.onComplete?.();
                         if (this.ImageTalk1 && this.ImageTalk2) {

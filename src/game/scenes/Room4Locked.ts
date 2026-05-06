@@ -16,6 +16,8 @@ export class Room4Locked extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+
+    frameCounter!: number;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -27,10 +29,13 @@ export class Room4Locked extends Scene {
     create() {
         //if (!this.input.keyboard) return;
 
+        this.frameCounter = 0;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "level1");
+        this.background = this.add.image(400, 300, "Room4_1");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom5 = this.add.text(70, 200, "Room5", {
             fixedWidth: 200,
@@ -175,11 +180,18 @@ export class Room4Locked extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (this.frameCounter === 30) {
+            const newBg =
+                this.background.texture.key === "Room4_1" ?
+                    "Room4_2"
+                :   "Room4_1";
+
+            this.background.setTexture(newBg);
+
+            this.frameCounter = 0;
+        }
     }
 }

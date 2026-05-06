@@ -16,6 +16,8 @@ export class Room8 extends Scene {
     pockets!: Pockets;
     hand!: Hand;
     location!: Location;
+
+    frameCounter!: number;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -25,12 +27,14 @@ export class Room8 extends Scene {
     }
 
     create() {
+        this.frameCounter = 0;
         //if (!this.input.keyboard) return;
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "DoorOnlyFront");
+        this.background = this.add.image(400, 300, "Room8");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom9 = this.add.text(330, 150, "Room9", {
             fixedWidth: 200,
@@ -139,11 +143,20 @@ export class Room8 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (!this.registry.get("safeOpen")) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room8_2" ?
+                        "Room8"
+                    :   "Room8_2";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 }
