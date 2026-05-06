@@ -40,13 +40,14 @@ export class Room5 extends Scene {
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const noteMessage = this.add.text(
-            395,
+            405,
             305,
             "Day 21: I am still roaming these endless halls, with the hope of finding the exit some day. I saw a mask just before the final door. I don't know if I'm going crazy, but I think I heard it talk.",
             {
                 fixedWidth: 320,
                 //fixedHeight: 36,
-                backgroundColor: "#000000",
+                backgroundColor: "#00000000",
+                color: "#000000",
                 fontFamily: "Architext",
                 fontSize: 30,
                 padding: { x: 9, y: 9.5 },

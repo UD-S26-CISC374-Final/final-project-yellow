@@ -22,6 +22,8 @@ export class Room12 extends Scene {
     //dialogueTexts!: string[];
 
     dialogue!: DialogComponent;
+
+    frameCounter!: number;
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
     constructor() {
@@ -29,6 +31,8 @@ export class Room12 extends Scene {
     }
 
     create() {
+        this.frameCounter = 0;
+
         this.maskText = false;
 
         this.dialogue = new DialogComponent(this);
@@ -85,7 +89,7 @@ export class Room12 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "OnlyDoorLeft");
+        this.background = this.add.image(400, 300, "Room12_1");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoomEnd = this.add.text(70, 200, "RoomEnd", {
@@ -229,11 +233,17 @@ export class Room12 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
+        if (this.frameCounter === 30) {
+            const newBg =
+                this.background.texture.key === "Room12_1" ?
+                    "Room12_2"
+                :   "Room12_1";
 
-    changeScene() {
-        //this.scene.start("GameOver");
+            this.background.setTexture(newBg);
+
+            this.frameCounter = 0;
+        }
     }
 }

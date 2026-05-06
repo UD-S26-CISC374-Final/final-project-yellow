@@ -28,7 +28,10 @@ export class Room3 extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room3");
+        this.background = this.add.image(400, 300, "Room3Key");
+        if (this.registry.get("HasRoom4Key")) {
+            this.background.setTexture("Room3NoKey");
+        }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(330, 200, "Room4Key", {
@@ -170,11 +173,11 @@ export class Room3 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
-
-    changeScene() {
-        //this.scene.start("GameOver");
+    update(): void {
+        if (!this.registry.get("HasRoom4Key")) {
+            this.background.setTexture("Room3Key");
+        } else {
+            this.background.setTexture("Room3NoKey");
+        }
     }
 }

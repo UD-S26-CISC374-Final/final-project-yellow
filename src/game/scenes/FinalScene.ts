@@ -33,15 +33,15 @@ export class FinalScene extends Scene {
 
         this.dialogue.soundToPlay = "IntroCutscene";
 
-        this.dialogue.starterDialog =
-            "You have been trapped in a dungeon.         ";
+        this.dialogue.starterDialog = "Congratulations.                  ";
 
         this.dialogue.dialogueLines = [
-            "You have been trapped in a dungeon.",
-            "For not knowing your commands.",
-            "Now you must use them, to escape.",
-            "Listen to the mask, and to the dead man.",
-            "Since they'll be your only company.",
+            "Congratulations.",
+            "You have successfully escaped the command dungeon.",
+            "You are free too leave.",
+            "But first",
+            "Wouldn't you like to know who trapped you here?",
+            "Wouldn't you like to know who's responsible for all of this?",
         ];
 
         this.dialogue.changeScene = false;

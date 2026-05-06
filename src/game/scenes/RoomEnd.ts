@@ -172,7 +172,7 @@ export class RoomEnd extends Scene {
                             this.camera.fadeOut(1000, 0, 0, 0);
 
                             this.time.delayedCall(1000, () => {
-                                this.scene.start("GameEnd");
+                                this.scene.start("FinalScene");
                             });
                         } else {
                             maskCurrent = ["", "", "", ""];

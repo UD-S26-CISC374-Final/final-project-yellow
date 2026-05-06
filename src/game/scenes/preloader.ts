@@ -40,7 +40,6 @@ export class Preloader extends Scene {
         this.load.image("phaser-logo", "phaser-logo.png");
 
         this.load.image("room1", "room1.png");
-        this.load.image("room3", "room3.png");
         this.load.image("room4", "room4.png");
         this.load.image("level1", "level1.png");
         this.load.image("level1locked", "level1locked.png");
@@ -73,8 +72,6 @@ export class Preloader extends Scene {
 
         this.load.image("SkellyTalk1", "SkellyTalk1.png");
         this.load.image("SkellyTalk2", "SkellyTalk2.png");
-
-        this.load.image("Room3", "Room3.jpg");
 
         this.load.audio("Sans", "Sans.mp3");
 
@@ -117,6 +114,34 @@ export class Preloader extends Scene {
         this.load.audio("LockedDoor", "LockedDoor.wav");
 
         this.load.image("PadLock", "PadLock.png");
+
+        this.load.setPath("assets/ImagesForGame2");
+
+        this.load.image("Room3Key", "Room3Key.png");
+        this.load.image("Room3NoKey", "Room3NoKey.png");
+
+        this.load.image("Room7_1Mask", "Room7_1Mask.png");
+        this.load.image("Room7_1NoMask", "Room7_1NoMask.png");
+        this.load.image("Room7_2Mask", "Room7_2Mask.png");
+        this.load.image("Room7_2NoMask", "Room7_2NoMask.png");
+
+        this.load.image("Room12_1", "Room12_1.png");
+        this.load.image("Room12_2", "Room12_2.png");
+
+        this.load.image("Room12_1AllMasks", "Room12_1AllMasks.png");
+        this.load.image("Room12_2AllMasks", "Room12_2AllMasks.png");
+        this.load.image("Room12_1Key", "Room12_1Key.png");
+        this.load.image("Room12_2Key", "Room12_2Key.png");
+        this.load.image("Room12_1NoMasks", "Room12_1NoMasks.png");
+        this.load.image("Room12_2NoMasks", "Room12_2NoMasks.png");
+        this.load.image("Room12_1OneMasks", "Room12_1OneMasks.png");
+        this.load.image("Room12_2OneMasks", "Room12_2OneMasks.png");
+        this.load.image("Room12_1ThreeMasks", "Room12_1ThreeMasks.png");
+        this.load.image("Room12_2ThreeMasks", "Room12_2ThreeMasks.png");
+        this.load.image("Room12_1TwoMasks", "Room12_1TwoMasks.png");
+        this.load.image("Room12_2TwoMasks", "Room12_2TwoMasks.png");
+
+        this.load.image("Note", "Note.png");
     }
 
     create() {

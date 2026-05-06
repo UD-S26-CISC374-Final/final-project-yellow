@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { GameObjects, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -18,6 +18,10 @@ export class Room7 extends Scene {
     hand!: Hand;
     location!: Location;
     notes!: Notes;
+
+    frameCounter!: number;
+
+    mask2!: GameObjects.Text;
     //fpsText: FpsText;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
@@ -29,20 +33,25 @@ export class Room7 extends Scene {
     create() {
         //if (!this.input.keyboard) return;
 
+        this.registry.set("Mask2InView", false);
+
+        this.frameCounter = 0;
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        this.background = this.add.image(400, 300, "room3");
+        this.background = this.add.image(400, 300, "Room7_1NoMask");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const noteMessage = this.add.text(
-            395,
+            405,
             305,
             "Day 15: This place feels like a maze. I don't know where to go anymore. The skeleton told me there are hidden things in some rooms, even in this one. But I can't see it. Where is it? What is it? W̸h̴a̶t̴ is it? W̴h̷a̴t̶ ̸i̷s̵ ̶i̶t̶?",
             {
                 fixedWidth: 320,
                 //fixedHeight: 36,
-                backgroundColor: "#000000",
+                backgroundColor: "#00000000",
+                color: "#000000",
                 fontFamily: "Architext",
                 fontSize: 27,
                 padding: { x: 9, y: 9.5 },
@@ -63,14 +72,14 @@ export class Room7 extends Scene {
         note.setOrigin(0.15, 0);
         note.setActive(false).setVisible(false);
 
-        const mask2 = this.add.text(400, 100, "MaskPiece2", {
+        this.mask2 = this.add.text(400, 100, "MaskPiece2", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        mask2.setOrigin(0.15, 0);
-        mask2.setActive(false).setVisible(false);
+        this.mask2.setOrigin(0.15, 0);
+        this.mask2.setActive(false).setVisible(false);
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -110,7 +119,7 @@ export class Room7 extends Scene {
                         input,
                         myText,
                         [
-                            mask2,
+                            this.mask2,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                             note,
@@ -122,8 +131,8 @@ export class Room7 extends Scene {
                     CommandWriter.mvCommandToPockets(
                         input,
                         this,
-                        mask2.text,
-                        mask2,
+                        this.mask2.text,
+                        this.mask2,
                         myText,
                         "HasMaskPiece2",
                         "MaskPiece2InPocket",
@@ -184,11 +193,40 @@ export class Room7 extends Scene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    update() {
-        //this.fpsText.update();
-    }
+    update(): void {
+        this.frameCounter++;
 
-    changeScene() {
-        //this.scene.start("GameOver");
+        if (this.registry.get("HasMaskPiece2")) {
+            this.mask2.setActive(false).setVisible(false);
+        }
+
+        if (
+            !this.registry.get("Mask2InView") ||
+            this.registry.get("HasMaskPiece2")
+        ) {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room7_1NoMask" ?
+                        "Room7_2NoMask"
+                    :   "Room7_1NoMask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+
+                this.mask2.setActive(false).setVisible(false);
+            }
+        } else {
+            if (this.frameCounter === 30) {
+                const newBg =
+                    this.background.texture.key === "Room7_1Mask" ?
+                        "Room7_2Mask"
+                    :   "Room7_1Mask";
+
+                this.background.setTexture(newBg);
+
+                this.frameCounter = 0;
+            }
+        }
     }
 }
