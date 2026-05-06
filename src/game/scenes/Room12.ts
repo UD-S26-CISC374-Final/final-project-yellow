@@ -49,13 +49,13 @@ export class Room12 extends Scene {
             "Another one?",
             "I have to tell you, the guy that built the place doesn't get tired of this",
             "Of putting people in here I mean",
-            "Anyway",
+            "Anyways...",
             "I'm sure you don't care enough about my name",
             "So I'm gonna get to the point",
             "In the next room there's an exit",
             "But you are going to need 4 pieces of a mask",
             "The 4 pieces of my brother",
-            "He kinda deserved it thow, being shattered",
+            "He kinda deserved it though, being shattered",
             "So, just find the pieces, put them in the correct order, and you're out",
             "The problem is my brother was hidden well",
             "So you'll need to talk to a friend of mine.",
@@ -65,7 +65,7 @@ export class Room12 extends Scene {
             "I can't tell you directly the order in which to put the pieces.",
             "Only in the way of a riddle",
             "Listen to this because you might know it too.",
-            "The story of a dog that run fast for.",
+            "The story of a dog that ran fast for.",
             "A squirell that climbed to the top of a tree.",
             "While it was holding one strawberry",
         ];
@@ -73,7 +73,7 @@ export class Room12 extends Scene {
         this.dialogue.dialogueAfterTalked = [
             "",
             "Listen to this because you might know it too.",
-            "The story of a dog that run fast for.",
+            "The story of a dog that ran fast for.",
             "A squirell that climbed to the top of a tree.",
             "While it was holding one strawberry",
         ];

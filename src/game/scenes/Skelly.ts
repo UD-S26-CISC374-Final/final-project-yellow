@@ -46,14 +46,14 @@ export class Skelly extends Scene {
 
         this.dialogue.dialogueLines = [
             "Another victim of the dungeon.",
-            "You were also trapped here without knowledge on who put you here?",
+            "You were also trapped here without knowledge of who put you here?",
             "That is exactly my story as well.",
             "But listen to me.",
             "I refuse to see another soul succumb to my fate.",
             "On my time here, before my inevitable death...",
             "I have found this paper.",
             "It is said to uncover the hidden artifacts around this dungeon.",
-            "It'll allow you to go in search of that that opens the final door.",
+            "It'll allow you to go in search of that which opens the final door.",
             "Just use 'ls -a' to reveal the secrets of this place.",
             "Give it a try here, and then continue with your quest.",
             "Good luck traveller.",
