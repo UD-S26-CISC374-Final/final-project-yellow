@@ -89,7 +89,7 @@ export class Room3 extends Scene {
                 tutorialText.setPosition(450, 300);
             } else if (KeyObject.active) {
                 tutorialText.text =
-                    "Wow. Look at that. A key. it might be useful. How about if you 'move' it to your pockets? Type 'mv' plus a space, the name of the key, and the name of where will it go (pockets in this case).";
+                    "Wow, look at that! A key. It might be useful. Blue boxes represent items that can be moved. Try to 'move' it to your pockets. Type 'mv' plus a space, the items name, and the name of where will it go (pockets in this case).";
                 tutorialText.setPosition(450, 300);
             }
             this.rexUI.edit(myText, {
