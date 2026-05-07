@@ -7,7 +7,6 @@ export class DialogComponent {
 
     dialogueLines!: string[];
     dialogueAfterTalked!: string[];
-    dialogueAfterSound!: string[];
 
     xPos!: number;
     yPos!: number;
@@ -24,8 +23,6 @@ export class DialogComponent {
 
     soundToPlay!: string;
 
-    soundToPlayForChange!: string;
-
     ImageTalk1!: Phaser.GameObjects.Image | null;
     ImageTalk2!: Phaser.GameObjects.Image | null;
 
@@ -38,8 +35,9 @@ export class DialogComponent {
     create() {
         let index = 0;
         let indexPosTalk = 0;
-        let indexPosChange = 0;
         let charCount = 0;
+
+        let timeForDelay = 0;
 
         /*
         const lines = [
@@ -144,22 +142,21 @@ export class DialogComponent {
                     dialogue.setActive(false).setVisible(false);
                     this.scene.registry.set(this.hasTalked, true);
                     if (this.changeScene) {
-                        this.scene.cameras.main.fadeOut(500, 0, 0, 0);
-                        this.scene.time.delayedCall(500, () => {
+                        if (this.scene.registry.get("FinalSceneChange")) {
+                            timeForDelay = 3000;
+                            this.scene.cameras.main.fadeOut(
+                                timeForDelay,
+                                255,
+                                255,
+                                255,
+                            );
+                        } else {
+                            timeForDelay = 500;
+                            this.scene.cameras.main.fadeOut(500, 0, 0, 0);
+                        }
+                        this.scene.time.delayedCall(timeForDelay, () => {
                             this.scene.scene.start(this.sceneToChange);
                         });
-                    } else if (this.changeAfterSound) {
-                        indexPosChange++;
-
-                        if (
-                            indexPosChange < this.dialogueAfterSound.length ||
-                            (indexPosChange < this.dialogueAfterSound.length &&
-                                this.characterIsTalking)
-                        ) {
-                            typing.start(
-                                this.dialogueAfterSound[indexPosChange],
-                            );
-                        }
                     } else {
                         this.onComplete?.();
                         if (this.ImageTalk1 && this.ImageTalk2) {

@@ -34,6 +34,9 @@ export class Room9 extends Scene {
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "Room9_Closed");
+        if (this.registry.get("Room11Open")) {
+            this.background.setTexture("Room9_1");
+        }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const cdRoom10 = this.add.text(70, 200, "Room10", {

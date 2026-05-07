@@ -37,7 +37,7 @@ export class Room12 extends Scene {
 
         this.dialogue = new DialogComponent(this);
 
-        this.dialogue.xPos = 500;
+        this.dialogue.xPos = 300;
         this.dialogue.yPos = 300;
 
         this.dialogue.characterIsTalking = this.maskText;
@@ -57,11 +57,11 @@ export class Room12 extends Scene {
             "I'm sure you don't care enough about my name",
             "So I'm gonna get to the point",
             "In the next room there's an exit",
-            "But you are going to need 4 pieces of a mask",
-            "The 4 pieces of my brother",
-            "He kinda deserved it though, being shattered",
-            "So, just find the pieces, put them in the correct order, and you're out",
-            "The problem is my brother was hidden well",
+            "But you are going to need 4 masks",
+            "My 4 brothers",
+            "Between you and me, they aren't as smart as me",
+            "So, just find them, put them in the correct order, and you're out",
+            "The problem is that they are pretty well hidden",
             "So you'll need to talk to a friend of mine.",
             "He'll give you the tools to look for my brother",
             "Pick up the key next door, and find the door with his face.",
@@ -85,6 +85,18 @@ export class Room12 extends Scene {
         this.dialogue.changeScene = false;
 
         this.dialogue.hasTalked = "MaskTalked";
+
+        this.dialogue.ImageTalk1 = this.add
+            .image(600, 300, "MaskTalks1")
+            .setDepth(10);
+        this.dialogue.ImageTalk1.setScale(0.2, 0.2);
+        this.dialogue.ImageTalk1.setActive(false).setVisible(false);
+
+        this.dialogue.ImageTalk2 = this.add
+            .image(600, 300, "MaskNoTalk")
+            .setDepth(10);
+        this.dialogue.ImageTalk2.setScale(0.2, 0.2);
+        this.dialogue.ImageTalk2.setActive(false).setVisible(false);
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);

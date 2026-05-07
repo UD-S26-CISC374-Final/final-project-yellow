@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 //import TextBox from "phaser3-rex-plugins/templates/ui/textbox/TextBox";
@@ -38,8 +38,8 @@ export class Room1 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const cdRoom2 = this.add.text(70, 200, "Room2", {
-            fixedWidth: 200,
+        const cdRoom2 = this.add.text(80, 180, "Room2", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -47,8 +47,8 @@ export class Room1 extends Scene {
         cdRoom2.setOrigin(0.15, 0);
         cdRoom2.setActive(false).setVisible(false);
 
-        const cdRoom3 = this.add.text(590, 200, "Room3", {
-            fixedWidth: 200,
+        const cdRoom3 = this.add.text(670, 180, "Room3", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -56,8 +56,8 @@ export class Room1 extends Scene {
         cdRoom3.setOrigin(0.15, 0);
         cdRoom3.setActive(false).setVisible(false);
 
-        const cdRoom4 = this.add.text(330, 150, "Room4", {
-            fixedWidth: 200,
+        const cdRoom4 = this.add.text(382, 200, "Room4", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -115,7 +115,7 @@ export class Room1 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
-                    CommandWriter.cdBack(input, this, myText, "Tutorial");
+                    CommandWriter.cdBack(input, this, myText, "Start");
 
                     CommandWriter.mvCommandItemToHand(
                         input,

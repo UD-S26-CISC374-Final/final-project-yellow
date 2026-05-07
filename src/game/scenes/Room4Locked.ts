@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -37,8 +37,8 @@ export class Room4Locked extends Scene {
         this.background = this.add.image(400, 300, "Room4_1");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const cdRoom5 = this.add.text(70, 200, "Room5", {
-            fixedWidth: 200,
+        const cdRoom5 = this.add.text(50, 170, "Room5", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -46,8 +46,8 @@ export class Room4Locked extends Scene {
         cdRoom5.setOrigin(0.15, 0);
         cdRoom5.setActive(false).setVisible(false);
 
-        const cdRoom6 = this.add.text(590, 200, "Room6", {
-            fixedWidth: 200,
+        const cdRoom6 = this.add.text(680, 170, "Room6", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -55,8 +55,8 @@ export class Room4Locked extends Scene {
         cdRoom6.setOrigin(0.15, 0);
         cdRoom6.setActive(false).setVisible(false);
 
-        const cdRoom8 = this.add.text(330, 150, "Room8", {
-            fixedWidth: 200,
+        const cdRoom8 = this.add.text(370, 200, "Room8", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },

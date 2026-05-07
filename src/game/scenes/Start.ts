@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
@@ -7,7 +7,7 @@ import { Hand } from "../Hand";
 import { Safe } from "../Safe";
 import { Location } from "../Location";
 
-export class Tutorial extends Scene {
+export class Start extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
     background: Phaser.GameObjects.Image;
     phaserLogo: PhaserLogo;
@@ -19,7 +19,7 @@ export class Tutorial extends Scene {
     frameCounter!: number;
 
     constructor() {
-        super("Tutorial");
+        super("Start");
     }
 
     create() {
@@ -43,8 +43,8 @@ export class Tutorial extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        const KeyObject = this.add.text(620, 400, "Room11Key", {
-            fixedWidth: 200,
+        const KeyObject = this.add.text(625, 400, "Room11Key", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
@@ -53,8 +53,8 @@ export class Tutorial extends Scene {
         KeyObject.setActive(false);
         KeyObject.alpha = 0;
 
-        const safe = this.add.text(620, 400, "Safe", {
-            fixedWidth: 200,
+        const safe = this.add.text(580, 260, "Safe", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -62,8 +62,8 @@ export class Tutorial extends Scene {
         safe.setOrigin(0.15, 0);
         safe.setActive(false).setVisible(false);
 
-        const cdRoom1 = this.add.text(330, 150, "Room1", {
-            fixedWidth: 200,
+        const cdRoom1 = this.add.text(370, 190, "Room1", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -130,8 +130,13 @@ export class Tutorial extends Scene {
                             this.registry.get("HasRoom11Key"))
                     ) {
                         myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" || myText.text === "ls -a") &&
+                        !this.registry.get("safeOpen")
+                    ) {
+                        safe.setActive(true).setVisible(true);
+                        myText.text = "Insert Command Here";
                     }
-
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -163,7 +168,7 @@ export class Tutorial extends Scene {
                         myText,
                         [
                             cdRoom1,
-                            safe,
+                            //safe,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -176,7 +181,7 @@ export class Tutorial extends Scene {
                         myText,
                         [
                             cdRoom1,
-                            safe,
+                            //safe,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -255,6 +260,7 @@ export class Tutorial extends Scene {
                 this.frameCounter = 0;
             }
         } else {
+            this.hand.code.setActive(false).setVisible(false);
             if (this.frameCounter === 30) {
                 const newBg =
                     this.background.texture.key === "Tutorial2-2SafeOpen" ?

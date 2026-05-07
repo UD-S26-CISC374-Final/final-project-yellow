@@ -1,4 +1,4 @@
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 //import { EventBus } from "./event-bus";
 import { Pockets } from "./Pockets";
 import { Item } from "./Item";
@@ -31,6 +31,8 @@ export class Hand {
     itemInHandName: Phaser.GameObjects.Text;
 
     handPrompt: Phaser.GameObjects.Text;
+
+    code!: Phaser.GameObjects.Text;
 
     //thereIsItemInHand: boolean;
 
@@ -130,22 +132,23 @@ export class Hand {
             },
         ];
 
-        const code = this.scene.add.text(
-            330,
-            200,
+        this.code = this.scene.add.text(
+            375,
+            550,
             this.scene.registry.get("code") as string,
             {
-                fixedWidth: 200,
+                fixedWidth: AUTO,
                 fixedHeight: 36,
                 backgroundColor: "#000000",
                 padding: { x: 9, y: 9.5 },
             },
         );
-        code.setOrigin(0.15, 0);
-        code.setActive(false).setVisible(false);
+        this.code.setOrigin(0.15, 0);
+        this.code.setActive(false).setVisible(false);
+        this.code.setDepth(1);
 
         if (this.scene.registry.get("hasCode")) {
-            code.setActive(true).setVisible(true);
+            this.code.setActive(true).setVisible(true);
         }
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
@@ -222,12 +225,10 @@ export class Hand {
     }
 
     update() {
-        //this.fpsText.update();
-        /*
-        if (this.scene.registry.get("hasCode")) {
-            code.setActive(true).setVisible(true);
+        if (!this.scene.registry.get("hasCode")) {
+            console.log("deactivate code");
+            this.code.setActive(false).setVisible(false);
         }
-            */
     }
 
     changeScene() {
