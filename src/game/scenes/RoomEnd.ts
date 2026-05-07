@@ -48,7 +48,7 @@ export class RoomEnd extends Scene {
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const KeyObject = this.add.text(620, 400, "SkellyKey", {
+        const KeyObject = this.add.text(220, 250, "SkellyKey", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#3898ff",

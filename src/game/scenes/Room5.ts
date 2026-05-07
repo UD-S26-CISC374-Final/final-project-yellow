@@ -42,7 +42,7 @@ export class Room5 extends Scene {
         const noteMessage = this.add.text(
             405,
             305,
-            "Day 21: I am still roaming these endless halls, with the hope of finding the exit some day. I saw a mask just before the final door. I don't know if I'm going crazy, but I think I heard it talk.",
+            "Day 21: I am still roaming these endless halls, with the hope of finding the exit some day. I saw a mask just before the final door, in room 12. I don't know if I'm going crazy, but I think I heard it talk.",
             {
                 fixedWidth: 320,
                 //fixedHeight: 36,
