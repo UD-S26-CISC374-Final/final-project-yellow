@@ -86,49 +86,49 @@ export class Hand {
                 itemGlobalVar: "HasRoom4Key",
                 itemGlobalVarBool: "Room4KeyInPocket",
                 itemInHand: "Room4KeyInHand",
-                itemImage: "KeyTest",
+                itemImage: "Room4Key",
             },
             {
                 itemName: "Room11Key",
                 itemGlobalVar: "HasRoom11Key",
                 itemGlobalVarBool: "Room11KeyInPocket",
                 itemInHand: "Room11KeyInHand",
-                itemImage: "Key2",
+                itemImage: "Room11Key",
             },
             {
                 itemName: "SkellyKey",
                 itemGlobalVar: "HasSkellyKey",
                 itemGlobalVarBool: "SkellyKeyInPocket",
                 itemInHand: "SkellyKeyInHand",
-                itemImage: "skellyKey",
+                itemImage: "SkellyKey",
             },
             {
                 itemName: "MaskPiece1",
                 itemGlobalVar: "HasMaskPiece1",
                 itemGlobalVarBool: "MaskPiece1InPocket",
                 itemInHand: "MaskPiece1InHand",
-                itemImage: "MaskPiece1",
+                itemImage: "Mask1",
             },
             {
                 itemName: "MaskPiece2",
                 itemGlobalVar: "HasMaskPiece2",
                 itemGlobalVarBool: "MaskPiece2InPocket",
                 itemInHand: "MaskPiece2InHand",
-                itemImage: "MaskPiece2",
+                itemImage: "Mask2",
             },
             {
                 itemName: "MaskPiece3",
                 itemGlobalVar: "HasMaskPiece3",
                 itemGlobalVarBool: "MaskPiece3InPocket",
                 itemInHand: "MaskPiece3InHand",
-                itemImage: "MaskPiece3",
+                itemImage: "Mask3",
             },
             {
                 itemName: "MaskPiece4",
                 itemGlobalVar: "HasMaskPiece4",
                 itemGlobalVarBool: "MaskPiece4InPocket",
                 itemInHand: "MaskPiece4InHand",
-                itemImage: "MaskPiece4",
+                itemImage: "Mask4",
             },
         ];
 
@@ -157,7 +157,7 @@ export class Hand {
                 530,
                 this.itemsTotal[i].itemImage,
             );
-            this.items[i].setScale(0.02, 0.02);
+            this.items[i].setScale(0.09, 0.09);
 
             this.items[i].setActive(false).setVisible(false);
 

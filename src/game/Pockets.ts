@@ -63,59 +63,59 @@ export class Pockets {
                 itemGlobalVar: "HasRoom4Key",
                 itemGlobalVarBool: "Room4KeyInPocket",
                 itemInHand: "Room4KeyInHand",
-                itemImage: "KeyTest",
+                itemImage: "Room4Key",
             },
             {
                 itemName: "Room11Key",
                 itemGlobalVar: "HasRoom11Key",
                 itemGlobalVarBool: "Room11KeyInPocket",
                 itemInHand: "Room11KeyInHand",
-                itemImage: "Key2",
+                itemImage: "Room11Key",
             },
             {
                 itemName: "SkellyKey",
                 itemGlobalVar: "HasSkellyKey",
                 itemGlobalVarBool: "SkellyKeyInPocket",
                 itemInHand: "SkellyKeyInHand",
-                itemImage: "skellyKey",
+                itemImage: "SkellyKey",
             },
             {
                 itemName: "MaskPiece1",
                 itemGlobalVar: "HasMaskPiece1",
                 itemGlobalVarBool: "MaskPiece1InPocket",
                 itemInHand: "MaskPiece1InHand",
-                itemImage: "MaskPiece1",
+                itemImage: "Mask1",
             },
             {
                 itemName: "MaskPiece2",
                 itemGlobalVar: "HasMaskPiece2",
                 itemGlobalVarBool: "MaskPiece2InPocket",
                 itemInHand: "MaskPiece2InHand",
-                itemImage: "MaskPiece2",
+                itemImage: "Mask2",
             },
             {
                 itemName: "MaskPiece3",
                 itemGlobalVar: "HasMaskPiece3",
                 itemGlobalVarBool: "MaskPiece3InPocket",
                 itemInHand: "MaskPiece3InHand",
-                itemImage: "MaskPiece3",
+                itemImage: "Mask3",
             },
             {
                 itemName: "MaskPiece4",
                 itemGlobalVar: "HasMaskPiece4",
                 itemGlobalVarBool: "MaskPiece4InPocket",
                 itemInHand: "MaskPiece4InHand",
-                itemImage: "MaskPiece4",
+                itemImage: "Mask4",
             },
         ];
 
         for (let i = 0; i < this.itemsTotal.length; i++) {
             this.items[i] = this.scene.add.image(
-                225,
+                235,
                 135,
                 this.itemsTotal[i].itemImage,
             );
-            this.items[i].setScale(0.02, 0.02);
+            this.items[i].setScale(0.09, 0.09);
 
             this.items[i].setActive(false).setVisible(false);
 
@@ -170,47 +170,47 @@ export class Pockets {
                     this.itemNames[i].setActive(true).setVisible(true);
 
                     if (i === 0) {
-                        this.items[i].x = 225;
+                        this.items[i].x = 230;
                         this.items[i].y = 135;
 
                         this.itemNames[i].x = 180;
                         this.itemNames[i].y = 170;
                     } else if (i === 1) {
-                        this.items[i].x = 385;
+                        this.items[i].x = 390;
                         this.items[i].y = 135;
 
                         this.itemNames[i].x = 345;
                         this.itemNames[i].y = 170;
                     } else if (i === 2) {
-                        this.items[i].x = 545;
+                        this.items[i].x = 560;
                         this.items[i].y = 135;
 
                         this.itemNames[i].x = 510;
                         this.itemNames[i].y = 170;
                     } else if (i === 3) {
-                        this.items[i].x = 225;
-                        this.items[i].y = 220;
+                        this.items[i].x = 230;
+                        this.items[i].y = 267;
 
                         this.itemNames[i].x = 180;
-                        this.itemNames[i].y = 220;
+                        this.itemNames[i].y = 308;
                     } else if (i === 4) {
-                        this.items[i].x = 385;
-                        this.items[i].y = 220;
+                        this.items[i].x = 390;
+                        this.items[i].y = 267;
 
                         this.itemNames[i].x = 345;
-                        this.itemNames[i].y = 220;
+                        this.itemNames[i].y = 308;
                     } else if (i === 5) {
-                        this.items[i].x = 545;
-                        this.items[i].y = 220;
+                        this.items[i].x = 560;
+                        this.items[i].y = 267;
 
                         this.itemNames[i].x = 510;
-                        this.itemNames[i].y = 220;
+                        this.itemNames[i].y = 308;
                     } else if (i === 6) {
-                        this.items[i].x = 225;
-                        this.items[i].y = 350;
+                        this.items[i].x = 230;
+                        this.items[i].y = 410;
 
                         this.itemNames[i].x = 180;
-                        this.itemNames[i].y = 400;
+                        this.itemNames[i].y = 451;
                     }
 
                     //Hardcodear cada posicion
