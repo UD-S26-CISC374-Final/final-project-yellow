@@ -267,7 +267,9 @@ export class CommandWriter {
         if (
             myText.text !== "Insert Command Here" &&
             myText.text !== "Door Locked" &&
-            myText.text !== "mask piece inserted"
+            myText.text !== "mask piece inserted" &&
+            myText.text !== "mask pieces returned" &&
+            myText.text !== "mask piece already inserted"
         ) {
             myText.text = "Command Not Found";
         }
@@ -298,6 +300,48 @@ export class CommandWriter {
         }
     }
 
+    static mvMaskPiece(
+        input: string,
+        scene: Scene,
+        target: string,
+        maskCurrent: string[],
+        maskAnswer: string[],
+        myText: Phaser.GameObjects.Text,
+    ) {
+        const inputParts = input.split(" ");
+
+        const command = inputParts[0];
+        const object = inputParts[1];
+        const destination = inputParts[2];
+        if (
+            command === "mv" &&
+            maskAnswer.includes(object) &&
+            destination === target
+        ) {
+            if (
+                scene.registry.get(object + "InHand") ||
+                scene.registry.get(object + "InPocket")
+            ) {
+                if (!maskCurrent.includes(object)) {
+                    maskCurrent.push(object);
+                    myText.text = "mask piece inserted";
+                } else {
+                    myText.text = "mask piece already inserted";
+                }
+            }
+            if (maskAnswer.length == maskCurrent.length) {
+                if (
+                    maskAnswer.every(
+                        (value, index) => value === maskCurrent[index],
+                    )
+                ) {
+                    scene.registry.set("MaskComplete", true);
+                }
+            }
+        }
+    }
+}
+/*
     constructor(scene: Phaser.Scene) {
         //super("Level1");
         this.scene = scene;
@@ -311,3 +355,4 @@ export class CommandWriter {
         //this.scene.start("GameOver");
     }
 }
+    */

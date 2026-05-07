@@ -40,12 +40,25 @@ export class RoomEnd extends Scene {
             padding: { x: 9, y: 9.5 },
         });
         KeyObject.setOrigin(0.15, 0);
-        KeyObject.setActive(false);
-        KeyObject.alpha = 0;
+        KeyObject.setActive(false).setVisible(false);
 
-        const maskAnswer = ["mask1", "mask2", "mask3", "mask4"];
+        const Hole = this.add.text(520, 250, "Hole", {
+            fixedWidth: 200,
+            fixedHeight: 36,
+            backgroundColor: "#000000",
+            padding: { x: 9, y: 9.5 },
+        });
+        Hole.setOrigin(0.15, 0);
+        Hole.setActive(false).setVisible(false);
 
-        let maskCurrent = ["", "", "", ""];
+        const maskAnswer = [
+            "MaskPiece2",
+            "MaskPiece4",
+            "MaskPiece3",
+            "MaskPiece1",
+        ];
+
+        let maskCurrent: string[] = [];
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -61,50 +74,24 @@ export class RoomEnd extends Scene {
                 (myText.text === "Insert Command Here" ||
                     myText.text === "Command Not Found" ||
                     myText.text === "Door Locked" ||
-                    myText.text === "mask piece inserted")
+                    myText.text === "mask piece inserted" ||
+                    myText.text === "mask pieces returned" ||
+                    myText.text === "mask piece already inserted")
             ) {
                 myText.text = "";
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
-                    if (myText.text === "mv mask1 maskhole") {
-                        for (let i = 0; i < maskAnswer.length; i++) {
-                            if (maskCurrent[i] === "") {
-                                maskCurrent[i] = "mask1";
-                                myText.text = "mask piece inserted";
-                                break;
-                            }
-                        }
-                    }
-                    if (myText.text === "mv mask2 maskhole") {
-                        for (let i = 0; i < maskAnswer.length; i++) {
-                            if (maskCurrent[i] === "") {
-                                maskCurrent[i] = "mask2";
-                                myText.text = "mask piece inserted";
-                                break;
-                            }
-                        }
-                    }
-                    if (myText.text === "mv mask3 maskhole") {
-                        for (let i = 0; i < maskAnswer.length; i++) {
-                            if (maskCurrent[i] === "") {
-                                maskCurrent[i] = "mask3";
-                                myText.text = "mask piece inserted";
-                                break;
-                            }
-                        }
-                    }
-                    if (myText.text === "mv mask4 maskhole") {
-                        for (let i = 0; i < maskAnswer.length; i++) {
-                            if (maskCurrent[i] === "") {
-                                maskCurrent[i] = "mask4";
-                                myText.text = "mask piece inserted";
-                                break;
-                            }
-                        }
-                    }
-
                     const input = myText.text;
+
+                    CommandWriter.mvMaskPiece(
+                        input,
+                        this,
+                        "Hole",
+                        maskCurrent,
+                        maskAnswer,
+                        myText,
+                    );
 
                     CommandWriter.mvCommandToPockets(
                         input,
@@ -116,25 +103,35 @@ export class RoomEnd extends Scene {
                         "SkellyKeyInPocket",
                     );
 
-                    if (
-                        myText.text === "ls" &&
-                        !KeyObject.active &&
-                        !this.registry.get("HasSkellyKey")
-                    ) {
-                        KeyObject.setActive(true);
-                        KeyObject.alpha = 1;
-                        this.pockets.pocketsIndicator
-                            .setActive(true)
-                            .setVisible(true);
-                        this.hand.handPrompt.setActive(true).setVisible(true);
-                        myText.text = "Insert Command Here";
-                    } else if (
-                        (myText.text === "ls" && KeyObject.active) ||
-                        (myText.text === "ls" &&
-                            this.registry.get("HasSkellyKey"))
-                    ) {
-                        myText.text = "Insert Command Here";
-                    }
+                    // if (
+                    //     myText.text === "ls" &&
+                    //     !KeyObject.active &&
+                    //     !this.registry.get("HasSkellyKey")
+                    // ) {
+                    //     KeyObject.setActive(true);
+                    //     KeyObject.alpha = 1;
+                    //     this.pockets.pocketsIndicator
+                    //         .setActive(true)
+                    //         .setVisible(true);
+                    //     this.hand.handPrompt.setActive(true).setVisible(true);
+                    //     myText.text = "Insert Command Here";
+                    // } else if (
+                    //     (myText.text === "ls" && KeyObject.active) ||
+                    //     (myText.text === "ls" &&
+                    //         this.registry.get("HasSkellyKey"))
+                    // )
+                    CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [
+                            Hole,
+                            KeyObject,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
 
                     CommandWriter.cdBack(input, this, myText, "Room12");
 
@@ -163,20 +160,19 @@ export class RoomEnd extends Scene {
 
                     CommandWriter.checkCommandFound(myText);
 
-                    if (maskCurrent[3] != "") {
-                        if (
-                            maskCurrent.every(
-                                (value, index) => value === maskAnswer[index],
-                            )
-                        ) {
-                            this.camera.fadeOut(1000, 0, 0, 0);
+                    if (
+                        maskAnswer.every(
+                            (value, index) => value === maskCurrent[index],
+                        )
+                    ) {
+                        this.camera.fadeOut(1000, 0, 0, 0);
 
-                            this.time.delayedCall(1000, () => {
-                                this.scene.start("FinalScene");
-                            });
-                        } else {
-                            maskCurrent = ["", "", "", ""];
-                        }
+                        this.time.delayedCall(1000, () => {
+                            this.scene.start("FinalScene");
+                        });
+                    } else if (maskCurrent.length == maskAnswer.length) {
+                        maskCurrent = [];
+                        myText.text = "mask pieces returned";
                     }
                 },
             });

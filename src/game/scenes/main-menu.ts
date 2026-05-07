@@ -41,6 +41,13 @@ export class MainMenu extends Scene implements ChangeableScene {
         this.registry.set("padCloseUp", false);
 
         this.registry.set("talkedToMask", false);
+        this.registry.set("MaskComplete", false);
+
+        //remove later
+        this.registry.set("MaskPiece1InPocket", true);
+        this.registry.set("MaskPiece2InPocket", true);
+        this.registry.set("MaskPiece3InPocket", true);
+        this.registry.set("MaskPiece4InPocket", true);
 
         this.registry.set("ItemsInHand", [
             "Room4KeyInHand",
@@ -112,7 +119,7 @@ export class MainMenu extends Scene implements ChangeableScene {
                         });
                         */
 
-                        this.scene.start("cutscene");
+                        this.scene.start("Room12");
                     }
                 },
             });
