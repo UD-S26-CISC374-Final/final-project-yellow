@@ -68,10 +68,10 @@ export class Room12 extends Scene {
             "One last thing",
             "I can't tell you directly the order in which to put the pieces.",
             "Only in the way of a riddle",
-            "Listen to this because you might know it too.",
-            "The story of a dog that ran fast for.",
-            "A squirell that climbed to the top of a tree.",
-            "While it was holding one strawberry",
+            "Listen to this because you might know it too,",
+            "The story of a dog that ran fast for",
+            "A squirell that climbed to the top of a tree",
+            "While it was holding one strawberry.",
         ];
 
         this.dialogue.dialogueAfterTalked = [

@@ -43,6 +43,7 @@ export class Room6 extends Scene {
         cdRoom7.setOrigin(0.15, 0);
         cdRoom7.setActive(false).setVisible(false);
 
+        /*
         const booksText = this.add.text(220, 200, "BookShelf", {
             fixedWidth: 200,
             fixedHeight: 36,
@@ -51,10 +52,12 @@ export class Room6 extends Scene {
         });
         booksText.setOrigin(0.15, 0);
         booksText.setActive(false).setVisible(false);
+        
 
         this.bookShelf = this.add.image(140, 200, "Inventory");
         this.bookShelf.setActive(false).setVisible(false);
         this.bookShelf.setDepth(10);
+        */
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -77,6 +80,7 @@ export class Room6 extends Scene {
                 onClose: () => {
                     const input = myText.text;
 
+                    /*
                     if (
                         input === "cd BookShelf"
                         //&& !this.registry.get("bookCloseUp")
@@ -89,20 +93,15 @@ export class Room6 extends Scene {
                     ) {
                         this.backUp();
                     } else {
-                        CommandWriter.cdBack(
-                            input,
-                            this,
-                            myText,
-                            "Room4Locked",
-                        );
+                        
                     }
+                        */
 
                     CommandWriter.lsCommand(
                         input,
                         myText,
                         [
                             cdRoom7,
-                            booksText,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -115,7 +114,6 @@ export class Room6 extends Scene {
                         myText,
                         [
                             cdRoom7,
-                            booksText,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -130,6 +128,8 @@ export class Room6 extends Scene {
                         cdRoom7.text,
                         "Room7",
                     );
+
+                    CommandWriter.cdBack(input, this, myText, "Room4Locked");
 
                     CommandWriter.openInventory(
                         input,

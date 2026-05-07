@@ -127,7 +127,7 @@ export class Room9 extends Scene {
                         "Room11Key",
                         this.background,
                         cdRoom11.text,
-                        "roomRightOpen",
+                        "room9_1",
                         myText,
                         "HasRoom11Key",
                         "Room11Open",

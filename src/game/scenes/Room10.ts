@@ -50,7 +50,7 @@ export class Room10 extends Scene {
         this.mask4 = this.add.text(400, 100, "MaskPiece4", {
             fixedWidth: 200,
             fixedHeight: 36,
-            backgroundColor: "#000000",
+            backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
         });
         this.mask4.setOrigin(0.15, 0);

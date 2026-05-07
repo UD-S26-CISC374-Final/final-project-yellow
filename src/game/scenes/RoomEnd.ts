@@ -98,6 +98,21 @@ export class RoomEnd extends Scene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     const input = myText.text;
+                    if (
+                        myText.text === "ls" &&
+                        !KeyObject.active &&
+                        !this.registry.get("HasSkellyKey")
+                    ) {
+                        KeyObject.setActive(true);
+                        KeyObject.alpha = 1;
+                        myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" && KeyObject.active) ||
+                        (myText.text === "ls" &&
+                            this.registry.get("HasSkellyKey"))
+                    ) {
+                        myText.text = "Insert Command Here";
+                    }
 
                     CommandWriter.mvMaskPiece(
                         input,

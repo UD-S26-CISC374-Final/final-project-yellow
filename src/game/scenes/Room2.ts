@@ -30,7 +30,7 @@ export class Room2 extends Scene {
 
         this.background = this.add.image(400, 300, "Room2Closed");
         if (this.registry.get("SkellyOpen")) {
-            this.background = this.add.image(400, 300, "Room2Open");
+            this.background = this.background.setTexture("Room2Open");
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
@@ -128,7 +128,7 @@ export class Room2 extends Scene {
                         "SkellyKey",
                         this.background,
                         skelly.text,
-                        "DoorOnlyFront",
+                        "Room2Open",
                         myText,
                         "HasSkellyKey",
                         "SkellyOpen",
