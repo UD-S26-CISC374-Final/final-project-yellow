@@ -12,6 +12,8 @@ export class cutscene extends Scene implements ChangeableScene {
 
     dialogue!: DialogComponent;
 
+    frameCounter!: number;
+
     //index: number;
 
     constructor() {
@@ -19,12 +21,17 @@ export class cutscene extends Scene implements ChangeableScene {
     }
 
     create() {
+        this.frameCounter = 0;
+
         this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.background = this.add.image(400, 300, "FinalCutscene1_1");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         this.dialogue = new DialogComponent(this);
 
         this.dialogue.xPos = 400;
-        this.dialogue.yPos = 300;
+        this.dialogue.yPos = 400;
 
         this.dialogue.ImageTalk1 = null;
         this.dialogue.ImageTalk2 = null;
@@ -49,6 +56,20 @@ export class cutscene extends Scene implements ChangeableScene {
         this.dialogue.sceneToChange = "Start";
 
         this.dialogue.create();
+    }
+
+    update(): void {
+        this.frameCounter++;
+        if (this.frameCounter === 30) {
+            const newBg =
+                this.background.texture.key === "FinalCutscene1_1" ?
+                    "FinalCutscene1_2"
+                :   "FinalCutscene1_1";
+
+            this.background.setTexture(newBg);
+
+            this.frameCounter = 0;
+        }
     }
 
     changeScene() {}

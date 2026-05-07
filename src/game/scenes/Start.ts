@@ -43,7 +43,7 @@ export class Start extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        const KeyObject = this.add.text(620, 400, "Room11Key", {
+        const KeyObject = this.add.text(625, 400, "Room11Key", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -130,8 +130,13 @@ export class Start extends Scene {
                             this.registry.get("HasRoom11Key"))
                     ) {
                         myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" || myText.text === "ls -a") &&
+                        !this.registry.get("safeOpen")
+                    ) {
+                        safe.setActive(true).setVisible(true);
+                        myText.text = "Insert Command Here";
                     }
-
                     CommandWriter.openInventory(
                         input,
                         this.pockets,
@@ -163,7 +168,7 @@ export class Start extends Scene {
                         myText,
                         [
                             cdRoom1,
-                            safe,
+                            //safe,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -176,7 +181,7 @@ export class Start extends Scene {
                         myText,
                         [
                             cdRoom1,
-                            safe,
+                            //safe,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
@@ -255,6 +260,7 @@ export class Start extends Scene {
                 this.frameCounter = 0;
             }
         } else {
+            this.hand.code.setActive(false).setVisible(false);
             if (this.frameCounter === 30) {
                 const newBg =
                     this.background.texture.key === "Tutorial2-2SafeOpen" ?

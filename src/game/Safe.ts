@@ -71,7 +71,7 @@ export class Safe {
             this.padLock.setActive(false).setVisible(false);
             scene.registry.set("padCloseUp", false);
             this.indications.setActive(false).setVisible(false);
-            background.setTexture("TutorialSafeOpen");
+            background.setTexture("Tutorial2SafeOpen");
             scene.registry.set("safeOpen", true);
             safeText.setActive(false);
             safeText.alpha = 0;

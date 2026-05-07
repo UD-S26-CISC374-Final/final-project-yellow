@@ -37,7 +37,7 @@ export class Room12 extends Scene {
 
         this.dialogue = new DialogComponent(this);
 
-        this.dialogue.xPos = 500;
+        this.dialogue.xPos = 300;
         this.dialogue.yPos = 300;
 
         this.dialogue.characterIsTalking = this.maskText;
@@ -85,6 +85,18 @@ export class Room12 extends Scene {
         this.dialogue.changeScene = false;
 
         this.dialogue.hasTalked = "MaskTalked";
+
+        this.dialogue.ImageTalk1 = this.add
+            .image(600, 300, "MaskTalks1")
+            .setDepth(10);
+        this.dialogue.ImageTalk1.setScale(0.2, 0.2);
+        this.dialogue.ImageTalk1.setActive(false).setVisible(false);
+
+        this.dialogue.ImageTalk2 = this.add
+            .image(600, 300, "MaskNoTalk")
+            .setDepth(10);
+        this.dialogue.ImageTalk2.setScale(0.2, 0.2);
+        this.dialogue.ImageTalk2.setActive(false).setVisible(false);
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);

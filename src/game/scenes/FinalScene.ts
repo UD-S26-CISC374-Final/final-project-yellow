@@ -21,12 +21,15 @@ export class FinalScene extends Scene {
     create() {
         this.registry.set("FinalSceneChange", true);
 
+        this.background = this.add.image(400, 300, "FinalCutscene2_PreBart");
+        this.background.setDisplaySize(this.scale.width, this.scale.height);
+
         this.cameras.main.fadeIn(1000, 0, 0, 0);
 
         this.dialogue = new DialogComponent(this);
 
         this.dialogue.xPos = 400;
-        this.dialogue.yPos = 300;
+        this.dialogue.yPos = 400;
 
         this.dialogue.ImageTalk1 = null;
         this.dialogue.ImageTalk2 = null;

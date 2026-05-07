@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { GameObjects, Scene } from "phaser";
+import { AUTO, GameObjects, Scene } from "phaser";
 import { Hand } from "../Hand";
 import { Notes } from "../Notes";
 
@@ -24,6 +24,8 @@ export class Room10 extends Scene {
     frameCounter!: number;
 
     mask4!: GameObjects.Text;
+
+    textCode!: GameObjects.Text;
 
     //keyEnter = this.input.keyboard?.addKey(Phaser.Input.Keyboard.KeyCodes.ENTER)
 
@@ -54,12 +56,26 @@ export class Room10 extends Scene {
         this.mask4.setOrigin(0.15, 0);
         this.mask4.setActive(false).setVisible(false);
 
-        const secretCode = this.add.text(330, 200, this.randCode, {
-            fixedWidth: 200,
-            fixedHeight: 36,
-            backgroundColor: "#000000",
-            padding: { x: 9, y: 9.5 },
-        });
+        //this.randCode
+
+        const secretCode = this.add.text(
+            405,
+            305,
+            "Day ???: I don't know how much time I have left here. My mind is starting to go crazy. If anyone finds this note, the code for the safe, the one at the start, is " +
+                this.randCode +
+                ".",
+            {
+                fixedWidth: 320,
+                //fixedHeight: 36,
+                fontFamily: "Architext",
+                backgroundColor: "#00000000",
+                color: "#000000",
+                fontSize: 30,
+                padding: { x: 9, y: 9.5 },
+                lineSpacing: 12,
+                wordWrap: { width: 310 },
+            },
+        );
         secretCode.setOrigin(0.5, 0.5);
         secretCode.setActive(false).setVisible(false);
         secretCode.setDepth(1);
@@ -72,6 +88,20 @@ export class Room10 extends Scene {
         });
         code.setOrigin(0.15, 0);
         code.setActive(false).setVisible(false);
+
+        this.textCode = this.add.text(
+            375,
+            550,
+            this.registry.get("code") as string,
+            {
+                fixedWidth: AUTO,
+                fixedHeight: 36,
+                backgroundColor: "#000000",
+                padding: { x: 9, y: 9.5 },
+            },
+        );
+        this.textCode.setOrigin(0.15, 0);
+        this.textCode.setActive(false).setVisible(false);
 
         const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
@@ -188,6 +218,10 @@ export class Room10 extends Scene {
 
     update(): void {
         this.frameCounter++;
+
+        if (this.registry.get("hasCode")) {
+            this.textCode.setActive(true).setVisible(true);
+        }
 
         if (this.registry.get("HasMaskPiece4")) {
             this.mask4.setActive(false).setVisible(false);

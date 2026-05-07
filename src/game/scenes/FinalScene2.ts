@@ -12,6 +12,8 @@ export class FinalScene2 extends Scene {
 
     dialogue!: DialogComponent;
 
+    bart!: GameObjects.Image;
+
     //index: number;
 
     constructor() {
@@ -19,12 +21,15 @@ export class FinalScene2 extends Scene {
     }
 
     create() {
+        this.background = this.add.image(400, 300, "FinalCutscene2_PostBart");
+        this.background.setDisplaySize(this.scale.width, this.scale.height);
+
         this.cameras.main.fadeIn(150, 255, 255, 255);
 
         this.dialogue = new DialogComponent(this);
 
         this.dialogue.xPos = 400;
-        this.dialogue.yPos = 300;
+        this.dialogue.yPos = 400;
 
         this.dialogue.ImageTalk1 = null;
         this.dialogue.ImageTalk2 = null;
@@ -51,6 +56,8 @@ export class FinalScene2 extends Scene {
         this.dialogue.sceneToChange = "Start";
 
         this.dialogue.create();
+
+        this.bart = this.add.image(400, 300, "Bart");
     }
 
     changeScene() {}

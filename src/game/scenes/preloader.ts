@@ -79,6 +79,7 @@ export class Preloader extends Scene {
 
         this.load.image("PadLock", "PadLock.png");
 
+        ////////////////////////////////////////////////
         this.load.setPath("assets/ImagesForGame");
 
         this.load.image("Room1Open", "Room1Open.png");
@@ -115,6 +116,7 @@ export class Preloader extends Scene {
 
         this.load.image("Room11", "Room11.png");
 
+        /////////////////////////////////////////////////
         this.load.setPath("assets/ImagesForGame2");
 
         this.load.image("Room3Key", "Room3Key.png");
@@ -141,7 +143,35 @@ export class Preloader extends Scene {
         this.load.image("Room12_1TwoMasks", "Room12_1TwoMasks.png");
         this.load.image("Room12_2TwoMasks", "Room12_2TwoMasks.png");
 
+        this.load.image("FinalCutscene1_1", "FinalCutscene1_1.png");
+        this.load.image("FinalCutscene1_2", "FinalCutscene1_2.png");
+        this.load.image(
+            "FinalCutscene2_PostBart",
+            "FinalCutscene2_PostBart.png",
+        );
+        this.load.image("FinalCutscene2_PreBart", "FinalCutscene2_PreBart.png");
+
         this.load.image("Note", "Note.png");
+
+        ////////////////////////////////////////////////
+        this.load.setPath("assets/Items");
+
+        this.load.image("Mask1", "Mask1.png");
+        this.load.image("Mask2", "Mask1.png");
+        this.load.image("Mask3", "Mask1.png");
+        this.load.image("Mask4", "Mask1.png");
+
+        this.load.image("Room4Key", "Room4Key.png");
+        this.load.image("Room11Key", "Room11Key.png");
+        this.load.image("SkellyKey", "SkellyKey.png");
+
+        this.load.image("Bart", "Bart.png");
+
+        ////////////////////////////////////////////////
+        this.load.setPath("assets/MaskTalk");
+
+        this.load.image("MaskNoTalk", "MaskNoTalk.png");
+        this.load.image("MaskTalks1", "MaskTalks1.png");
     }
 
     create() {
