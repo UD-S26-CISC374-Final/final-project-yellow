@@ -27,9 +27,9 @@ Commands:
     It is specially used for finding the masks required for the final door.
 
 # Screenshot
-
-<img width="1644" height="1233" alt="image" src="https://github.com/user-attachments/assets/35db8c61-1c12-47e2-8ba4-7e0109296822" />
-
+<p>
+<img src="docs/large.png" width="320" height="320">
+</p>
 
 # Gameplay Video
 
@@ -37,8 +37,25 @@ TEXT GOES HERE
 
 # Educational Game Design Document
 
-https://github.com/chimuelo1011/Command-The-Dungeon-EGDD/blob/main/index.md
+https://github.com/chimuelo1011/Command-The-Dungeon-EGDD.git
 
 # Credits
+  - NPCs:
+    - Dark Cloak Character Model: [Death: A Grim Bundle [PMs]](https://steamcommunity.com/sharedfiles/filedetails/?id=1380429026)
+    - Talking Skeleton Model: [Skeletons](https://steamcommunity.com/sharedfiles/filedetails/?id=2998167453)
+    - Talking Mask Model: [Wooden Masks](https://steamcommunity.com/sharedfiles/filedetails/?id=1536572511)
+  - Background walls and doors: [gm_buildyourdungeon](https://steamcommunity.com/sharedfiles/filedetails/?id=2795639766)
+  - Decoration Models:
+      - Bookshelfs: [Bookshelf 1](https://steamcommunity.com/sharedfiles/filedetails/?id=574318643)
+      - Carpet: [Carpet Prop](https://steamcommunity.com/sharedfiles/filedetails/?id=3109446454)
+      - Weapons: [Immersive Medieval Weapons](https://steamcommunity.com/sharedfiles/filedetails/?id=3259430046)
+      - Shields: [Medieval Shields | Models](https://steamcommunity.com/sharedfiles/filedetails/?id=2958443027)
+      - Helmets: [Fantasy RP Armor Items](https://steamcommunity.com/sharedfiles/filedetails/?id=423640859)
+      - Furniture, notes, and Keys: [Skyrim Furniture Pack](https://steamcommunity.com/sharedfiles/filedetails/?id=2582158815) and [Medieval Content Pack 1](https://steamcommunity.com/sharedfiles/filedetails/?id=754059901)
+      - Lanterns: [Cozy Lanterns](https://steamcommunity.com/sharedfiles/filedetails/?id=3324707020)
+      - Golden Key: [Key](https://steamcommunity.com/sharedfiles/filedetails/?id=248051620)
+      - Safe: [Safe Model](https://steamcommunity.com/sharedfiles/filedetails/?id=2511125493)
+  - Put together in: [Garry's Mod](https://store.steampowered.com/app/4000/Garrys_Mod?snr=1_7_15__13)
 
-TEXT GOES HERE
+  - Dialogues' Sound: [bfxr](https://www.bfxr.net/)
+  - Image of Dr Bart: [Dr Bart](https://www.cis.udel.edu/nitropack_static/ZRSPRogOEHpIjFdcGyxvriKWeegnLhto/assets/images/optimized/rev-bb67ab1/www.cis.udel.edu/wp-content/uploads/2023/08/Bart-1.jpg)
