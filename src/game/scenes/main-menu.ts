@@ -1,9 +1,9 @@
 import { GameObjects, Scene } from "phaser";
 
 import { EventBus } from "../event-bus";
-import type { ChangeableScene } from "../reactable-scene";
+//import type { ChangeableScene } from "../reactable-scene";
 
-export class MainMenu extends Scene implements ChangeableScene {
+export class MainMenu extends Scene {
     background: GameObjects.Image;
     logo: GameObjects.Image;
     title: GameObjects.Text;
@@ -14,6 +14,10 @@ export class MainMenu extends Scene implements ChangeableScene {
     }
 
     create() {
+        this.registry.set("previousCommands", [] as string[]);
+
+        this.sound.play("MainMenu", { loop: true });
+
         this.registry.set("lsACommandActive", false);
 
         this.registry.set("HasRoom4Key", false);
@@ -127,40 +131,5 @@ export class MainMenu extends Scene implements ChangeableScene {
         EventBus.emit("current-scene-ready", this);
     }
 
-    changeScene() {
-        /*
-        if (this.logoTween) {
-            this.logoTween.stop();
-            this.logoTween = null;
-        }
-
-        this.scene.start("Level1");
-        */
-    }
-
-    /*
-    moveSprite(callback: ({ x, y }: { x: number; y: number }) => void) {
-        if (this.logoTween) {
-            if (this.logoTween.isPlaying()) {
-                this.logoTween.pause();
-            } else {
-                this.logoTween.play();
-            }
-        } else {
-            this.logoTween = this.tweens.add({
-                targets: this.logo,
-                x: { value: 750, duration: 3000, ease: "Back.easeInOut" },
-                y: { value: 80, duration: 1500, ease: "Sine.easeOut" },
-                yoyo: true,
-                repeat: -1,
-                onUpdate: () => {
-                    callback({
-                        x: Math.floor(this.logo.x),
-                        y: Math.floor(this.logo.y),
-                    });
-                },
-            });
-        }
-    }
-        */
+    changeScene() {}
 }

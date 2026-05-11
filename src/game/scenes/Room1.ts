@@ -27,6 +27,8 @@ export class Room1 extends Scene {
     update() {}
 
     create() {
+        this.sound.stopByKey("FireEffect");
+
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
@@ -214,6 +216,8 @@ export class Room1 extends Scene {
                         TutorialText.text =
                             "To open the door, move the key to the door by typing 'mv Room4Key Room4'.";
                     }
+
+                    CommandWriter.moveThroughCommands(this, myText);
                 },
             });
         });

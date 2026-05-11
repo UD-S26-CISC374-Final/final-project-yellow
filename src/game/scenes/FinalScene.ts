@@ -19,6 +19,8 @@ export class FinalScene extends Scene {
     }
 
     create() {
+        this.sound.stopAll();
+
         this.registry.set("FinalSceneChange", true);
 
         this.background = this.add.image(400, 300, "FinalCutscene2_PreBart");

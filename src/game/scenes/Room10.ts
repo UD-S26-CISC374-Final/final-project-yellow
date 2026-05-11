@@ -217,6 +217,9 @@ export class Room10 extends Scene {
     }
 
     update(): void {
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
+
         this.frameCounter++;
 
         if (this.registry.get("hasCode")) {

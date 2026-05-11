@@ -27,7 +27,8 @@ export class RoomEnd extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
 
         this.frameCounter = 0;
 
@@ -112,6 +113,8 @@ export class RoomEnd extends Scene {
                             this.registry.get("HasSkellyKey"))
                     ) {
                         myText.text = "Insert Command Here";
+                    } else if (myText.text === "end") {
+                        this.scene.start("FinalScene");
                     }
 
                     CommandWriter.mvMaskPiece(

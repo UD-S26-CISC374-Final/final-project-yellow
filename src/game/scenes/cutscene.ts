@@ -21,6 +21,9 @@ export class cutscene extends Scene implements ChangeableScene {
     }
 
     create() {
+        this.sound.stopAll();
+        this.sound.play("FireEffect", { volume: 0.5 });
+
         this.frameCounter = 0;
 
         this.cameras.main.fadeIn(1000, 0, 0, 0);

@@ -29,6 +29,8 @@ export class Room5 extends Scene {
     }
 
     create() {
+        this.sound.stopByKey("FireEffect");
+
         this.registry.set("Mask1InView", false);
 
         //if (!this.input.keyboard) return;

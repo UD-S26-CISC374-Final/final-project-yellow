@@ -23,7 +23,9 @@ export class Start extends Scene {
     }
 
     create() {
-        //this.cameras.main.resetFX();
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
+
         if (!this.registry.get("removeFadeIn")) {
             this.cameras.main.fadeIn(1000, 0, 0, 0);
 

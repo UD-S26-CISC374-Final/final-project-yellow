@@ -31,6 +31,8 @@ export class Room12 extends Scene {
     }
 
     create() {
+        this.sound.stopByKey("FireEffect");
+
         this.frameCounter = 0;
 
         this.maskText = false;

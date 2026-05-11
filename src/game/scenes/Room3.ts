@@ -23,7 +23,7 @@ export class Room3 extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
+        this.sound.stopByKey("FireEffect");
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);

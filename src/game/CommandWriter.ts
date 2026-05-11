@@ -28,6 +28,8 @@ export class CommandWriter {
         EventBus.emit("current-scene-ready", this);
     }
 
+    private static commandIndex = -1;
+
     static lsCommand(
         input: string,
         myText: Phaser.GameObjects.Text,
@@ -35,12 +37,22 @@ export class CommandWriter {
         hand: Hand,
         scene: Scene,
     ) {
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
         if (input === "ls" && !scene.registry.get("pocketsOpen")) {
             for (let i = 0; i < objectsToShow.length; i++) {
                 objectsToShow[i].setActive(true).setVisible(true);
                 hand.showInHandItem(scene);
             }
             myText.text = "Insert Command Here";
+
+            scene.registry.set(
+                "previousCommands",
+                previousCommands ?
+                    [input, ...previousCommands].slice(0, 10)
+                :   [input],
+            );
         }
     }
 
@@ -68,6 +80,15 @@ export class CommandWriter {
                     }
                 }
                 myText.text = "Insert Command Here";
+                const previousCommands = scene.registry.get(
+                    "previousCommands",
+                ) as string[] | undefined;
+                scene.registry.set(
+                    "previousCommands",
+                    previousCommands ?
+                        [input, ...previousCommands].slice(0, 10)
+                    :   [input],
+                );
             }
         }
     }
@@ -89,19 +110,16 @@ export class CommandWriter {
 
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
-            /*
-            const loopCount = 3;
-            for (let i = 0; i < loopCount; i++) {
-                scene.time.delayedCall(300 * i, () => {
-                    scene.sound.play("ChangeRoom", { volume: 0.5 });
-                });
-            }
 
-            scene.time.delayedCall(300 * loopCount, () => {
-                scene.scene.start(nextSceneName);
-                myText.text = "Insert Command Here";
-            });
-            */
+            const previousCommands = scene.registry.get("previousCommands") as
+                | string[]
+                | undefined;
+            scene.registry.set(
+                "previousCommands",
+                previousCommands ?
+                    [input, ...previousCommands].slice(0, 10)
+                :   [input],
+            );
         }
     }
 
@@ -124,20 +142,6 @@ export class CommandWriter {
 
             scene.scene.start(nextSceneName);
             myText.text = "Insert Command Here";
-
-            /*
-            const loopCount = 3;
-            for (let i = 0; i < loopCount; i++) {
-                scene.time.delayedCall(300 * i, () => {
-                    scene.sound.play("ChangeRoom", { volume: 0.5 });
-                });
-            }
-
-            scene.time.delayedCall(300 * loopCount, () => {
-                scene.scene.start(nextSceneName);
-                myText.text = "Insert Command Here";
-            });
-            */
         } else if (
             input === "cd " + sceneToChange &&
             !scene.registry.get(globalVar)
@@ -145,6 +149,16 @@ export class CommandWriter {
             myText.text = "Door Locked";
             scene.sound.play("LockedDoor", { volume: 0.5 });
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static cdCommandNote(
@@ -167,6 +181,16 @@ export class CommandWriter {
             noteText.setActive(false).setVisible(false);
             mytext.text = "Insert Command Here";
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static cdBack(
@@ -185,6 +209,16 @@ export class CommandWriter {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static mvCommandToPockets(
@@ -206,6 +240,16 @@ export class CommandWriter {
 
             myText.text = "Insert Command Here";
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static mvCommandToObject(
@@ -233,6 +277,16 @@ export class CommandWriter {
             background.setTexture(textureToLoad);
             myText.text = "Insert Command Here";
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static mvCommandItemToHand(
@@ -261,6 +315,16 @@ export class CommandWriter {
                 myText.text = "Insert Command Here";
             }
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static checkCommandFound(myText: Phaser.GameObjects.Text) {
@@ -286,6 +350,16 @@ export class CommandWriter {
             pockets.openInventory(scene, myText);
             myText.text = "Insert Command Here";
         }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 
     static closeInventory(
@@ -297,6 +371,34 @@ export class CommandWriter {
         if (input === "cd .." && scene.registry.get("pocketsOpen")) {
             pockets.closeInventory(scene, myText);
             myText.text = "Insert Command Here";
+        }
+
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
+    }
+
+    static moveThroughCommands(scene: Scene, myText: Phaser.GameObjects.Text) {
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+
+        if (!previousCommands || previousCommands.length === 0) return;
+
+        const keys = scene.input.keyboard?.createCursorKeys();
+
+        if (Phaser.Input.Keyboard.JustDown(keys!.up)) {
+            CommandWriter.commandIndex = Math.min(
+                CommandWriter.commandIndex + 1,
+                previousCommands.length - 1,
+            );
+            myText.text = previousCommands[CommandWriter.commandIndex];
         }
     }
 
@@ -339,6 +441,17 @@ export class CommandWriter {
                 }
             }
         }
+
+        console.log("Saved in registry");
+        const previousCommands = scene.registry.get("previousCommands") as
+            | string[]
+            | undefined;
+        scene.registry.set(
+            "previousCommands",
+            previousCommands ?
+                [input, ...previousCommands].slice(0, 10)
+            :   [input],
+        );
     }
 }
 /*

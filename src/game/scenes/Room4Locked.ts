@@ -27,7 +27,8 @@ export class Room4Locked extends Scene {
     }
 
     create() {
-        //if (!this.input.keyboard) return;
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
 
         this.frameCounter = 0;
 

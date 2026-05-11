@@ -29,6 +29,9 @@ export class Skelly extends Scene {
     }
 
     create() {
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
+
         this.registry.set("Mask3InView", false);
 
         this.frameCounter = 0;

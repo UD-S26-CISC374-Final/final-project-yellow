@@ -143,13 +143,14 @@ export class DialogComponent {
                     this.scene.registry.set(this.hasTalked, true);
                     if (this.changeScene) {
                         if (this.scene.registry.get("FinalSceneChange")) {
-                            timeForDelay = 3000;
+                            timeForDelay = 2000;
                             this.scene.cameras.main.fadeOut(
                                 timeForDelay,
                                 255,
                                 255,
                                 255,
                             );
+                            this.scene.sound.play("FinalCutsceneRevelation");
                         } else {
                             timeForDelay = 500;
                             this.scene.cameras.main.fadeOut(500, 0, 0, 0);

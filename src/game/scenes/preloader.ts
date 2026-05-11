@@ -172,6 +172,16 @@ export class Preloader extends Scene {
 
         this.load.image("MaskNoTalk", "MaskNoTalk.png");
         this.load.image("MaskTalks1", "MaskTalks1.png");
+
+        ////////////////////////////////////////////////
+        this.load.setPath("assets/Music");
+
+        this.load.audio("MainMenu", "MainMenu.mp3");
+        this.load.audio(
+            "FinalCutsceneRevelation",
+            "FinalCutsceneRevelation.wav",
+        );
+        this.load.audio("FireEffect", "FireEffect.wav");
     }
 
     create() {

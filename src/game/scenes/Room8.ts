@@ -27,6 +27,8 @@ export class Room8 extends Scene {
     }
 
     create() {
+        this.sound.stopByKey("FireEffect");
+
         this.frameCounter = 0;
         //if (!this.input.keyboard) return;
 
