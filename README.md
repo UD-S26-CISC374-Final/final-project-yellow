@@ -33,7 +33,7 @@ Commands:
 
 # Gameplay Video
 
-TEXT GOES HERE
+https://drive.google.com/file/d/18-5KxwMFCHGuIbBY3FeQKU3FOd5pFM2I/view?usp=drive_link
 
 # Educational Game Design Document
 
