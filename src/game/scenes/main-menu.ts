@@ -48,10 +48,10 @@ export class MainMenu extends Scene {
         this.registry.set("MaskComplete", false);
 
         //remove later
-        this.registry.set("Mask1InPocket", true);
-        this.registry.set("Mask2InPocket", true);
-        this.registry.set("Mask3InPocket", true);
-        this.registry.set("Mask4InPocket", true);
+        // this.registry.set("Mask1InPocket", true);
+        // this.registry.set("Mask2InPocket", true);
+        // this.registry.set("Mask3InPocket", true);
+        // this.registry.set("Mask4InPocket", true);
 
         this.registry.set("ItemsInHand", [
             "Room4KeyInHand",
@@ -123,7 +123,7 @@ export class MainMenu extends Scene {
                         });
                         */
 
-                        this.scene.start("RoomEnd");
+                        this.scene.start("cutscene");
                     }
                 },
             });
