@@ -70,7 +70,7 @@ export class Room5 extends Scene {
         note.setOrigin(0.15, 0);
         note.setActive(false).setVisible(false);
 
-        this.mask1 = this.add.text(490, 290, "MaskPiece1", {
+        this.mask1 = this.add.text(490, 290, "Mask1", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -109,8 +109,8 @@ export class Room5 extends Scene {
                         this.mask1.text,
                         this.mask1,
                         myText,
-                        "HasMaskPiece1",
-                        "MaskPiece1InPocket",
+                        "HasMask1",
+                        "Mask1InPocket",
                     );
 
                     CommandWriter.lsCommand(
@@ -196,7 +196,7 @@ export class Room5 extends Scene {
     update(): void {
         if (
             !this.registry.get("Mask1InView") ||
-            this.registry.get("HasMaskPiece1")
+            this.registry.get("HasMask1")
         ) {
             this.background.setTexture("Room5NoMask");
             this.mask1.setActive(false).setVisible(false);

@@ -95,7 +95,7 @@ export class Skelly extends Scene {
         this.background = this.add.image(400, 300, "Skelly1_1NoMask");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        this.mask3 = this.add.text(260, 300, "MaskPiece3", {
+        this.mask3 = this.add.text(260, 300, "Mask3", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -188,8 +188,8 @@ export class Skelly extends Scene {
                             this.mask3.text,
                             this.mask3,
                             myText,
-                            "HasMaskPiece3",
-                            "MaskPiece3InPocket",
+                            "HasMask3",
+                            "Mask3InPocket",
                         );
 
                         CommandWriter.mvCommandItemToHand(
@@ -262,13 +262,13 @@ export class Skelly extends Scene {
     update(): void {
         this.frameCounter++;
 
-        if (this.registry.get("HasMaskPiece3")) {
+        if (this.registry.get("HasMask3")) {
             this.mask3.setActive(false).setVisible(false);
         }
 
         if (
             !this.registry.get("Mask3InView") ||
-            this.registry.get("HasMaskPiece3")
+            this.registry.get("HasMask3")
         ) {
             if (this.frameCounter === 30) {
                 const newBg =

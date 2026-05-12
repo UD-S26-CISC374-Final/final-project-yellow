@@ -48,37 +48,37 @@ export class MainMenu extends Scene {
         this.registry.set("MaskComplete", false);
 
         //remove later
-        // this.registry.set("MaskPiece1InPocket", true);
-        // this.registry.set("MaskPiece2InPocket", true);
-        // this.registry.set("MaskPiece3InPocket", true);
-        // this.registry.set("MaskPiece4InPocket", true);
+        // this.registry.set("Mask1InPocket", true);
+        // this.registry.set("Mask2InPocket", true);
+        // this.registry.set("Mask3InPocket", true);
+        // this.registry.set("Mask4InPocket", true);
 
         this.registry.set("ItemsInHand", [
             "Room4KeyInHand",
             "Room11KeyInHand",
             "SkellyKeyInHand",
-            "MaskPiece1InHand",
-            "MaskPiece2InHand",
-            "MaskPiece3InHand",
-            "MaskPiece4InHand",
+            "Mask1InHand",
+            "Mask2InHand",
+            "Mask3InHand",
+            "Mask4InHand",
         ]);
         this.registry.set("ItemsInPockets", [
             "Room4KeyInPocket",
             "Room11KeyInPocket",
             "SkellyKeyInPocket",
-            "MaskPiece1InPocket",
-            "MaskPiece2InPocket",
-            "MaskPiece3InPocket",
-            "MaskPiece4InPocket",
+            "Mask1InPocket",
+            "Mask2InPocket",
+            "Mask3InPocket",
+            "Mask4InPocket",
         ]);
         this.registry.set("ItemsNames", [
             "Room4Key",
             "Room11Key",
             "SkellyKey",
-            "MaskPiece1",
-            "MaskPiece2",
-            "MaskPiece3",
-            "MaskPiece4",
+            "Mask1",
+            "Mask2",
+            "Mask3",
+            "Mask4",
         ]);
 
         this.registry.set("code", Phaser.Math.Between(1000, 9999).toString());

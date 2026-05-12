@@ -47,7 +47,7 @@ export class Room10 extends Scene {
 
         this.randCode = this.registry.get("code") as string;
 
-        this.mask4 = this.add.text(400, 100, "MaskPiece4", {
+        this.mask4 = this.add.text(400, 100, "Mask4", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -155,8 +155,8 @@ export class Room10 extends Scene {
                         this.mask4.text,
                         this.mask4,
                         myText,
-                        "HasMaskPiece4",
-                        "MaskPiece4InPocket",
+                        "HasMask4",
+                        "Mask4InPocket",
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room9");
@@ -226,13 +226,13 @@ export class Room10 extends Scene {
             this.textCode.setActive(true).setVisible(true);
         }
 
-        if (this.registry.get("HasMaskPiece4")) {
+        if (this.registry.get("HasMask4")) {
             this.mask4.setActive(false).setVisible(false);
         }
 
         if (
             !this.registry.get("Mask4InView") ||
-            this.registry.get("HasMaskPiece4")
+            this.registry.get("HasMask4")
         ) {
             if (this.frameCounter === 30) {
                 const newBg =
