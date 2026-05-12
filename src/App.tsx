@@ -1,8 +1,8 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import type { IRefPhaserGame } from "./PhaserGame";
 import { PhaserGame } from "./PhaserGame";
-import Phaser from "phaser";
-import type { ChangeableScene } from "./game/reactable-scene";
+//import Phaser from "phaser";
+//import type { ChangeableScene } from "./game/reactable-scene";
 
 /**
  * React Component that wraps the Phaser game and provides UI controls
