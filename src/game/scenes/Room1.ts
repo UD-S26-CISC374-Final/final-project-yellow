@@ -104,7 +104,27 @@ export class Room1 extends Scene {
 
         this.registry.set("CommandFound", false);
 
+        /*
+        let isEditing = false;
+
+        const upKey = this.input.keyboard!.addKey(
+            Phaser.Input.Keyboard.KeyCodes.UP,
+        );
+
+        upKey.on("down", () => {
+            if (!isEditing) {
+                CommandWriter.moveThroughCommands(this, myText);
+            }
+        });
+        */
+
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
+            /*
+            if (event.key === "ArrowUp" || event.key === "ArrowDown") return;
+
+            if (isEditing) return;
+            */
+
             if (
                 event.key !== "Enter" &&
                 (myText.text === "Insert Command Here" ||
@@ -113,6 +133,9 @@ export class Room1 extends Scene {
             ) {
                 myText.text = "";
             }
+
+            //isEditing = true;
+
             this.rexUI.edit(myText, {
                 onClose: () => {
                     const input = myText.text;
@@ -217,7 +240,7 @@ export class Room1 extends Scene {
                             "To open the door, move the key to the door by typing 'mv Room4Key Room4'.";
                     }
 
-                    CommandWriter.moveThroughCommands(this, myText);
+                    //CommandWriter.resetIndex();
                 },
             });
         });

@@ -1,9 +1,9 @@
 {
-    "name": "final-project",
+    "name": "Command-The-Dungeon",
     "version": "5.0.0",
     "type": "module",
-    "description": "CISC374 Project",
-    "homepage": "https://github.com/UD-S26-CISC374/final-project-template#readme",
+    "description": "This was the final project for course CISC374, oriented to be an educational game regarding a learning objective. Our learning objective revolved around first year students not knowing how to traverse the command console, since they are not tought at the first year classes. This game is intended to teach them in a fun way, by making it an adventure and dungeon crawling game focused on making the players learn through repetition.",
+    "homepage": "https://github.com/UD-S26-CISC374-Final/final-project-yellow",
     "scripts": {
         "dev": "vite --config vite/config.dev.mjs",
         "build": "tsc -b && vite build --config vite/config.prod.mjs",
@@ -22,15 +22,26 @@
         "html5 game",
         "TypeScript",
         "webpack",
-        "starter"
+        "starter",
+        "dungeon crawler",
+        "adventure",
+        "learning",
+        "command console",
+        "repetiton",
+        "test-based",
+        "spooky",
+        "dungeon",
+        ""
     ],
-    "author": {
-        "name": "Austin Cory Bart",
-        "url": "https://github.com/acbart"
-    },
+    "contributors": [
+        {
+            "name": "Austin Cory Bart",
+            "url": "https://github.com/acbart"
+        }
+    ],
     "repository": {
         "type": "git",
-        "url": "https://github.com/UD-S26-CISC374/final-project-template.git"
+        "url": "https://github.com/UD-S26-CISC374-Final/final-project-yellow.git"
     },
     "license": "MIT",
     "dependencies": {

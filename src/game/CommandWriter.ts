@@ -384,6 +384,7 @@ export class CommandWriter {
         );
     }
 
+    /*
     static moveThroughCommands(scene: Scene, myText: Phaser.GameObjects.Text) {
         const previousCommands = scene.registry.get("previousCommands") as
             | string[]
@@ -401,6 +402,7 @@ export class CommandWriter {
             myText.text = previousCommands[CommandWriter.commandIndex];
         }
     }
+        */
 
     static mvMaskPiece(
         input: string,
@@ -453,6 +455,12 @@ export class CommandWriter {
             :   [input],
         );
     }
+
+    /*
+    static resetIndex() {
+        this.commandIndex = -1;
+    }
+        */
 }
 /*
     constructor(scene: Phaser.Scene) {
