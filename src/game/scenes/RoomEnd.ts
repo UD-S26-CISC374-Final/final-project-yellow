@@ -30,23 +30,28 @@ export class RoomEnd extends Scene {
         this.sound.stopByKey("FireEffect");
         this.sound.play("FireEffect", { volume: 0.1 });
 
+        this.registry.set("Mask1In", false);
+        this.registry.set("Mask2In", false);
+        this.registry.set("Mask3In", false);
+        this.registry.set("Mask4In", false);
+
         this.frameCounter = 0;
 
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
         this.background = this.add.image(400, 300, "Room12_1Key");
-        if (this.registry.get("HasSkellyKey")) {
-            this.background.setTexture("Room12_1NoMasks");
-        } else if (this.registry.get("Mask1In")) {
-            this.background.setTexture("Room12_1OneMasks");
-        } else if (this.registry.get("Mask2In")) {
-            this.background.setTexture("Room12_1TwoMasks");
-        } else if (this.registry.get("Mask3In")) {
-            this.background.setTexture("Room12_1ThreeMasks");
-        } else if (this.registry.get("Mask4In")) {
-            this.background.setTexture("Room12_1AllMasks");
-        }
+        // if (this.registry.get("HasSkellyKey")) {
+        // this.background.setTexture("Room12_1NoMasks");
+        // } else if (this.registry.get("Mask1In")) {
+        //     this.background.setTexture("Room12_1OneMasks");
+        // } else if (this.registry.get("Mask2In")) {
+        //     this.background.setTexture("Room12_1TwoMasks");
+        // } else if (this.registry.get("Mask3In")) {
+        //     this.background.setTexture("Room12_1ThreeMasks");
+        // } else if (this.registry.get("Mask4In")) {
+        //     this.background.setTexture("Room12_1AllMasks");
+        // }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(220, 250, "SkellyKey", {
@@ -67,12 +72,7 @@ export class RoomEnd extends Scene {
         Hole.setOrigin(0.15, 0);
         Hole.setActive(false).setVisible(false);
 
-        const maskAnswer = [
-            "MaskPiece2",
-            "MaskPiece4",
-            "MaskPiece3",
-            "MaskPiece1",
-        ];
+        const maskAnswer = ["Mask2", "Mask4", "Mask3", "Mask1"];
 
         let maskCurrent: string[] = [];
 
@@ -90,9 +90,9 @@ export class RoomEnd extends Scene {
                 (myText.text === "Insert Command Here" ||
                     myText.text === "Command Not Found" ||
                     myText.text === "Door Locked" ||
-                    myText.text === "mask piece inserted" ||
-                    myText.text === "mask pieces returned" ||
-                    myText.text === "mask piece already inserted")
+                    myText.text === "mask inserted" ||
+                    myText.text === "masks returned" ||
+                    myText.text === "mask already inserted")
             ) {
                 myText.text = "";
             }
@@ -117,7 +117,7 @@ export class RoomEnd extends Scene {
                         this.scene.start("FinalScene");
                     }
 
-                    CommandWriter.mvMaskPiece(
+                    CommandWriter.mvMask(
                         input,
                         this,
                         "Hole",
@@ -205,7 +205,11 @@ export class RoomEnd extends Scene {
                         });
                     } else if (maskCurrent.length == maskAnswer.length) {
                         maskCurrent = [];
-                        myText.text = "mask pieces returned";
+                        this.registry.set("Mask1In", false);
+                        this.registry.set("Mask2In", false);
+                        this.registry.set("Mask3In", false);
+                        this.registry.set("Mask4In", false);
+                        myText.text = "masks returned";
                     }
                 },
             });
@@ -256,7 +260,13 @@ export class RoomEnd extends Scene {
                     this.background.setTexture(newBg);
 
                     this.frameCounter = 0;
-                } else if (this.registry.get("Mask1In")) {
+                } else if (
+                    Number(this.registry.get("Mask1In")) +
+                        Number(this.registry.get("Mask2In")) +
+                        Number(this.registry.get("Mask3In")) +
+                        Number(this.registry.get("Mask4In")) ===
+                    1
+                ) {
                     const newBg =
                         this.background.texture.key === "Room12_1OneMasks" ?
                             "Room12_2OneMasks"
@@ -265,7 +275,13 @@ export class RoomEnd extends Scene {
                     this.background.setTexture(newBg);
 
                     this.frameCounter = 0;
-                } else if (this.registry.get("Mask2In")) {
+                } else if (
+                    Number(this.registry.get("Mask1In")) +
+                        Number(this.registry.get("Mask2In")) +
+                        Number(this.registry.get("Mask3In")) +
+                        Number(this.registry.get("Mask4In")) ===
+                    2
+                ) {
                     const newBg =
                         this.background.texture.key === "Room12_2TwoMasks" ?
                             "Room12_2TwoMasks"
@@ -274,7 +290,13 @@ export class RoomEnd extends Scene {
                     this.background.setTexture(newBg);
 
                     this.frameCounter = 0;
-                } else if (this.registry.get("Mask3In")) {
+                } else if (
+                    Number(this.registry.get("Mask1In")) +
+                        Number(this.registry.get("Mask2In")) +
+                        Number(this.registry.get("Mask3In")) +
+                        Number(this.registry.get("Mask4In")) ===
+                    3
+                ) {
                     const newBg =
                         this.background.texture.key === "Room12_1ThreeMasks" ?
                             "Room12_2ThreeMasks"
@@ -283,7 +305,12 @@ export class RoomEnd extends Scene {
                     this.background.setTexture(newBg);
 
                     this.frameCounter = 0;
-                } else if (this.registry.get("Mask4In")) {
+                } else if (
+                    this.registry.get("Mask1In") &&
+                    this.registry.get("Mask2In") &&
+                    this.registry.get("Mask3In") &&
+                    this.registry.get("Mask4In")
+                ) {
                     const newBg =
                         this.background.texture.key === "Room12_1AllMasks" ?
                             "Room12_2AllMasks"

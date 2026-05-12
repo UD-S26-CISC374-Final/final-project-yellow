@@ -331,9 +331,9 @@ export class CommandWriter {
         if (
             myText.text !== "Insert Command Here" &&
             myText.text !== "Door Locked" &&
-            myText.text !== "mask piece inserted" &&
-            myText.text !== "mask pieces returned" &&
-            myText.text !== "mask piece already inserted"
+            myText.text !== "mask inserted" &&
+            myText.text !== "masks returned" &&
+            myText.text !== "mask already inserted"
         ) {
             myText.text = "Command Not Found";
         }
@@ -402,7 +402,7 @@ export class CommandWriter {
         }
     }
 
-    static mvMaskPiece(
+    static mvMask(
         input: string,
         scene: Scene,
         target: string,
@@ -426,9 +426,10 @@ export class CommandWriter {
             ) {
                 if (!maskCurrent.includes(object)) {
                     maskCurrent.push(object);
-                    myText.text = "mask piece inserted";
+                    scene.registry.set(object + "In", true);
+                    myText.text = "mask inserted";
                 } else {
-                    myText.text = "mask piece already inserted";
+                    myText.text = "mask already inserted";
                 }
             }
             if (maskAnswer.length == maskCurrent.length) {

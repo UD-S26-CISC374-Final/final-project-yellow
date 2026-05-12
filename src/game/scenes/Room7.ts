@@ -73,7 +73,7 @@ export class Room7 extends Scene {
         note.setOrigin(0.15, 0);
         note.setActive(false).setVisible(false);
 
-        this.mask2 = this.add.text(400, 100, "MaskPiece2", {
+        this.mask2 = this.add.text(400, 100, "Mask2", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -135,8 +135,8 @@ export class Room7 extends Scene {
                         this.mask2.text,
                         this.mask2,
                         myText,
-                        "HasMaskPiece2",
-                        "MaskPiece2InPocket",
+                        "HasMask2",
+                        "Mask2InPocket",
                     );
 
                     CommandWriter.cdCommandNote(
@@ -197,13 +197,13 @@ export class Room7 extends Scene {
     update(): void {
         this.frameCounter++;
 
-        if (this.registry.get("HasMaskPiece2")) {
+        if (this.registry.get("HasMask2")) {
             this.mask2.setActive(false).setVisible(false);
         }
 
         if (
             !this.registry.get("Mask2InView") ||
-            this.registry.get("HasMaskPiece2")
+            this.registry.get("HasMask2")
         ) {
             if (this.frameCounter === 30) {
                 const newBg =
