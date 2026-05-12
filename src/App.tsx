@@ -30,14 +30,14 @@ import type { ChangeableScene } from "./game/reactable-scene";
  */
 function App() {
     // The sprite can only be moved in the MainMenu Scene
-    const [canMoveSprite, setCanMoveSprite] = useState(true);
+    //const [canMoveSprite, setCanMoveSprite] = useState(true);
 
     //  References to the PhaserGame component (game and scene are exposed)
     const phaserRef = useRef<IRefPhaserGame>(null);
-    const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
+    //const [spritePosition, setSpritePosition] = useState({ x: 0, y: 0 });
 
     // Change the current scene by invoking the changeScene method
-    const changeScene = () => {
+    /*const changeScene = () => {
         if (phaserRef.current) {
             const scene = phaserRef.current.scene as ChangeableScene | null;
 
@@ -95,13 +95,11 @@ function App() {
     const onCurrentSceneChange = (scene: Phaser.Scene) => {
         setCanMoveSprite(scene.scene.key !== "MainMenu");
     };
+    */
 
     return (
         <div id="app">
-            <PhaserGame
-                ref={phaserRef}
-                onCurrentActiveSceneChange={onCurrentSceneChange}
-            />
+            <PhaserGame ref={phaserRef} />
         </div>
     );
 }
