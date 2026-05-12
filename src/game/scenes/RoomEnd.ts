@@ -54,7 +54,7 @@ export class RoomEnd extends Scene {
         // }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const KeyObject = this.add.text(220, 250, "SkellyKey", {
+        const KeyObject = this.add.text(150, 350, "SkellyKey", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
@@ -63,14 +63,14 @@ export class RoomEnd extends Scene {
         KeyObject.setOrigin(0.15, 0);
         KeyObject.setActive(false).setVisible(false);
 
-        const Hole = this.add.text(520, 250, "Hole", {
+        const Door = this.add.text(300, 125, "Door", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
         });
-        Hole.setOrigin(0.15, 0);
-        Hole.setActive(false).setVisible(false);
+        Door.setOrigin(0.15, 0);
+        Door.setActive(false).setVisible(false);
 
         const maskAnswer = ["Mask2", "Mask4", "Mask3", "Mask1"];
 
@@ -120,7 +120,7 @@ export class RoomEnd extends Scene {
                     CommandWriter.mvMask(
                         input,
                         this,
-                        "Hole",
+                        "Door",
                         maskCurrent,
                         maskAnswer,
                         myText,
@@ -157,7 +157,7 @@ export class RoomEnd extends Scene {
                         input,
                         myText,
                         [
-                            Hole,
+                            Door,
                             KeyObject,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
