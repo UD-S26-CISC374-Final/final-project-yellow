@@ -192,6 +192,7 @@ export class DialogComponent {
             if (event.key === "Enter") {
                 if (typing.isTyping) {
                     typing.stop(true);
+                    this.scene.sound.stopByKey(this.soundToPlay);
                 } else {
                     newLine();
                 }

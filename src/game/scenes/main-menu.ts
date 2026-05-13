@@ -18,7 +18,7 @@ export class MainMenu extends Scene {
     create() {
         this.frameCounter = 0;
 
-        this.registry.set("previousCommands", [] as string[]);
+        //this.registry.set("previousCommands", [] as string[]);
 
         this.sound.play("MainMenu", { loop: true });
 

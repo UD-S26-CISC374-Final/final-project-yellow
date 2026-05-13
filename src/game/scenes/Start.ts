@@ -45,6 +45,30 @@ export class Start extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
+        const helpText = this.add.text(
+            405,
+            305,
+            "List of Commands:\ncd + <black text>: Move between rooms, check notes, or chat with npcs.\nmv + <object name> + <destination>: Take a blue object and put it either in you hand or in your pockets.\nls: Check the room you are currently in.",
+            {
+                fixedWidth: 320,
+                //fixedHeight: 36,
+                backgroundColor: "#00000000",
+                color: "#000000",
+                fontFamily: "Architext",
+                fontSize: 24,
+                padding: { x: 9, y: 9.5 },
+                lineSpacing: 12,
+                wordWrap: { width: 310 },
+            },
+        );
+        helpText.setOrigin(0.5, 0.5);
+        helpText.setActive(false).setVisible(false);
+        helpText.setDepth(1);
+
+        const helpImage = this.add.image(400, 320, "Note");
+        helpImage.setScale(0.4, 0.4);
+        helpImage.setActive(false).setVisible(false);
+
         const KeyObject = this.add.text(625, 400, "Room11Key", {
             fixedWidth: AUTO,
             fixedHeight: 36,
@@ -139,6 +163,9 @@ export class Start extends Scene {
                         safe.setActive(true).setVisible(true);
                         myText.text = "Insert Command Here";
                     }
+
+                    CommandWriter.help(input, this, myText);
+
                     CommandWriter.openInventory(
                         input,
                         this.pockets,

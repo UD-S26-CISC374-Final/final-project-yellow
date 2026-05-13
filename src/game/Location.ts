@@ -25,5 +25,19 @@ export class Location {
             },
         );
         LocationText.setActive(true);
+
+        const helpIndicator = this.scene.add.text(
+            0,
+            50,
+            "Type 'help' to see commands",
+            {
+                fixedWidth: 300,
+                fixedHeight: 36,
+                fontSize: 10,
+                backgroundColor: "#00000000",
+                padding: { x: 9, y: 9.5 },
+            },
+        );
+        helpIndicator.setActive(true);
     }
 }

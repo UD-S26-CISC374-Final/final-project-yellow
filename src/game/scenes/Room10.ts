@@ -34,6 +34,9 @@ export class Room10 extends Scene {
     }
 
     create() {
+        this.sound.stopByKey("FireEffect");
+        this.sound.play("FireEffect", { volume: 0.1 });
+
         this.registry.set("Mask4InView", false);
 
         this.frameCounter = 0;

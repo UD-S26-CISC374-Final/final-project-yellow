@@ -47,7 +47,7 @@ export class Room7 extends Scene {
         const noteMessage = this.add.text(
             405,
             305,
-            "Day 15: This place feels like a maze. I don't know where to go anymore. The skeleton told me there are hidden things in some rooms, even in this one. But I can't see it. Where is it? What is it? W̸h̴a̶t̴ is it? W̴h̷a̴t̶ ̸i̷s̵ ̶i̶t̶?",
+            "Day 15: This place feels like a maze. I don't know where to go anymore. The skeleton told me there are hidden things in some rooms tha cna only be unvailed by obtaining the 'ls -a' command. What is hidden? What is it? W̸h̴a̶t̴ is it? W̴h̷a̴t̶ ̸i̷s̵ ̶i̶t̶?",
             {
                 fixedWidth: 320,
                 //fixedHeight: 36,
