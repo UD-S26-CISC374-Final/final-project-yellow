@@ -28,7 +28,7 @@ export class CommandWriter {
         EventBus.emit("current-scene-ready", this);
     }
 
-    private static commandIndex = -1;
+    //private static commandIndex = -1;
 
     static lsCommand(
         input: string,
