@@ -3,6 +3,8 @@ import { Scene } from "phaser";
 export class Preloader extends Scene {
     fontReady!: Promise<FontFaceSet>;
 
+    fontTitle!: Promise<FontFaceSet>;
+
     constructor() {
         super("Preloader");
     }
@@ -28,7 +30,13 @@ export class Preloader extends Scene {
         //  Load the assets for the game - Replace with your own assets
         this.load.setPath("assets");
 
-        const font = new FontFace("Architext", "url(assets/Architext.ttf)");
+        const font = new FontFace("Architext", "url(/assets/Architext.ttf)");
+        const font2 = new FontFace("Canterbury", "url(/assets/Canterbury.ttf)");
+
+        this.fontTitle = font2.load().then((loadedFont) => {
+            document.fonts.add(loadedFont);
+            return document.fonts.ready;
+        });
 
         this.fontReady = font.load().then((loadedFont) => {
             document.fonts.add(loadedFont);
@@ -153,6 +161,9 @@ export class Preloader extends Scene {
 
         this.load.image("Note", "Note.png");
 
+        this.load.image("MenuScreen1", "MenuScreen1.png");
+        this.load.image("MenuScreen2", "MenuScreen2.png");
+
         ////////////////////////////////////////////////
         this.load.setPath("assets/Items");
 
@@ -189,7 +200,7 @@ export class Preloader extends Scene {
         //  For example, you can define global animations here, so we can use them in other scenes.
 
         //  Move to the MainMenu. You could also swap this for a Scene Transition, such as a camera fade.
-        this.fontReady
+        Promise.all([this.fontReady, this.fontTitle])
             .then(() => {
                 this.scene.start("MainMenu");
             })

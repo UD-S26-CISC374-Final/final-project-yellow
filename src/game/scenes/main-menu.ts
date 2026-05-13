@@ -9,11 +9,15 @@ export class MainMenu extends Scene {
     title: GameObjects.Text;
     logoTween: Phaser.Tweens.Tween | null;
 
+    frameCounter!: number;
+
     constructor() {
         super("MainMenu");
     }
 
     create() {
+        this.frameCounter = 0;
+
         this.registry.set("previousCommands", [] as string[]);
 
         this.sound.play("MainMenu", { loop: true });
@@ -86,9 +90,10 @@ export class MainMenu extends Scene {
         //this.registry.set("notes", ["WeirdNote"]);
         this.registry.set("noteOpen", false);
 
-        this.background = this.add.image(400, 300, "background");
+        this.background = this.add.image(400, 300, "MenuScreen1");
+        this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const myText = this.add.text(330, 300, "Insert Command Here", {
+        const myText = this.add.text(330, 500, "Insert Command Here", {
             fixedWidth: 200,
             fixedHeight: 36,
             backgroundColor: "#ff0000",
@@ -97,12 +102,43 @@ export class MainMenu extends Scene {
         });
         myText.setOrigin(0.15, 0);
 
-        const title = this.add.text(400, 100, "Type 'cd Start' to Begin", {
-            fontFamily: "Arial Black",
-            fontSize: 38,
-            color: "#ffffff",
+        const title = this.add.text(400, 100, "Command The Dungeon!", {
+            fontFamily: "Canterbury",
+            fontSize: 70,
+            color: "#786600",
         });
         title.setOrigin(0.5, 0);
+
+        const titleBack = this.add.text(397, 97, "Command The Dungeon!", {
+            fontFamily: "Canterbury",
+            fontSize: 70,
+            color: "#ffd900",
+        });
+        titleBack.setOrigin(0.5, 0);
+
+        const description = this.add.text(
+            400,
+            170,
+            "Are commands your friends? Or foes?",
+            {
+                fontFamily: "Canterbury",
+                fontSize: 40,
+                color: "#ffffff",
+            },
+        );
+        description.setOrigin(0.5, 0);
+
+        const instruction = this.add.text(
+            400,
+            450,
+            "Type 'cd Start' to Begin",
+            {
+                fontFamily: "Arial-Black",
+                fontSize: 38,
+                color: "#ffffff",
+            },
+        );
+        instruction.setOrigin(0.5, 0);
 
         this.input.keyboard!.on("keydown", () => {
             if (
@@ -129,6 +165,20 @@ export class MainMenu extends Scene {
             });
         });
         EventBus.emit("current-scene-ready", this);
+    }
+
+    update(): void {
+        this.frameCounter++;
+        if (this.frameCounter === 30) {
+            const newBg =
+                this.background.texture.key === "MenuScreen1" ?
+                    "MenuScreen2"
+                :   "MenuScreen1";
+
+            this.background.setTexture(newBg);
+
+            this.frameCounter = 0;
+        }
     }
 
     changeScene() {}
