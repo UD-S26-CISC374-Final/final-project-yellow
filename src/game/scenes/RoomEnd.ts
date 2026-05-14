@@ -112,16 +112,17 @@ export class RoomEnd extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
+                    const input = myText.text;
                     if (
                         myText.text === "ls" &&
                         !KeyObject.active &&
-                        this.registry.get("HasSkellyKey")
+                        !this.registry.get("HasSkellyKey")
                     ) {
+                        KeyObject.setActive(true).setVisible(true);
                         myText.text = "Insert Command Here";
                     } else if (myText.text === "end") {
                         this.scene.start("FinalScene");
                     }
-                    const input = myText.text;
 
                     CommandWriter.mvMask(
                         input,
@@ -164,7 +165,6 @@ export class RoomEnd extends Scene {
                         myText,
                         [
                             Door,
-                            KeyObject,
                             this.pockets.pocketsIndicator,
                             this.hand.handPrompt,
                         ],
