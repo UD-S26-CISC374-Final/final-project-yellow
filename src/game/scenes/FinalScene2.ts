@@ -51,9 +51,9 @@ export class FinalScene2 extends Scene {
 
         this.dialogue.changeAfterSound = true;
 
-        this.dialogue.changeScene = false;
+        this.dialogue.changeScene = true;
 
-        this.dialogue.sceneToChange = "Start";
+        this.dialogue.sceneToChange = "MainMenu";
 
         this.dialogue.create();
 
