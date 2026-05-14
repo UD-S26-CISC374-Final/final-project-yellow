@@ -84,7 +84,7 @@ export class Room5 extends Scene {
         note.setOrigin(0.15, 0);
         note.setActive(false).setVisible(false);
 
-        this.mask1 = this.add.text(490, 290, "Mask1", {
+        this.mask1 = this.add.text(525, 260, "Mask1", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",

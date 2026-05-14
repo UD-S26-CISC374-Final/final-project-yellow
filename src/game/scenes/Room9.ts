@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -56,8 +56,8 @@ export class Room9 extends Scene {
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        const cdRoom10 = this.add.text(70, 200, "Room10", {
-            fixedWidth: 200,
+        const cdRoom10 = this.add.text(25, 150, "Room10", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -65,8 +65,8 @@ export class Room9 extends Scene {
         cdRoom10.setOrigin(0.15, 0);
         cdRoom10.setActive(false).setVisible(false);
 
-        const cdRoom11 = this.add.text(590, 200, "Room11", {
-            fixedWidth: 200,
+        const cdRoom11 = this.add.text(700, 150, "Room11", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },

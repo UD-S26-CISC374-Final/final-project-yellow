@@ -1,5 +1,5 @@
 import { EventBus } from "../event-bus";
-import { Scene } from "phaser";
+import { AUTO, Scene } from "phaser";
 
 import PhaserLogo from "../objects/phaser-logo";
 import { CommandWriter } from "../CommandWriter";
@@ -69,7 +69,7 @@ export class RoomEnd extends Scene {
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
         const KeyObject = this.add.text(150, 350, "SkellyKey", {
-            fixedWidth: 200,
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
@@ -77,8 +77,8 @@ export class RoomEnd extends Scene {
         KeyObject.setOrigin(0.15, 0);
         KeyObject.setActive(false).setVisible(false);
 
-        const Door = this.add.text(300, 125, "Door", {
-            fixedWidth: 200,
+        const Door = this.add.text(365, 175, "Door", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },
@@ -112,24 +112,16 @@ export class RoomEnd extends Scene {
             }
             this.rexUI.edit(myText, {
                 onClose: () => {
-                    const input = myText.text;
                     if (
                         myText.text === "ls" &&
                         !KeyObject.active &&
-                        !this.registry.get("HasSkellyKey")
-                    ) {
-                        KeyObject.setActive(true);
-                        KeyObject.alpha = 1;
-                        myText.text = "Insert Command Here";
-                    } else if (
-                        (myText.text === "ls" && KeyObject.active) ||
-                        (myText.text === "ls" &&
-                            this.registry.get("HasSkellyKey"))
+                        this.registry.get("HasSkellyKey")
                     ) {
                         myText.text = "Insert Command Here";
                     } else if (myText.text === "end") {
                         this.scene.start("FinalScene");
                     }
+                    const input = myText.text;
 
                     CommandWriter.mvMask(
                         input,
@@ -178,6 +170,15 @@ export class RoomEnd extends Scene {
                         ],
                         this.hand,
                         this,
+                    );
+
+                    CommandWriter.cdCommandLocked(
+                        input,
+                        this,
+                        myText,
+                        Door.text,
+                        "Door",
+                        "pocketsOpen",
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room12");

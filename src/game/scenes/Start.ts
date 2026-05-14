@@ -62,7 +62,7 @@ export class Start extends Scene {
             "objectiveImage",
         ) as Phaser.GameObjects.Image;
 
-        const KeyObject = this.add.text(625, 400, "Room11Key", {
+        const KeyObject = this.add.text(565, 350, "Room11Key", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
