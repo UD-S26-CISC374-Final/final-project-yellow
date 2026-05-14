@@ -6,6 +6,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
+import { RecurrentConstants } from "../RecurrentConstants";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -28,6 +29,19 @@ export class Room8 extends Scene {
 
     create() {
         this.sound.stopByKey("FireEffect");
+
+        RecurrentConstants(this);
+
+        const helpText = this.data.get("helpText") as Phaser.GameObjects.Text;
+        const helpImage = this.data.get(
+            "helpImage",
+        ) as Phaser.GameObjects.Image;
+        const objectiveText = this.data.get(
+            "objectiveText",
+        ) as Phaser.GameObjects.Text;
+        const objectiveImage = this.data.get(
+            "objectiveImage",
+        ) as Phaser.GameObjects.Image;
 
         this.frameCounter = 0;
         //if (!this.input.keyboard) return;
@@ -101,6 +115,21 @@ export class Room8 extends Scene {
                     );
 
                     CommandWriter.cdBack(input, this, myText, "Room4Locked");
+
+                    CommandWriter.help(
+                        input,
+                        this,
+                        myText,
+                        helpText,
+                        helpImage,
+                    );
+                    CommandWriter.seeObjectives(
+                        input,
+                        this,
+                        myText,
+                        objectiveText,
+                        objectiveImage,
+                    );
 
                     CommandWriter.openInventory(
                         input,

@@ -104,7 +104,9 @@ export class CommandWriter {
         if (
             input === "cd " + sceneToChange &&
             !scene.registry.get("pocketsOpen") &&
-            !scene.registry.get("padCloseUp")
+            !scene.registry.get("padCloseUp") &&
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
         ) {
             scene.sound.play("ChangeRoom", { volume: 0.5 });
 
@@ -136,7 +138,9 @@ export class CommandWriter {
             input === "cd " + sceneToChange &&
             scene.registry.get(globalVar) &&
             !scene.registry.get("pocketsOpen") &&
-            !scene.registry.get("padCloseUp")
+            !scene.registry.get("padCloseUp") &&
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
         ) {
             scene.sound.play("ChangeRoom", { volume: 0.5 });
 
@@ -169,7 +173,12 @@ export class CommandWriter {
         noteText: GameObjects.Text,
         noteInRoom: string,
     ) {
-        if (input === "cd " + noteInRoom && !scene.registry.get("noteOpen")) {
+        if (
+            input === "cd " + noteInRoom &&
+            !scene.registry.get("noteOpen") &&
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
+        ) {
             notes.openNote(noteInRoom, scene);
             noteText.setActive(true).setVisible(true);
             mytext.text = "Insert Command Here";
@@ -193,52 +202,30 @@ export class CommandWriter {
         );*/
     }
 
-    static help(input: string, scene: Scene, mytext: Phaser.GameObjects.Text) {
-        if (!scene.data.get("helpText")) {
-            const helpText = scene.add.text(
-                405,
-                315,
-                "List of Commands:\ncd + <black text>: Move between rooms, check notes, or chat with npcs.\nmv + <object name> + <destination>: Take a blue object and put it either in you hand or in your pockets.\nls: Check the room you are currently in.",
-                {
-                    fixedWidth: 320,
-                    //fixedHeight: 36,
-                    backgroundColor: "#00000000",
-                    color: "#000000",
-                    fontFamily: "Architext",
-                    fontSize: 24,
-                    padding: { x: 9, y: 9.5 },
-                    lineSpacing: 12,
-                    wordWrap: { width: 310 },
-                },
-            );
-            helpText.setName("helpText");
-            helpText.setOrigin(0.5, 0.5);
-            helpText.setActive(false).setVisible(false);
-            helpText.setDepth(1);
+    static help(
+        input: string,
+        scene: Scene,
+        mytext: Phaser.GameObjects.Text,
+        helpText: Phaser.GameObjects.Text,
+        helpImage: Phaser.GameObjects.Image,
+    ) {
+        if (
+            input === "help" &&
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
+        ) {
+            const baseText =
+                "List of Commands:\ncd + <black text>: Move between rooms, check notes, or chat with npcs.\nmv + <object name> + <destination>: Take a blue object and put it either in you hand or in your pockets.\nls: Check the room you are currently in.";
 
-            const helpImage = scene.add.image(400, 320, "Note");
-            helpImage.setName("helpImage");
-            helpImage.setScale(0.4, 0.4);
-            helpImage.setActive(false).setVisible(false);
+            helpText.text = baseText;
 
-            scene.data.set("helpText", helpText);
-            scene.data.set("helpImage", helpImage);
-        }
-
-        const helpText = scene.data.get("helpText") as Phaser.GameObjects.Text;
-        const helpImage = scene.data.get(
-            "helpImage",
-        ) as Phaser.GameObjects.Image;
-
-        if (input === "help") {
-            helpImage.setActive(true).setVisible(true);
-            if (!scene.registry.get("lsACommandActive")) {
-                helpText.setActive(true).setVisible(true);
-            } else if (scene.registry.get("lsACommandActive")) {
+            if (scene.registry.get("lsACommandActive")) {
                 helpText.text +=
                     "\nls -a: Search for hidden objects in your current room.";
-                helpText.setActive(true).setVisible(true);
             }
+
+            helpImage.setActive(true).setVisible(true);
+            helpText.setActive(true).setVisible(true);
             scene.registry.set("helpOpen", true);
             mytext.text = "Insert Command Here";
         }
@@ -248,6 +235,59 @@ export class CommandWriter {
 
             helpText.setActive(false).setVisible(false);
             helpImage.setActive(false).setVisible(false);
+            mytext.text = "Insert Command Here";
+        }
+    }
+
+    static seeObjectives(
+        input: string,
+        scene: Scene,
+        mytext: Phaser.GameObjects.Text,
+        seeObjectives: Phaser.GameObjects.Text,
+        objImage: Phaser.GameObjects.Image,
+    ) {
+        const collectedMasks = [
+            "HasMask1",
+            "HasMask2",
+            "HasMask3",
+            "HasMask4",
+        ].filter((key) => scene.registry.get(key)).length;
+
+        const objTitle = "Objectives:\nFind a way to escape";
+
+        if (
+            input === "cd objectives" &&
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
+        ) {
+            objImage.setActive(true).setVisible(true);
+            seeObjectives.text = objTitle;
+
+            if (!scene.registry.get("Room4Open"))
+                seeObjectives.text += "\nOpen Room4";
+            if (!scene.registry.get("safeOpen"))
+                seeObjectives.text += "\nOpen the Safe at the Start";
+            if (!scene.registry.get("Room11Open"))
+                seeObjectives.text += "\nOpen Room11";
+            if (!scene.registry.get("SkellyOpen"))
+                seeObjectives.text += "\nOpen the skeleton door in Room2";
+            if (scene.registry.get("lsACommandActive")) {
+                seeObjectives.text +=
+                    collectedMasks < 4 ?
+                        `\nCollect the mask pieces (${collectedMasks}/4)`
+                    :   "\nOpen the final door";
+            }
+            seeObjectives.setActive(true).setVisible(true);
+
+            scene.registry.set("objsOpen", true);
+            console.log("objsOpen true");
+            mytext.text = "Insert Command Here";
+        } else if (input === "cd .." && scene.registry.get("objsOpen")) {
+            scene.registry.set("objsOpen", false);
+            console.log("objsOpen false");
+
+            seeObjectives.setActive(false).setVisible(false);
+            objImage.setActive(false).setVisible(false);
         }
     }
 
@@ -263,7 +303,8 @@ export class CommandWriter {
             !scene.registry.get("pocketsOpen") &&
             !scene.registry.get("noteOpen") &&
             !scene.registry.get("bookCloseUp") &&
-            !scene.registry.get("helpOpen")
+            !scene.registry.get("helpOpen") &&
+            !scene.registry.get("objsOpen")
         ) {
             scene.scene.start(previousSceneName);
             myText.text = "Insert Command Here";

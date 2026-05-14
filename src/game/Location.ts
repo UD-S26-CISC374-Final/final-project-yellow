@@ -33,11 +33,25 @@ export class Location {
             {
                 fixedWidth: 300,
                 fixedHeight: 36,
-                fontSize: 10,
+                fontSize: 15,
                 backgroundColor: "#00000000",
                 padding: { x: 9, y: 9.5 },
             },
         );
         helpIndicator.setActive(true);
+
+        const cdIndicator = this.scene.add.text(
+            0,
+            70,
+            "Type 'cd objectives' to see objectives",
+            {
+                fixedWidth: 350,
+                fixedHeight: 36,
+                fontSize: 15,
+                backgroundColor: "#00000000",
+                padding: { x: 9, y: 9.5 },
+            },
+        );
+        cdIndicator.setActive(true);
     }
 }

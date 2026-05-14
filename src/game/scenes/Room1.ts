@@ -7,6 +7,7 @@ import { CommandWriter } from "../CommandWriter";
 import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
+import { RecurrentConstants } from "../RecurrentConstants";
 //import Text from "phaser3-rex-plugins/plugins/gameobjects/tagtext/textbase/Text";
 //import FpsText from "../objects/fps-text";
 
@@ -27,6 +28,9 @@ export class Room1 extends Scene {
     update() {}
 
     create() {
+        this.registry.set("helpOpen", false);
+        this.registry.set("objsOpen", false);
+
         this.sound.stopByKey("FireEffect");
 
         this.camera = this.cameras.main;
@@ -39,6 +43,19 @@ export class Room1 extends Scene {
             this.background.setTexture("Room1Open");
         }
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
+
+        RecurrentConstants(this);
+
+        const helpText = this.data.get("helpText") as Phaser.GameObjects.Text;
+        const helpImage = this.data.get(
+            "helpImage",
+        ) as Phaser.GameObjects.Image;
+        const objectiveText = this.data.get(
+            "objectiveText",
+        ) as Phaser.GameObjects.Text;
+        const objectiveImage = this.data.get(
+            "objectiveImage",
+        ) as Phaser.GameObjects.Image;
 
         const cdRoom2 = this.add.text(80, 180, "Room2", {
             fixedWidth: AUTO,
@@ -104,20 +121,6 @@ export class Room1 extends Scene {
 
         this.registry.set("CommandFound", false);
 
-        /*
-        let isEditing = false;
-
-        const upKey = this.input.keyboard!.addKey(
-            Phaser.Input.Keyboard.KeyCodes.UP,
-        );
-
-        upKey.on("down", () => {
-            if (!isEditing) {
-                CommandWriter.moveThroughCommands(this, myText);
-            }
-        });
-        */
-
         this.input.keyboard!.on("keydown", (event: KeyboardEvent) => {
             /*
             if (event.key === "ArrowUp" || event.key === "ArrowDown") return;
@@ -139,8 +142,6 @@ export class Room1 extends Scene {
             this.rexUI.edit(myText, {
                 onClose: () => {
                     const input = myText.text;
-
-                    CommandWriter.cdBack(input, this, myText, "Start");
 
                     CommandWriter.mvCommandItemToHand(
                         input,
@@ -204,6 +205,23 @@ export class Room1 extends Scene {
                         ],
                         this.hand,
                         this,
+                    );
+
+                    CommandWriter.cdBack(input, this, myText, "Start");
+
+                    CommandWriter.help(
+                        input,
+                        this,
+                        myText,
+                        helpText,
+                        helpImage,
+                    );
+                    CommandWriter.seeObjectives(
+                        input,
+                        this,
+                        myText,
+                        objectiveText,
+                        objectiveImage,
                     );
 
                     CommandWriter.cdCommand(

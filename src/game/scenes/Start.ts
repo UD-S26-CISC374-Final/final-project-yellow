@@ -6,6 +6,7 @@ import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Safe } from "../Safe";
 import { Location } from "../Location";
+import { RecurrentConstants } from "../RecurrentConstants";
 
 export class Start extends Scene {
     camera: Phaser.Cameras.Scene2D.Camera;
@@ -26,6 +27,9 @@ export class Start extends Scene {
         this.sound.stopByKey("FireEffect");
         this.sound.play("FireEffect", { volume: 0.1 });
 
+        this.registry.set("helpOpen", false);
+        this.registry.set("objsOpen", false);
+
         if (!this.registry.get("removeFadeIn")) {
             this.cameras.main.fadeIn(1000, 0, 0, 0);
 
@@ -45,29 +49,18 @@ export class Start extends Scene {
         this.camera = this.cameras.main;
         this.camera.setBackgroundColor(0x00ff00);
 
-        const helpText = this.add.text(
-            405,
-            305,
-            "List of Commands:\ncd + <black text>: Move between rooms, check notes, or chat with npcs.\nmv + <object name> + <destination>: Take a blue object and put it either in you hand or in your pockets.\nls: Check the room you are currently in.",
-            {
-                fixedWidth: 320,
-                //fixedHeight: 36,
-                backgroundColor: "#00000000",
-                color: "#000000",
-                fontFamily: "Architext",
-                fontSize: 24,
-                padding: { x: 9, y: 9.5 },
-                lineSpacing: 12,
-                wordWrap: { width: 310 },
-            },
-        );
-        helpText.setOrigin(0.5, 0.5);
-        helpText.setActive(false).setVisible(false);
-        helpText.setDepth(1);
+        RecurrentConstants(this);
 
-        const helpImage = this.add.image(400, 320, "Note");
-        helpImage.setScale(0.4, 0.4);
-        helpImage.setActive(false).setVisible(false);
+        const helpText = this.data.get("helpText") as Phaser.GameObjects.Text;
+        const helpImage = this.data.get(
+            "helpImage",
+        ) as Phaser.GameObjects.Image;
+        const objectiveText = this.data.get(
+            "objectiveText",
+        ) as Phaser.GameObjects.Text;
+        const objectiveImage = this.data.get(
+            "objectiveImage",
+        ) as Phaser.GameObjects.Image;
 
         const KeyObject = this.add.text(625, 400, "Room11Key", {
             fixedWidth: AUTO,
@@ -164,7 +157,20 @@ export class Start extends Scene {
                         myText.text = "Insert Command Here";
                     }
 
-                    CommandWriter.help(input, this, myText);
+                    CommandWriter.help(
+                        input,
+                        this,
+                        myText,
+                        helpText,
+                        helpImage,
+                    );
+                    CommandWriter.seeObjectives(
+                        input,
+                        this,
+                        myText,
+                        objectiveText,
+                        objectiveImage,
+                    );
 
                     CommandWriter.openInventory(
                         input,

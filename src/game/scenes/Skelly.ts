@@ -5,6 +5,7 @@ import { Pockets } from "../Pockets";
 import { Hand } from "../Hand";
 import { Location } from "../Location";
 import { DialogComponent } from "../DialogComponent";
+import { RecurrentConstants } from "../RecurrentConstants";
 
 //import PhaserLogo from "../objects/phaser-logo";
 
@@ -31,6 +32,19 @@ export class Skelly extends Scene {
     create() {
         this.sound.stopByKey("FireEffect");
         this.sound.play("FireEffect", { volume: 0.1 });
+
+        RecurrentConstants(this);
+
+        const helpText = this.data.get("helpText") as Phaser.GameObjects.Text;
+        const helpImage = this.data.get(
+            "helpImage",
+        ) as Phaser.GameObjects.Image;
+        const objectiveText = this.data.get(
+            "objectiveText",
+        ) as Phaser.GameObjects.Text;
+        const objectiveImage = this.data.get(
+            "objectiveImage",
+        ) as Phaser.GameObjects.Image;
 
         this.registry.set("Mask3InView", false);
 
@@ -215,6 +229,21 @@ export class Skelly extends Scene {
                         }
 
                         CommandWriter.cdBack(input, this, myText, "Room2");
+
+                        CommandWriter.help(
+                            input,
+                            this,
+                            myText,
+                            helpText,
+                            helpImage,
+                        );
+                        CommandWriter.seeObjectives(
+                            input,
+                            this,
+                            myText,
+                            objectiveText,
+                            objectiveImage,
+                        );
 
                         CommandWriter.openInventory(
                             input,
