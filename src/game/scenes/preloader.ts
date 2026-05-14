@@ -168,9 +168,9 @@ export class Preloader extends Scene {
         this.load.setPath("assets/Items");
 
         this.load.image("Mask1", "Mask1.png");
-        this.load.image("Mask2", "Mask1.png");
-        this.load.image("Mask3", "Mask1.png");
-        this.load.image("Mask4", "Mask1.png");
+        this.load.image("Mask2", "Mask2.png");
+        this.load.image("Mask3", "Mask3.png");
+        this.load.image("Mask4", "Mask4.png");
 
         this.load.image("Room4Key", "Room4Key.png");
         this.load.image("Room11Key", "Room11Key.png");
