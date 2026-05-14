@@ -143,24 +143,38 @@ export class RoomEnd extends Scene {
                         "SkellyKeyInPocket",
                     );
 
-                    // if (
-                    //     myText.text === "ls" &&
-                    //     !KeyObject.active &&
-                    //     !this.registry.get("HasSkellyKey")
-                    // ) {
-                    //     KeyObject.setActive(true);
-                    //     KeyObject.alpha = 1;
-                    //     this.pockets.pocketsIndicator
-                    //         .setActive(true)
-                    //         .setVisible(true);
-                    //     this.hand.handPrompt.setActive(true).setVisible(true);
-                    //     myText.text = "Insert Command Here";
-                    // } else if (
-                    //     (myText.text === "ls" && KeyObject.active) ||
-                    //     (myText.text === "ls" &&
-                    //         this.registry.get("HasSkellyKey"))
-                    // )
+                    /*
+                    if (
+                        myText.text === "ls" &&
+                        !KeyObject.active &&
+                        !this.registry.get("HasSkellyKey")
+                    ) {
+                        KeyObject.setActive(true);
+                        KeyObject.alpha = 1;
+                        this.pockets.pocketsIndicator
+                            .setActive(true)
+                            .setVisible(true);
+                        this.hand.handPrompt.setActive(true).setVisible(true);
+                        myText.text = "Insert Command Here";
+                    } else if (
+                        (myText.text === "ls" && KeyObject.active) ||
+                        (myText.text === "ls" &&
+                            this.registry.get("HasSkellyKey"))
+                    )
+                            */
                     CommandWriter.lsCommand(
+                        input,
+                        myText,
+                        [
+                            Door,
+                            this.pockets.pocketsIndicator,
+                            this.hand.handPrompt,
+                        ],
+                        this.hand,
+                        this,
+                    );
+
+                    CommandWriter.lsACommand(
                         input,
                         myText,
                         [

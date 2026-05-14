@@ -43,7 +43,7 @@ export class Location {
         const cdIndicator = this.scene.add.text(
             0,
             70,
-            "Type 'cd objectives' to see objectives",
+            "Type 'objectives' to see objectives",
             {
                 fixedWidth: 350,
                 fixedHeight: 36,

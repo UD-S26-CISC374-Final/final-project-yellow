@@ -37,22 +37,12 @@ export class CommandWriter {
         hand: Hand,
         scene: Scene,
     ) {
-        const previousCommands = scene.registry.get("previousCommands") as
-            | string[]
-            | undefined;
         if (input === "ls" && !scene.registry.get("pocketsOpen")) {
             for (let i = 0; i < objectsToShow.length; i++) {
                 objectsToShow[i].setActive(true).setVisible(true);
                 hand.showInHandItem(scene);
             }
             myText.text = "Insert Command Here";
-
-            scene.registry.set(
-                "previousCommands",
-                previousCommands ?
-                    [input, ...previousCommands].slice(0, 10)
-                :   [input],
-            );
         }
     }
 
@@ -79,7 +69,9 @@ export class CommandWriter {
                         scene.registry.set("Mask4InView", true);
                     }
                 }
+
                 myText.text = "Insert Command Here";
+                /*
                 const previousCommands = scene.registry.get(
                     "previousCommands",
                 ) as string[] | undefined;
@@ -89,6 +81,7 @@ export class CommandWriter {
                         [input, ...previousCommands].slice(0, 10)
                     :   [input],
                 );
+                */
             }
         }
     }
@@ -256,7 +249,7 @@ export class CommandWriter {
         const objTitle = "Objectives:\nFind a way to escape";
 
         if (
-            input === "cd objectives" &&
+            input === "objectives" &&
             !scene.registry.get("helpOpen") &&
             !scene.registry.get("objsOpen")
         ) {
