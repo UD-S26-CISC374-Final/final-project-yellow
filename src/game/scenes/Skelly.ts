@@ -109,7 +109,7 @@ export class Skelly extends Scene {
         this.background = this.add.image(400, 300, "Skelly1_1NoMask");
         this.background.setDisplaySize(this.scale.width + 5, this.scale.height);
 
-        this.mask3 = this.add.text(260, 300, "Mask3", {
+        this.mask3 = this.add.text(300, 300, "Mask3", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",

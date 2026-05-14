@@ -64,8 +64,8 @@ export class Room10 extends Scene {
 
         this.randCode = this.registry.get("code") as string;
 
-        this.mask4 = this.add.text(400, 100, "Mask4", {
-            fixedWidth: 200,
+        this.mask4 = this.add.text(370, 235, "Mask4", {
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#3898ff",
             padding: { x: 9, y: 9.5 },
@@ -98,7 +98,7 @@ export class Room10 extends Scene {
         secretCode.setDepth(1);
 
         const code = this.add.text(100, 200, "WeirdNote", {
-            fixedWidth: 200,
+            fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
             padding: { x: 9, y: 9.5 },

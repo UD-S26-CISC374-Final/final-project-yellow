@@ -57,7 +57,7 @@ export class Room1 extends Scene {
             "objectiveImage",
         ) as Phaser.GameObjects.Image;
 
-        const cdRoom2 = this.add.text(80, 180, "Room2", {
+        const cdRoom2 = this.add.text(25, 165, "Room2", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
@@ -66,7 +66,7 @@ export class Room1 extends Scene {
         cdRoom2.setOrigin(0.15, 0);
         cdRoom2.setActive(false).setVisible(false);
 
-        const cdRoom3 = this.add.text(670, 180, "Room3", {
+        const cdRoom3 = this.add.text(725, 165, "Room3", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
@@ -75,7 +75,7 @@ export class Room1 extends Scene {
         cdRoom3.setOrigin(0.15, 0);
         cdRoom3.setActive(false).setVisible(false);
 
-        const cdRoom4 = this.add.text(382, 200, "Room4", {
+        const cdRoom4 = this.add.text(375, 200, "Room4", {
             fixedWidth: AUTO,
             fixedHeight: 36,
             backgroundColor: "#000000",
