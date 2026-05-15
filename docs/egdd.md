@@ -212,6 +212,8 @@ The game has different rooms with different images in each. Some rooms are small
 - Characters List
     - Skeleton in room: Should be in a sitting position. When interacted with, an image will appear, simulating a close-up of the skeleton. Every time the skeleton makes a sound, another image shows the skeleton with its mouth open. And every time it stops talking, it will show one with his mouth closed.
     - Mask in hallway: Sitting on a bench. When interacted with, an image will appear, simulating a close-up of the mask. Every time the mask makes a sound, another image shows the mask with its eyes glowing. And every time it stops talking, it will show one with its eyes dull.
+    - Dark Cloak figure: Will appear after the main menu and after opening the final door. It will be a static image with a dialogue box that indicates what he is saying.
+    - Dr Bart: Appears as a static image after talking with the Dark Cloak Figure as a final plot twist.
 - Textures: N/A
 - Environment Art/Textures:
     - Walls: Should replicate an old stone brick wall. Not many details, but enough to make it look rocky.
