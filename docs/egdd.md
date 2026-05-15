@@ -24,6 +24,8 @@ You are stuck in a dungeon, and you don't know how you got there. You cannot mov
 - Entering a command with wrong syntax will result in a message indicating what has been written incorrectly.
 - The player will need to find certain objects to open specific doors to escape the dungeon.
 - When the player escapes the dungeon, the game changes into a new scene, indicating that the player has won.
+- The player can write "help" to receive an image with the available commands to use.
+- The player can write "objectives" to receive an image with the available objectives to complete.
 
 # Learning Aspects
 
