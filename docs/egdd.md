@@ -116,26 +116,31 @@ Single player game. The player controls their movements and actions through writ
 - If the player enters the "ls -a" command, the player is shown what things they can interact with, plus secret things not shown with "ls".
 - An incorrect passage/room name will result in a text saying "There is no place with that name".
 - An incorrect object name will result in a text saying "There is no object with that name".
+- If the player enters "help", a list of the available commands will appear.
+- If the player enters "objectives", it will show the player all the current objectives.
 
 # Objects/Entities
 
 - An interactable live skeleton that makes a variable true for the player to use the "ls -a" command.
 - An interactable mask that provides the player with the main goal of the game.
 - A text box in the lower center of the screen where the player can write the commands.
-- 6 squares on the bottom that indicate the items the player currently has.
+- One square at the bottom left that shows what the player has in their hand.
+- An inventory system consisting of a 3x3 grid where all the items will be stored.
 - Doors that will require keys to be opened.
 - Keys that are required to open locked doors.
-- Mask pieces that are meant to be combined to open the final door.
+- Masks that are meant to be used to open the final door.
 
 ## Core Gameplay Mechanics (Detailed)
 
 - Write commands in the text box and press Enter to use them.
     - ls: The ls command will be used to inspect the current room/passage to search for items or the names of other accessible passages the player can move to. The command will also reveal objects that the player can interact with or entities that the player can talk to. There is a variation that appears after talking to the skeleton, which will be the command "ls -a", that will have the same effect as ls, but with the addition that it can reveal hidden objects not previously shown.
-    - cd: The command will allow the player to move from place to place by typing it with the name of the desired location they want to move to. If the player wants to go to a passage called "Passage1", then the player will need to type "cd Passage1" on the text box, syntactically equal, to be able to move there. On the other hand, if the player wants to return to the room they were previously in, they will need to run the command "cd ..".
+    - cd: The command will allow the player to move from place to place by typing it with the name of the desired location they want to move to. If the player wants to go to a passage called "Passage1", then the player will need to type "cd Passage1" in the text box, syntactically equal, to be able to move there. On the other hand, if the player wants to return to the room they were previously in, they will need to run the command "cd ..".
     - mov: The command will allow the player to interact with certain objects throughout the game. There are two ways in which the player will be able to do that: First, when the player sees an object and wants to grab it, the player must write "mv '<objectName>' Items" to store the item in its inventory. Second, when it wants to use that item with another object/entity, the command to be written must be "mv '<ObjectName>' '<objectToInteract>'" to use the item on that particular object.
-- The doors the player encounters in the halls are always locked, and they will require a specific key to open them. This will be true with every door, except with the last one. The last door will have a hole where a mask must be inserted to open it. There will be 4 pieces of such mask that must be collected by the player and placed in the door.
+    - help: The command will show an image with all the commands that are available for the player to input.
+    - objectives: The command will show an image with all the current objectives that will be updated everytime one of them is completed.
+- The doors the player encounters in the halls are always locked, and they will require a specific key to open them. This will be true with every door, except with the last one. The last door will have a hole where a mask must be inserted to open it. There will be 4 masks that must be collected by the player and placed on the door.
 - When the player encounters an entity, such as the talking skeleton or the talking mask, a dialogue will appear automatically. However, the dialogue will not continue until the player presses Enter on their keyboard to ensure it has read what the entity had to say. The dialogue will close once the player reaches the last line.
-- After the player collects 4 parts of a mask, it can be used with the final door of the dungeon, which will end the game, making the player a winner.
+- After the player collects 4 masks, they can be used with the final door of the dungeon, which will end the game, making the player a winner.
 
 ## Feedback
 
@@ -198,34 +203,32 @@ Reveal Hidden Objects:
 
 ## Aethestics
 
-The game should be a simple pixel art, but one that simulates that the player is in a 3D space, simulating a dungeon. It should be visually appealing enough so that the player wants to explore it.
+The game has different rooms with different images in each. Some rooms are small animations between two pictures to give out a sensation of a 90s dungeon crawler. The images used are scaled-down pictures taken in Garry's Mod to give that same vibe.
 
 ## Graphical
 
 - Characters List
-    - Skeleton in room: Should be in a sitting position, and be composed of two parts: Body, which remains static, and skull, which will have two frames of animation where its teeth move up and down, indicating that it is talking.
-    - Mask in hallway: Hanging on a wall, it will be composed of only one part, which is the mask itself. It will have two frames of animation where its lips are moving, which indicates the mask is talking.
+    - Skeleton in room: Should be in a sitting position. When interacted with, an image will appear, simulating a close-up of the skeleton. Every time the skeleton makes a sound, another image shows the skeleton with its mouth open. And every time it stops talking, it will show one with his mouth closed.
+    - Mask in hallway: Sitting on a bench. When interacted with, an image will appear, simulating a close-up of the mask. Every time the mask makes a sound, another image shows the mask with its eyes glowing. And every time it stops talking, it will show one with its eyes dull.
 - Textures: N/A
 - Environment Art/Textures:
     - Walls: Should replicate an old stone brick wall. Not many details, but enough to make it look rocky.
     - Floor: The floor should follow the same logic as the wall.
-    - Doors: The doors are to represent that they are made out of wood, and simulate old medieval doors with an arch at the top. They should have a door handle for more immersion.
-    - Final door: The final door will have the same design as the normal doors, with the difference that it will have a hole in the center, where a mask would go and unlock it.
+    - Doors: The doors are to represent that they are made out of wood, and simulate old wooden doors. They should have a door handle for more immersion.
+    - Final door: The final door has a bigger style than the previous one, the normal doors, with an arch on the top, as well as with 4 holes in the center, where the masks would go and unlock it.
 
 ## Audio
 
 - Music List (Ambient sound)
-    - Main Menu: Slightly ominous, but rather calm music. Something like [Resident Evil Deadly Silence Save Room Theme.](https://www.youtube.com/watch?v=OPjU6lxEEw8&list=RDOPjU6lxEEw8&start_radio=1)
-    - General Gameplay: Somewhat low, but continuous music that can generate a sense of the unknown to the player. Like [The True Lab song from Undertale.](https://www.youtube.com/watch?v=52olsp3GUqY&list=RD52olsp3GUqY&start_radio=1)
-    - When talking to the skeleton: A happier and somewhat comedic music. Like [Bonetrousle from Undertale](https://www.youtube.com/watch?v=AKAiUtWZ4xY&list=RDAKAiUtWZ4xY&start_radio=1)
-    - When talking to the mask: A more analogical song to show the mask has ancient origins. Like the [Aku Aku Theme from Crash Bandicoot.](https://www.youtube.com/watch?v=5XhjviN1yMA&list=RD5XhjviN1yMA&start_radio=1)
+    - Main Menu: Created in [beepbox](https://www.beepbox.co/#9n31s0k0l00e03t2ma7g0fj07r1i0o432T1v1ud7f10qaq0331d35AcF8B7Q047bPf422E176T1v1u56f0qwx10p711d03A5F5B9Q0001PfaedE4b762663777T1v1u90f20o8134q8122d35A9F9B5Q5428P9975E263978T4v1uf0f0q011z6666ji8k8k3jSBKSJJAArriiiiii07JCABrzrrrrrrr00YrkqHrsrrrrjr005zrAqzrjzrrqr1jRjrqGGrrzsrsA099ijrABJJJIAzrrtirqrqjqixzsrAjrqjiqaqqysttAJqjikikrizrHtBJJAzArzrIsRCITKSS099ijrAJS____Qg99habbCAYrDzh00E0b4h400000000h4g000000014h000000004h400000000p16000000)
+    - General Gameplay: Fire crackling sound that starts only in the rooms that have torches or a big source of fire. Taken from [12 HOURS of Relaxing Fireplace Sounds](https://www.youtube.com/watch?v=UgHKb_7884o)
 
 - Sound List (SFX)
-    - Skeleton sound/voice: Recoded by Jeremias Brana Tonelli.
-    - Mask sound/voice: Recoded by Jeremias Brana Tonelli.
-    - Door opened: Something similar to [Resident Evil SFX Door Opening](https://www.youtube.com/watch?v=ZNU29JfzKOI)
-    - Final door opened: Something similar and ominous like [Resident Evil 4 - Sound Effect - Key Item.](https://www.youtube.com/watch?v=nEUJwPR6gP4)
-    - Pick up item: A simple pick up sound like [Pickup Item Sound Effect.](https://www.youtube.com/watch?v=warMJ_4uUuY)
+    - Skeleton sound/voice: Audio taken from [Sans speech from Undertale](https://www.youtube.com/watch?v=pWK8Qs67ucY).
+    - Mask sound/voice: Sound recorded in [JSFXR](https://sfxr.me/).
+    - Pick up item: Sound recorded in [JSFXR](https://sfxr.me/).
+    - Final Cutscene transition: Audio taken from [Deltarune title jingle](https://www.youtube.com/watch?v=DoVCXglf68E)
+    - Door Locked accessed with 'cd': Sound recorded in [JSFXR](https://sfxr.me/).
 
 # Metadata
 
